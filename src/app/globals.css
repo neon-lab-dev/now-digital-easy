@@ -1,33 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
+
+@font-face {
+  font-family: Source Sand Pro;
+  src: url(../assets/fonts/SourceSansPro-Regular.otf);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  @apply font-source-sans-pro;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.nav-link {
+  @apply text-[15px] font-600 leading-[22px];
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+text-button {
+  @apply text-[15px] font-600 leading-[14px];
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.heading1 {
+  @apply text-heading1 font-900 leading-heading1 tracking-0.15;
+}
+
+.heading2 {
+  @apply text-heading2 font-900 leading-heading2 tracking-0.15;
+}
+
+.heading4 {
+  @apply text-heading4 font-900 leading-heading4 tracking-0.15;
+}
+
+.subheading1 {
+  @apply text-subheading1 font-900 leading-subheading1 -tracking-1;
+}
+
+.subheading3 {
+  @apply text-subheading3 font-900 leading-subheading3 -tracking-1;
+}
+
+.text-s {
+  @apply font-merriweather text-text-s font-400 leading-text-s text-center;
+}
+
+.text-xs {
+  @apply font-merriweather text-text-xs font-400 leading-text-xs;
+}
+
+.text-base {
+  @apply font-merriweather text-text-base font-400 leading-text-base;
+}
+
+.text-base-bold {
+  @apply font-merriweather text-text-base font-700 leading-text-base-bold;
+}
+
+.card-text-body {
+  @apply font-merriweather text-card-text-body font-400 leading-card-text-body;
+}
+
+.card-text-cta {
+  @apply text-card-text-cta font-900 leading-card-text-cta;
+}
+
+.banner-cta {
+  @apply text-banner-cta font-600 leading-banner-cta;
+}
+
+.testimonial-author-name {
+  @apply text-testimonial-author-name font-900 leading-testimonial-author-name;
+}
+
+.cta {
+  @apply text-cta font-700 leading-cta;
+}
+
+.footer-heading {
+  @apply text-footer-heading-2 font-600 leading-footer-heading-2 tracking-0.01;
+}
+
+.footer-links {
+  @apply text-footer-links-2 font-400 leading-footer-links-2 tracking-0.15;
 }
