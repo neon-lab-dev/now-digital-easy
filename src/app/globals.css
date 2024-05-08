@@ -17,7 +17,7 @@
   @apply text-[15px] font-600 leading-[22px];
 }
 
-text-button {
+.text-button {
   @apply text-[15px] font-600 leading-[14px];
 }
 
