@@ -4,7 +4,7 @@ import React from "react";
 
 const ProductDropdown = () => {
   return (
-    <div className=" bg-[#F9FAFF] rounded-b-2xl w-[1280px] h-[473px] mx-auto shadow-2xl">
+    <div className=" bg-[#F9FAFF] rounded-b-2xl w-[100vw] box-border h-[473px] shadow-2xl">
       <div className="flex justify-between pl-[30px]">
         
         <div className="flex flex-col gap-[46px] ">
