@@ -10,7 +10,9 @@ const Hero = () => {
 
       <div className="flex gap-[31px] pl-[72px] pt-[94px] ">
         <div className="w-[60%]">
-          <h1 className="heading1 tracking-[-2]">
+
+          {/* Heading */}
+          <h1 className="heading1 tracking-[-2px]">
             Hey Business Owners Go Digital Effortlessly
           </h1>
           <p className="text-base-bold mt-[21px]">
