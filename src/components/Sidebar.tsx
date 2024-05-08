@@ -37,7 +37,7 @@ const Sidebar = () => {
       />
 
       <div
-        className={`overflow-y-scroll fixed inset-y-0 right-0 z-50 bg-white w-[471px] h-screen transition-all duration-300 transform ${
+        className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-[471px] h-screen transition-all duration-300 transform ${
           isHamburgerOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
