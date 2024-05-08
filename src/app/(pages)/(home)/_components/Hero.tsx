@@ -47,6 +47,7 @@ const Hero = () => {
           <Image src={IMAGES.img6} alt="logo1" className="mr-[62px]" />
           <Image src={IMAGES.img7} alt="logo1" className="mr-[62px]" />
           <Image src={IMAGES.img8} alt="logo1" className="mr-[62px]" />
+          <Image src={IMAGES.img4} alt="logo1" className="mr-[62px]" />
         </Marquee>
       </div>
     </div>
