@@ -82,7 +82,7 @@ const Footer = () => {
           </div>
         </div>
         <hr className="bg-white h-[2px]" />
-        <div className="px-2 py-4 flex justify-between">
+        <div className="px-4 py-4 flex justify-between">
           <span className="font-source-sans-pro text-[13px] text-[#151D8C]">@2022 Nowdigitaleasy, Inc.All Rights Reserved.</span>
           <div className="flex gap-2 items-center">
             <span className="font-source-sans-pro text-[13px] text-[#151D8C]">Privacy Policy</span>
