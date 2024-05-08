@@ -62,9 +62,6 @@ const BuildYourBusiness = () => {
 
   const [currentSlider, setCurrentSlider] = useState<number>(0);
 
-  const isSmallScreen: boolean = window?.innerWidth <= 768;
-  const isMediumScreen: boolean = window?.innerWidth >= 1064;
-
   const prevSlider = (): void => {
     const cardsPerPage = 3; // Number of cards per page
 
