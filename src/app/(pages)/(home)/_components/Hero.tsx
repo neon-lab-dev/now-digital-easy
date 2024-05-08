@@ -9,8 +9,10 @@ const Hero = () => {
     <div className='bg-gradient-light'>
 
       <div className="flex gap-[31px] pl-[72px] pt-[94px] ">
-        <div className="w-[50%]">
-          <h1 className="heading1 tracking-[-2]">
+        <div className="w-[60%]">
+
+          {/* Heading */}
+          <h1 className="heading1 tracking-[-2px]">
             Hey Business Owners Go Digital Effortlessly
           </h1>
           <p className="text-base-bold mt-[21px]">
@@ -29,7 +31,7 @@ const Hero = () => {
           </button>
         </div>
         {/* video */}
-        <div className="w-[550px] mr-[64px] h-[344px] rounded-[34px] border-[15px] border-dark-500"></div>
+        <div className="w-[40%] mr-16 h-[344px] rounded-[34px] border-[15px] border-dark-500"></div>
       </div>
 
       <div className="mt-[88px] pb-[25px] flex flex-col gap-[25px]">

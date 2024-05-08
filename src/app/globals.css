@@ -14,7 +14,7 @@
 }
 
 .nav-link {
-  @apply text-[15px] font-600 leading-[22px];
+  @apply text-[15px] font-600 font-source-sans-pro leading-[22px];
 }
 
 .text-button {
@@ -22,7 +22,7 @@
 }
 
 .heading1 {
-  @apply text-heading1 font-900 leading-heading1 tracking-0.15;
+  @apply text-heading1 font-900 leading-heading1 ;
 }
 
 .heading2 {
