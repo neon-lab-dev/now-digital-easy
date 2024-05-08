@@ -74,39 +74,39 @@ const Testimonials: React.FC = () => {
             author: 'Anandh Michel',
             position: 'Sales Co-ordinator',
             backgroundImage: author1,
-            width: '800px',
+            width: '700px',
         },
         {
             quote: '“Now Digital Easy has the best customer support I have ever experienced. Their team is very ....',
             author: 'Jenny Smith',
             position: 'Project Manager',
             backgroundImage: author2,
-            width: '587px',
+            width: '550px',
         },
         {
             quote: 'Amazing product with excellent customer service. They are always ready to help.',
             author: 'Michael Johnson',
             position: 'Operations Manager',
             backgroundImage: author2,
-            width: '587px',
+            width: '550px',
         },
         {
             quote: 'Amazing product with excellent customer service. They are always ready to help.',
             author: 'Michael Johnson',
             position: 'Operations Manager',
             backgroundImage: author1,
-            width: '800px',
+            width: '700px',
         },
     ];
     return (
         <>
-            <div className=" pt-[120px] pl-[64px]">
+            <div className=" pt-[100px] pl-[30px] flex justify-center">
                 <div className="flex flex-col gap-4">
                     <span className="subheading1 text-dark-200">People just love working with us!</span>
                     <span className="heading4">Digitalized Business, Happy Customers, That’s Impact</span>
                 </div>
             </div>
-            <div className="flex flex-wrap gap-3 pl-[64px] mt-10">
+            <div className="flex flex-wrap justify-center gap-3 mt-10">
                 {testimonials.map((testimonial, index) => (
                     <TestimonialCard
                         key={index}
@@ -121,5 +121,4 @@ const Testimonials: React.FC = () => {
         </>
     );
 };
-
 export default Testimonials;
