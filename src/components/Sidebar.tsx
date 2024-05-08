@@ -124,9 +124,9 @@ const Sidebar = () => {
                 <span className="font-source-sans-pro font-700 text-[17px]">Existing User?</span>
                 <span className="font-source-sans-pro font-400 text-[13px]">Please sign in with your credentials below to continue.</span>
                 <label htmlFor="forEmail" className="pt-4">Email</label>
-                <input type="email" name="" id="" placeholder="email address" className="border border-[1px] p-3 rounded-lg mt-2" />
+                <input type="email" name="" id="" placeholder="email address" className="border-[1px] p-3 rounded-lg mt-2" />
                 <label htmlFor="forpassword" className="pt-4">Password</label>
-                <input type="password" name="" id="" placeholder="Password" className="border border-[1px] p-3 rounded-lg mt-2" />
+                <input type="password" name="" id="" placeholder="Password" className=" border-[1px] p-3 rounded-lg mt-2" />
                 <span className="underline font-source-sans-pro font-400 text-[13px] flex justify-end text-[#0011FF]">Forget Password</span>
               </div>
             </div>
