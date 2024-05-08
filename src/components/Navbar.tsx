@@ -31,11 +31,11 @@ const Navbar = () => {
   }, [isProductsDropdownOpen]);
 
   return (
-    <nav className='productsDropdown bg-gradient-light flex " gap-[13px]'>
+    <nav className='relative productsDropdown bg-gradient-light flex " gap-[13px]'>
       <div className="bg-white bg-opacity-50 w-[57px] h-[55px] rounded-b-lg"></div>
       <Image src={ICONS.logo} alt="logo" className="" />
       <div className="bg-white bg-opacity-50 w-full h-[55px] rounded-b-lg flex items-center justify-between">
-        <div className="flex items-center gap-[42px] pl-[152px] relative">
+        <div className="flex items-center gap-[42px] pl-[152px] ">
           <Link
             onClick={toggleProductsDropdown}
             href={""}
@@ -57,7 +57,7 @@ const Navbar = () => {
             <div
               className={`${
                 isProductsDropdownOpen ? "visible" : "invisible"
-              } absolute top-12 z-50 -left-[150px]`}
+              } absolute top-16 z-50 left-0 box-border`}
             >
               <ProductDropdown
               />

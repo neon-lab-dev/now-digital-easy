@@ -87,8 +87,10 @@ const BuildYourBusiness = () => {
   return (
     <div className="px-[91px] flex flex-col gap-[50px] mt-[42px]">
       <h1 className="heading2 capitalize text-center w-full">
-        <div className="border-b-4 border-dashed border-primary-400 text-primary-400 inline-block">
+        <div className=" w-[237px]  text-primary-400 inline-flex justify-end">
+          <div className="text-end border-b-4 border-dashed border-primary-400 w-fit ">
           {titles[currentTitleIndex]}
+          </div>
         </div>{" "}
         your business in one single platform
       </h1>
