@@ -1,8 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 
 @font-face {
-  font-family: Source Sand Pro;
-  src: url(../assets/fonts/SourceSansPro-Regular.otf);
+  font-family: Source Sans Pro;
+  src: url("/fonts/SourceSansPro-Black.otf") format("opentype");
+}
+@font-face {
+  font-family: Source Sans lite;
+  src: url("/fonts/SourceSansPro-Regular.otf") format("opentype");
 }
 
 @tailwind base;
@@ -14,7 +18,8 @@
 }
 
 .nav-link {
-  @apply text-[15px] font-600 font-source-sans-pro leading-[22px];
+  @apply text-[15px] font-400  leading-[22px] ;
+  font-family: 'Source Sans lite'
 }
 
 .text-button {
@@ -22,23 +27,24 @@
 }
 
 .heading1 {
-  @apply text-heading1 font-900 leading-heading1 ;
+  @apply text-heading1 font-900 leading-heading1;
+  color: #000333;
 }
 
 .heading2 {
-  @apply text-heading2 font-900 leading-heading2 tracking-0.15;
+  @apply text-heading2 font-900 leading-heading2 tracking-2;
 }
 
 .heading4 {
-  @apply text-heading4 font-900 leading-heading4 tracking-0.15;
+  @apply text-heading4 font-900 leading-heading4 tracking-[-2px];
 }
 
 .subheading1 {
-  @apply text-subheading1 font-900 leading-subheading1 -tracking-1;
+  @apply text-subheading1 font-900 leading-subheading1 tracking-['-1px'];
 }
 
 .subheading3 {
-  @apply text-subheading3 font-900 leading-subheading3 -tracking-1;
+  @apply text-subheading3 font-900 leading-subheading3 tracking-1;
 }
 
 .text-s {
@@ -84,4 +90,3 @@
 .footer-links {
   @apply text-footer-links-2 font-400 leading-footer-links-2 tracking-0.15;
 }
-

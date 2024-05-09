@@ -26,37 +26,37 @@ const BuildYourBusiness = () => {
       title: "Mails Now",
       subTitle: "Simple Emails Better Conversions",
       details:
-        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain warm-up, and in-depth analytics.",
+        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain...",
     },
     {
       title: "Vision Now",
       subTitle: "Save Time Get More Done",
       details:
-        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain warm-up, and in-depth analytics.",
+        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain...",
     },
     {
       title: "Google Ads",
       subTitle: "Unify. Connect. Thrive",
       details:
-        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain warm-up, and in-depth analytics.",
+        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain...",
     },
     {
       title: "Mails Now",
       subTitle: "Simple Emails Better Conversions",
       details:
-        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain warm-up, and in-depth analytics.",
+        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain...",
     },
     {
       title: "Vision Now",
       subTitle: "Save Time Get More Done",
       details:
-        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain warm-up, and in-depth analytics.",
+        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain...",
     },
     {
       title: "Google Ads",
       subTitle: "Unify. Connect. Thrive",
       details:
-        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain warm-up, and in-depth analytics.",
+        "Sending emails made easy! MailsNow has it all - creating email templates, robust personalisation and automation options, dedicated IP, unlimited domain...",
     },
   ];
 
@@ -139,7 +139,7 @@ const BuildYourBusiness = () => {
                     </div>
                   </div>
                   <div className="px-6 pb-[30px]">
-                    <h1 className="subheading3 mt-[12px]">
+                    <h1 className="subheading3 mt-[12px] max-w-[190px]">
                       {detail?.subTitle}
                     </h1>
                     <p className="card-text-body mt-[14px]">

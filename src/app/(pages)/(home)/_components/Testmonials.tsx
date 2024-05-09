@@ -100,7 +100,7 @@ const Testimonials: React.FC = () => {
     ];
     return (
         <>
-            <div className=" pt-[100px] pl-[30px] flex justify-center">
+            <div className=" pt-[100px] pl-[30px] flex">
                 <div className="flex flex-col gap-4">
                     <span className="subheading1 text-dark-200">People just love working with us!</span>
                     <span className="heading4">Digitalized Business, Happy Customers, That’s Impact</span>

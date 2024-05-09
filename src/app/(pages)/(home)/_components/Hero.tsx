@@ -13,7 +13,7 @@ const Hero = () => {
 
           {/* Heading */}
           <h1 className="heading1 tracking-[-2px]">
-            Hey Business Owners Go Digital Effortlessly
+            Hey Business Owners<br/> Go Digital Effortlessly
           </h1>
           <p className="text-base-bold mt-[21px]">
             Stop being static! Scale your business by going digital, the easy
@@ -31,7 +31,7 @@ const Hero = () => {
           </button>
         </div>
         {/* video */}
-        <div className="w-[40%] mr-16 h-[344px] rounded-[34px] border-[15px] border-dark-500"></div>
+        <div className="w-[55%] mr-16 aspect-[550/332] rounded-[34px] border-[15px] border-dark-500"></div>
       </div>
 
       <div className="mt-[88px] pb-[25px] flex flex-col gap-[25px]">
