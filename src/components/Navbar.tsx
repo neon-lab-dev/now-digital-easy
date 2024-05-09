@@ -35,7 +35,7 @@ const Navbar = () => {
       <div className="bg-white bg-opacity-50 w-[57px] h-[55px] rounded-b-lg"></div>
       <Image src={ICONS.logo} alt="logo" className="" />
       <div className="bg-white bg-opacity-50 w-full h-[55px] rounded-b-lg flex items-center justify-between">
-        <div className="w-full flex justify-center"> 
+        <div className="w-[90%] flex justify-center"> 
           <div className="flex items-center gap-[42px]  ">
             <Link
               onClick={toggleProductsDropdown}
