@@ -19,9 +19,9 @@ const BusniessHire = () => {
     return (
         <>
             <div className="pt-[120px] flex justify-center">
-                <div className="w-[1200px] text-center flex flex-col gap-10 ">
+                <div className="w-[75%] text-center flex flex-col gap-10 text-[#363B4C] items-center">
                     <span className="heading2">Businesses hire us because of the results we provide.</span>
-                    <span className="text-s flex items-center justify-center w-[850px] ml-[230px]">We transform businesses wholly, across all the digital touch-points with targeted, highly relevant and personalized experiences.</span>
+                    <span className="text-s flex items-center justify-center w-[650px] ">We transform businesses wholly, across all the digital touch-points with targeted, highly relevant and personalized experiences.</span>
                 </div>
             </div>
             <div className="flex justify-center py-10 gap-4">
