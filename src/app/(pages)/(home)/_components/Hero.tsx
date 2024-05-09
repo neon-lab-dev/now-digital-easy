@@ -38,7 +38,7 @@ const Hero = () => {
         <h2 className="text-base-bold text-center">
           12,000+ global businesses trust us to transform & grow digitally
         </h2>
-        <Marquee pauseOnHover={true} className="flex items-center">
+        <Marquee pauseOnHover={true}  className="flex items-center">
           <Image src={IMAGES.img1} alt="logo1" className="mr-[62px]" />
           <Image src={IMAGES.img2} alt="logo1" className="mr-[62px]" />
           <Image src={IMAGES.img3} alt="logo1" className="mr-[62px]" />
@@ -47,6 +47,7 @@ const Hero = () => {
           <Image src={IMAGES.img6} alt="logo1" className="mr-[62px]" />
           <Image src={IMAGES.img7} alt="logo1" className="mr-[62px]" />
           <Image src={IMAGES.img8} alt="logo1" className="mr-[62px]" />
+          <Image src={IMAGES.img4} alt="logo1" className="mr-[62px]" />
         </Marquee>
       </div>
     </div>

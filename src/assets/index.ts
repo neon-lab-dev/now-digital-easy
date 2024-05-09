@@ -14,6 +14,11 @@ import upArrow from "@/assets/icons/upArrow.svg";
 //images
 import google from "@/assets/images/google.png";
 import uploadToCloud from "@/assets/images/Upload to Cloud.png";
+import gateway from "@/assets/images/Gateway.svg"
+import author1 from "@/assets/images/Group 69412.svg"
+import author2 from "@/assets/images/Group 69413.svg"
+import author3 from "@/assets/images/Group 69413.svg"
+import author4 from "@/assets/images/Group 69412.svg"
 import img1 from "@/assets/images/image 10.png";
 import img2 from "@/assets/images/image 11.png";
 import img3 from "@/assets/images/image 12.png";
@@ -33,6 +38,11 @@ import menuCardImg from "@/assets/images/menuCardImg.png";
 const IMAGES = {
   google,
   uploadToCloud,
+  gateway,
+  author1,
+  author2,
+  author3,
+  author4,
   img1,
   img2,
   img3,

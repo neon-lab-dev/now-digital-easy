@@ -39,6 +39,9 @@ const config: Config = {
           "linear-gradient(90.37deg, #CCCFFF 0.32%, #DBDEFF 22.3%, #E5E7FF 49.57%, #F5F5FF 99.68%)",
         "gradient-banner":
           "linear-gradient(275.8deg, #FEF3E3 1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #CFD2FF 100%)",
+        "gradient-start":
+          "linear-gradient(275.8deg,  #CFD2FF  1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #FEF3E3 100%)",
+        "hero-pattern": "url('../assets/images/Group 69454.svg')",
       }),
       fontFamily: {
         merriweather: ["Merriweather", "serif"],
