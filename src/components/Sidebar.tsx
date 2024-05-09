@@ -88,14 +88,14 @@ const Sidebar = () => {
               <hr className="h-[1px]" />
               <div>
                 {/* Placeholder cart items */}
-                <div className="flex p-2 gap-8 items-start hover:bg-[#e1e1e180]">
-                  <div className="flex items-start gap-1">
+                <div className="flex py-4 px-1 gap-8 items-start hover:bg-[#e1e1e180]">
+                  <div className="flex items-start gap-2">
                     <Image src={google} alt="" />
                     <div className="flex flex-col gap-1 ">
-                      <span className="font-source-sans-pro text-[15px] font-700 text-[#000000]">Google Workspace</span>
+                      <span className="font-source-sans-pro text-[15px] font-700 text-[#000000] text-start">Google Workspace</span>
                       <span className="w-[130px] font-source-sans-pro text-[12px] font-600 text-[#000000]">Business Starter (<span className="text-[#0011FF]"> thedesignerclub.com</span> )</span>
-                      <div className="flex gap-1 items-center">
-                        <span className="font-source-sans-pro text-[15px] font-700 text-[#000000]">Users</span>
+                      <div className="flex gap-1 items-center text-start">
+                        <span className="font-source-sans-pro text-[14px] font-700 text-[#000000]">Users</span>
                         <div className="bg-white flex justify-center items-start ">
                           <span className=" border-[#00000026] border px-2 cursor-pointer">-</span>
                           <span className=" border-[#00000026] border px-2 cursor-pointer">3</span>
@@ -114,7 +114,7 @@ const Sidebar = () => {
                   </div>
                 </div>
                 <div className="flex p-2 gap-8 items-start hover:bg-[#e1e1e180]">
-                  <div className="flex items-start gap-1">
+                  <div className="flex items-start gap-2">
                     <Image src={cloud} alt="" />
                     <div className="flex flex-col gap-1 ">
                       <span className="font-source-sans-pro text-[15px] font-700 text-[#000000]">Linux Hosting</span>
@@ -175,9 +175,9 @@ const Sidebar = () => {
               <div className="w-[299px] py-10 flex flex-col">
                 <span className="font-source-sans-pro font-700 text-[17px]">Existing User?</span>
                 <span className="font-source-sans-pro font-400 text-[13px]">Please sign in with your credentials below to continue.</span>
-                <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Email</label>
+                <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Email</label>
                 <input type="email" name="" id="" placeholder="email address" className="border-[1px] p-3 rounded-lg mt-2" />
-                <label htmlFor="forpassword" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Password</label>
+                <label htmlFor="forpassword" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Password</label>
                 <input type="password" name="" id="" placeholder="Password" className=" border-[1px] p-3 rounded-lg mt-2" />
                 <span className="underline font-source-sans-pro font-400 text-[13px] flex justify-end text-[#0011FF]">Forget Password</span>
               </div>
@@ -193,70 +193,69 @@ const Sidebar = () => {
             </div>
           </div>
         )}
-
         {showSign && (
           <div className="">
-            <div className=" bg-gradient-light h-[55px] px-4 py-4 flex justify-between items-center">
+            <div className=" bg-gradient-light h-[55px] px-4 py-2 flex justify-between items-center">
               <Image src={chart} alt="" className="w-[21px] h-[33px]" />
               <Image src={close} alt=""/>
               {/* {Timeline} */}
             </div>
             <div className="flex justify-center">
-              <div className="w-[406px] py-8 flex flex-col">
+              <div className="w-[406px] py-4 flex flex-col">
                 <span className="font-source-sans-pro font-700 text-[17px]">New User?</span>
                 <span className="font-source-sans-pro font-400 text-[13px]">Create an account in 10 seconds</span>
                 <div className="grid grid-cols-2 gap-2 pt-3 pb-3">
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">First Name</label>
-                    <input type="text" name="" id="" placeholder="First Name" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">First Name</label>
+                    <input type="text" name="" id="" placeholder="First Name" className=" p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Last Name</label>
-                    <input type="text" name="" id="" placeholder="Last Name" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Last Name</label>
+                    <input type="text" name="" id="" placeholder="Last Name" className="  p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Email</label>
-                    <input type="email" name="" id="" placeholder="Email address" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Email</label>
+                    <input type="email" name="" id="" placeholder="Email address" className="p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Phone Number</label>
-                    <input type="number" name="" id="" placeholder="Phone Number" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Phone Number</label>
+                    <input type="number" name="" id="" placeholder="Phone Number" className=" p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Password</label>
-                    <input type="password" name="" id="" placeholder="Password" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Password</label>
+                    <input type="password" name="" id="" placeholder="Password" className="  p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Company Name</label>
-                    <input type="text" name="" id="" placeholder="Company Name" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Company Name</label>
+                    <input type="text" name="" id="" placeholder="Company Name" className="  p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Address</label>
-                  <input type="text" name="" id="" placeholder="Address" className=" border-[1px] p-3 rounded-lg mt-2 w-[406px]" />
+                  <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Address</label>
+                  <input type="text" name="" id="" placeholder="Address" className=" border-[1px] p-3 rounded-lg mt-2 w-[406px] h-[40px]" />
                 </div>
                 <div className="grid grid-cols-2 py-1 gap-2">
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">City</label>
-                    <input type="text" name="" id="" placeholder="City" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">City</label>
+                    <input type="text" name="" id="" placeholder="City" className="  p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">State</label>
-                    <input type="text" name="" id="" placeholder="State" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">State</label>
+                    <input type="text" name="" id="" placeholder="State" className="  p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Country</label>
-                    <input type="text" name="" id="" placeholder="Country" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px] placeholder:text-[15px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Country</label>
+                    <input type="text" name="" id="" placeholder="Country" className="p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none placeholder:text-[15px]" />
                   </div>
                   <div>
-                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]">Pin Code</label>
-                    <input type="number" name="" id="" placeholder="Pin code" className=" border-[1px] p-3 rounded-lg mt-2 w-[196px] h-[40px]" />
+                    <label htmlFor="forEmail" className="font-source-sans-pro font-400 text-[13px] pt-2  text-[#313131]">Pin Code</label>
+                    <input type="number" name="" id="" placeholder="Pin code" className=" p-3 rounded-lg mt-2 w-[196px] h-[40px] focus:border-[#0011FF] border-[2px]  focus:outline-none" />
                   </div>
                 </div>
               </div>
             </div>
             <div className="flex justify-center">
-              <button onClick={handleContinueToOrder} className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF]  h-[40px] w-[215px]" >
+              <button onClick={handleContinueToOrder} className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px]" >
                 Create Account
               </button>
             </div>
