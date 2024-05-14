@@ -11,7 +11,7 @@ export default function Home() {
       <Hero />
       <BuildYourBusiness />
       <Gateway />
-      <Testmonials />
+      <Testmonials  />
       <BusniessHire/>
       <StartNow/>
     </>

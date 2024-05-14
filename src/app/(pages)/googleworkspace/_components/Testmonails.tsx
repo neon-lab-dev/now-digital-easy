@@ -8,11 +8,11 @@ import comma from "@/assets/images/Quotation-Symbol-PNG-Clipart.png"
 
 // Define the type for testimonial
 interface Testimonial {
-  quote: string;
-  author: string;
-  position: string;
-  backgroundImage: any;
-  width: string; // Width can be a string (e.g., '600px')
+    quote: string;
+    author: string;
+    position: string;
+    backgroundImage: any;
+    width: string; // Width can be a string (e.g., '600px')
 }
 
 // Define the types for TestimonialCard props
@@ -23,19 +23,19 @@ interface TestimonialCardProps {
     testimonial: Testimonial;
     width: string; // Accept width as string for flexibility
     gradientColor?: string; // Optional prop for gradient color
-  }
-  
+}
+
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({
-  isHovered,
-  onMouseEnter,
-  onMouseLeave,
-  testimonial,
-  width,
+    isHovered,
+    onMouseEnter,
+    onMouseLeave,
+    testimonial,
+    width,
 }) => {
     return (
         <div
-            className={`relative h-[299px] ${isHovered ? 'bg-[#C9CDFF]' : '{bg-gradient-card}'}`}
+            className={`relative h-[299px] ${isHovered ? 'bg-[#C9CDFF]' : 'bg-background-light'}`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             style={{ width }}
@@ -44,7 +44,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
                 className={`absolute right-0 ${isHovered ? 'w-[200px]' : 'w-none'}`}
                 src={testimonial.backgroundImage}
                 alt="Testimonial background"
-               
+
             />
             <div className="pl-[23px] pt-[23px]">
                 <Image
@@ -54,7 +54,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
                     alt="Quote symbol"
                 />
             </div>
-            <div className="pl-[23px] py-4 h-[140px] "style={{ maxWidth: parseInt(width) - 200 }}>
+            <div className="pl-[23px] py-4 h-[140px] " style={{ maxWidth: parseInt(width) - 200 }}>
                 <span className="text-base-bold">
                     {`“${testimonial.quote}”`}
                 </span>
@@ -104,10 +104,10 @@ const Testimonials: React.FC = () => {
         <>
             <div className=" pt-[100px] flex">
                 <div className='flex justify-center'>
-                <div className="flex flex-col gap-4 text-start pl-[120px]">
-                    <span className="subheading1 text-dark-200">People just love working with us!</span>
-                    <span className="heading4">Digitalized Business, Happy Customers, That’s Impact</span>
-                </div>
+                    <div className="flex flex-col gap-4 text-start pl-[130px]">
+                        <span className="subheading1 text-dark-200">People just love working with us!</span>
+                        <span className="heading4">Digitalized Business, Happy Customers, That’s Impact</span>
+                    </div>
                 </div>
             </div>
             <div className="flex flex-wrap justify-center gap-3 mt-10">
