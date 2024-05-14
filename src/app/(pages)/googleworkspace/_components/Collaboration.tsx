@@ -10,7 +10,7 @@ const Collaboration = () => {
             </div>
             <div className=" mt-10 flex justify-center">
                 <div className="flex justify-center text-center w-[1155px] text-[18px]">
-                    <p>Discover the power of Google Workspace, an integrated suite of cloud-based productivity tools designed to supercharge teamwork, streamline communication, and boost productivity. Explore our comprehensive guide to Google Workspace's apps, features, and benefits for businesses, educational institutions, and individuals. From Gmail and Google Drive to Google Meet and beyond, harness the potential of collaborative work with Google Workspace.</p>
+                    <p>Discover the power of Google Workspace, an integrated suite of cloud-based productivity tools designed to supercharge teamwork, streamline communication, and boost productivity. Explore our comprehensive guide to Google Workspace &apos;s apps, features, and benefits for businesses, educational institutions, and individuals. From Gmail and Google Drive to Google Meet and beyond, harness the potential of collaborative work with Google Workspace.</p>
                 </div>
             </div>
             <div className='flex justify-center pt-16'>

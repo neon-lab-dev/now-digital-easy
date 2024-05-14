@@ -17,7 +17,7 @@ const MalionMoblie = () => {
             <span className="text-[35px] text-[#000659] leading-[35px]">
             Mail on Mobile
             </span>
-            <p className="text-[17] w-[431px]">Manage your business emails even when you're away from your desk. Native mobile apps for Mail, Mail Admin, and Streams make staying in touch on the go easy and effortless.</p>
+            <p className="text-[17] w-[431px]">Manage your business emails even when you &apos;re away from your desk. Native mobile apps for Mail, Mail Admin, and Streams make staying in touch on the go easy and effortless.</p>
             <div className="flex items-center gap-2">
                 <span className="text-[#0088FF] text-[20px]">Go Moblie</span>
                 <button>

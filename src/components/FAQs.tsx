@@ -16,7 +16,7 @@ const FAQs = () => {
                 <span className="text-[65px]">Frequently Asked Questions</span>
             </div>
             <div className="flex justify-center pt-[20px]">
-                <span className="text-[20px] w-[955px] text-center">If you have further inquiries about our Google Workspace, Google Workspace Pricing, don't hesitate to reach out to us. Below are the frequently asked questions regarding our services.</span>
+                <span className="text-[20px] w-[955px] text-center">If you have further inquiries about our Google Workspace, Google Workspace Pricing, don &apos;t hesitate to reach out to us. Below are the frequently asked questions regarding our services.</span>
             </div>
             <div className='flex justify-center pt-[30px] p-3'>
                 <div className='flex flex-col gap-8'>

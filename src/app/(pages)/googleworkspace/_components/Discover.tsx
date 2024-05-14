@@ -66,7 +66,7 @@ const Discover = () => {
             </div>
             <div className=" mt-10 flex justify-center">
                 <div className="flex justify-center text-center w-[1155px] text-[18px] text-[#000659]">
-                    <p> Embrace the future of simplicity, convenience, and efficiency. Explore why this transformative approach is reshaping how we live, work, and thrive in the digital age. Discover the key reasons why choosing 'Now Digital Easy' is essential for staying ahead in a complex world</p>
+                    <p> Embrace the future of simplicity, convenience, and efficiency. Explore why this transformative approach is reshaping how we live, work, and thrive in the digital age. Discover the key reasons why choosing  &apos;Now Digital Easy &apos; is essential for staying ahead in a complex world</p>
                 </div>
             </div>
             <div className='flex justify-center'>
