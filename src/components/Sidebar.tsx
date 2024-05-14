@@ -50,13 +50,10 @@ const Sidebar = () => {
   const nextStep = () => {
     setActiveStep((prevStep) => prevStep + 1)
   }
-
   const prevStep = () => {
     setActiveStep((prevStep) => prevStep - 1)
   }
-
   const totalSteps = steps.length
-
   const width = `${(100 / (totalSteps - 1)) * (activeStep - 1)}%`
 
 
@@ -172,8 +169,7 @@ const Sidebar = () => {
         className="cursor-pointer"
       />
       <div
-        className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-[471px]   transition-all duration-300 transform ${isHamburgerOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-[471px]   transition-all duration-300 transform ${isHamburgerOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         {isHamburgerOpen && (
           <div className=" bg-gradient-light h-[55px] px-4 py-4 justify-between flex items-center">

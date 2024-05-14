@@ -66,7 +66,10 @@ const config: Config = {
         "background-nde":
           "linear-gradient(270.23deg, #CBEFFF 0.38%, #D3D6FD 99.99%)",
         "background-nde-fade":
-          "linear-gradient(180deg, rgba(225, 225, 248, 0) 0%, #F5F5F5 100%)"
+          "linear-gradient(180deg, rgba(225, 225, 248, 0) 0%, #F5F5F5 100%)",
+        "gradient-checkout":
+          "linear-gradient(275.8deg, #FEF3E3 1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #CFD2FF 100%)"
+
 
       }),
       fontFamily: {
