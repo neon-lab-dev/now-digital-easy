@@ -41,7 +41,33 @@ const config: Config = {
           "linear-gradient(275.8deg, #FEF3E3 1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #CFD2FF 100%)",
         "gradient-start":
           "linear-gradient(275.8deg,  #CFD2FF  1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #FEF3E3 100%)",
-        "hero-pattern": "url('../assets/images/Group 69454.svg')",
+        "background-light":
+          "linear-gradient(270.23deg, rgba(186, 215, 201, 0.9) 0.38%, rgba(254, 243, 227, 0.9) 49.19%, rgba(211, 214, 253, 0.9) 99.99%)",
+        "background-card":
+          "linear-gradient(180deg, #FEF3E3 0%, #CFD2FF 100%);",
+        "background-FAQ":
+          "linear-gradient(237.45deg, #FEF3E3 1.14%, #F3F3FF 47.1%, #E4E6FF 98.67%)",
+        "background-Discover":
+          "linear-gradient(90deg, #F2F3FF 0.01%, #DEEBFC 100%)",
+        "background-fade":
+          "linear-gradient(180deg, rgba(225, 225, 248, 0) 0%, #FFFFFF 100%)",
+        "background-fade1":
+          "linear-gradient(180deg, #FEF3E4 0%, #FFFFFF 100%)",
+        "background-service":
+          "linear-gradient(180deg, #FEF3E3 0%, #CFD2FF 100%)",
+        "bg-background":
+          "linear-gradient(180deg, #EEFAFF 0%, #F5F5F5 100%)",
+        "fg-background":
+          "linear-gradient(180deg, #F5F5F5 0%, #EEFAFF 100%)",
+        "gg-background":
+          "linear-gradient(180deg, #F5F5F5 0%, #EAEBFF 100%)",
+        "background-Mail":
+          "linear-gradient(0.3deg, #CBEFFF -3.29%, #D3D6FD 99.74%)",
+        "background-nde":
+          "linear-gradient(270.23deg, #CBEFFF 0.38%, #D3D6FD 99.99%)",
+        "background-nde-fade":
+          "linear-gradient(180deg, rgba(225, 225, 248, 0) 0%, #F5F5F5 100%)"
+
       }),
       fontFamily: {
         merriweather: ["Merriweather", "serif"],

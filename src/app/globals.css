@@ -40,7 +40,7 @@
 }
 
 .subheading1 {
-  @apply text-subheading1 font-900 leading-subheading1 tracking-['-1px'];
+  @apply text-subheading1 font-900 leading-subheading1 tracking-[-1px];
 }
 
 .subheading3 {

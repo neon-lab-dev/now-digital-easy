@@ -1,7 +1,7 @@
-"use client";
+'use client'
+import { useEffect, useState, useRef } from "react";
 import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 interface businessDetains {
   title: string;
@@ -61,6 +61,29 @@ const BuildYourBusiness = () => {
   ];
 
   const [currentSlider, setCurrentSlider] = useState<number>(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeThreshold = 50; // Adjust this value according to your preference
+    const difference = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(difference) > swipeThreshold) {
+      if (difference > 0) {
+        nextSlider(); // Swipe left, move to next slide
+      } else {
+        prevSlider(); // Swipe right, move to previous slide
+      }
+    }
+  };
 
   const prevSlider = (): void => {
     const cardsPerPage = 3; // Number of cards per page
@@ -85,11 +108,16 @@ const BuildYourBusiness = () => {
   };
 
   return (
-    <div className="px-[91px] flex flex-col gap-[50px] mt-[42px]">
+    <div
+      className="px-[91px] flex flex-col gap-[50px] mt-[42px]"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <h1 className="heading2 capitalize text-center w-full">
         <div className=" w-[237px]  text-primary-400 inline-flex justify-end">
           <div className="text-end border-b-4 border-dashed border-primary-400 w-fit ">
-          {titles[currentTitleIndex]}
+            {titles[currentTitleIndex]}
           </div>
         </div>{" "}
         your business in one single platform
@@ -102,7 +130,9 @@ const BuildYourBusiness = () => {
         >
           <div
             className="flex justify-between items-center"
-            style={{ width: `${(350 + 32) * businessCardDetails.length}px` }}
+            style={{
+              width: `${(350 + 32) * businessCardDetails.length}px`,
+            }}
           >
             <div
               className="ease-linear duration-300 flex gap-8"

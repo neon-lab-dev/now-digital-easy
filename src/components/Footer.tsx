@@ -8,6 +8,7 @@ import vector from "@/assets/images/Vector.svg";
 import GooglePartner from "@/assets/images/image 63.svg";
 import GoogleReview from "@/assets/images/image 64.svg";
 import facebookReview from "@/assets/images/Mask group.svg";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -15,12 +16,13 @@ const Footer = () => {
       <Image
         className="absolute inset-0 w-full"
         style={{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }} src={footer} alt={"footer"} />
+
       <div className="relative z-10 mx-[130px] mt-[150px]">
         <div className="flex justify-between">
           <div className="flex gap-[100px]">
             <div>
-              <span className=" font-source-sans-pro text-[17px] font-600 text-[#000659]">COMPANY</span>
-              <ul className="flex flex-col gap-3 py-2 text-[13px] text-[#151D8C]">
+              <span className="footer-heading">COMPANY</span>
+              <ul className="flex flex-col gap-3 py-2 text-[13px] text-[#151D8C] footer-links ">
                 <li>About Us</li>
                 <li>Payment Method</li>
                 <li>Refund Policy</li>
@@ -61,10 +63,16 @@ const Footer = () => {
           <div className="flex flex-col">
             <span className="font-source-sans-pro text-[17px] font-600  text-[#000659] text-right ">Transform Your Business into</span>
             <span className="font-source-sans-pro text-[17px] font-600  text-[#000659] text-right ">Digital Organisation</span>
-            <div className="flex gap-8 py-2 px-2">
-              <Image src={GooglePartner} alt={""} />
-              <Image src={facebookReview} alt={""} />
-              <Image src={GoogleReview} alt={""} className="rounded-[50%]" />
+            <div className="flex gap-8 py-2 px-2 items-center">
+              <Link href="https://cloud.google.com/find-a-partner/partner/now-digital-easy">
+                <Image src={GooglePartner} alt={""} />
+              </Link>
+              <Link href="https://www.facebook.com/nowdigitaleasyofficial/reviews">
+                <Image src={facebookReview} alt={""} />
+              </Link>
+              <Link href="https://www.google.com/search?q=now+digital+easy+&sca_esv=1408e98ab1991b60&ei=yZk8ZsXPHcGO4-EPssqWuAU&ved=0ahUKEwiF2OqMo4CGAxVBxzgGHTKlBVcQ4dUDCBA&uact=5&oq=now+digital+easy+&gs_lp=Egxnd3Mtd2l6LXNlcnAiEW5vdyBkaWdpdGFsIGVhc3kgMgUQABiABDIFEAAYgAQyBhAAGBYYHjIGEAAYFhgeMgsQABiABBiGAxiKBTILEAAYgAQYhgMYigVI9wVQ9wNY9wNwAXgAkAEAmAHtAaAB7QGqAQMyLTG4AQPIAQD4AQGYAgGgAvgBmAMAiAYBkgcDMi0xoAfyAw&sclient=gws-wiz-serp">
+                <Image src={GoogleReview} alt={""} className="rounded-[50%]" />
+              </Link>
             </div>
           </div>
         </div>
@@ -83,13 +91,19 @@ const Footer = () => {
         </div>
         <hr className="bg-white h-[2px]" />
         <div className="px-4 py-4 flex justify-between">
-          <span className="font-source-sans-pro text-[13px] text-[#151D8C]">@2022 Nowdigitaleasy, Inc.All Rights Reserved.</span>
+          <span className="text-[13px] text-[#151D8C]">@2022 Nowdigitaleasy, Inc.All Rights Reserved.</span>
           <div className="flex gap-2 items-center">
             <span className="font-source-sans-pro text-[13px] text-[#151D8C]">Privacy Policy</span>
             <span className="font-source-sans-pro text-[13px] text-[#151D8C]">Terms and Conditions</span>
-            <Image src={facebook} alt={""} />
-            <Image src={insta} alt={""} />
-            <Image src={linkedin} alt={""} />
+            <Link href="https://www.facebook.com/nowdigitaleasyofficial/">
+              <Image src={facebook} alt={""} />
+            </Link>
+            <Link href="https://www.instagram.com/nowdigitaleasy/">
+              <Image src={insta} alt={""} />
+            </Link>
+            <Link href="https://in.linkedin.com/company/nowdigitaleasy">
+              <Image src={linkedin} alt={""} />
+            </Link>
           </div>
         </div>
       </div>
