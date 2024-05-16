@@ -114,7 +114,7 @@ const BuildYourBusiness = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <h1 className="heading2 capitalize text-center w-full">
+      <h1 className="heading2 capitalize text-center w-[800px] ml-[250px]">
         <div className=" w-[237px]  text-primary-400 inline-flex justify-end">
           <div className="text-end border-b-4 border-dashed border-primary-400 w-fit ">
             {titles[currentTitleIndex]}

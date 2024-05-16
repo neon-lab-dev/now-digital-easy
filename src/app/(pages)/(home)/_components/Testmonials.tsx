@@ -35,7 +35,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 }) => {
     return (
         <div
-            className={`relative h-[299px] ${isHovered ? 'bg-[#C9CDFF]' : '{bg-gradient-card}'}`}
+            className={`relative h-[299px] ${isHovered ? 'bg-[#C9CDFF]' : 'bg-gradient-card'}`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             style={{ width }}

@@ -69,7 +69,6 @@ const Features = () => {
               )}
             </div>
           </div>
-          
           <div className="flex flex-col ">
             <span className="text-[17px] text-[#000659] leading-[15px]">Total</span>
             <span className="text-[24px]">Rs.999.00</span>
@@ -79,10 +78,8 @@ const Features = () => {
       </div>
     );
   };
-
-
   const servicesData = [
-    {
+  {
       title: 'Get secure and personalised email account for your business',
       image: email,
       stater: "✔",

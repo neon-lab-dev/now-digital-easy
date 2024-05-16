@@ -5,13 +5,13 @@ import Marquee from "react-fast-marquee"
 const Hero = () => {
     return (
         <div className=" bg-background-light">
-            <div className="flex justify-center items-center pt-[80px] gap-[100px] ">
-                <div className="flex flex-col ">
+            <div className="flex justify-center items-center pt-[80px] gap-[50px] ">
+                <div className="flex flex-col">
                     <div className="flex flex-col text-[#000659]">
-                        <span className="text-[68px] leading-[40px]">Empower Your Team</span>
+                        <span className="text-[68px] leading-[20px]">Empower Your Team</span>
                         <span className="text-[68px]  "> With Google Workspace </span>
                     </div>
-                    <ul className="grid grid-cols-2 gap-4 px-3 mx-4 py-2 list-disc text-[24px]">
+                    <ul className="grid grid-cols-2 gap-6 px-3 mx-4 py-2 list-disc text-[24px]">
                         <li>Custom Business Email</li>
                         <li>30 GB of Cloud Storage</li>
                         <li>High Standard Security.</li>

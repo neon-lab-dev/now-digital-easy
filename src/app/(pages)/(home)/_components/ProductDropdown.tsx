@@ -222,10 +222,11 @@ const ProductDropdown = () => {
               <p className="text-dark-400 text-[13px] font-merriweather font-400 mt-3 ">
                 Experience our product with our interactive self-guided demo
               </p>
-
               <button className=" text-primary-400 font-merriweather ctext-[13px] font-400 transition duration-300 transform hover:-translate-y-0.5 flex items-center mt-[7px]">
-                Live demo
-                <Image src={ICONS.arrowRight2} alt="arrowRight2" className="" />
+                <div className="flex items-center gap-1">
+                  <span>Live demo</span>
+                  <Image src={ICONS.arrowRight2} alt="arrowRight2" className="" />
+                </div>
               </button>
             </div>
           </div>

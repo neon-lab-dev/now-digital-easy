@@ -44,8 +44,11 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Monthly');
   const [quantity, setQuantity] = useState(1);
-
   const [activeStep, setActiveStep] = useState(1)
+
+  const closeCart = () => {
+    setIsHamburgerOpen(false);
+  };
 
   const nextStep = () => {
     setActiveStep((prevStep) => prevStep + 1)
@@ -175,7 +178,9 @@ const Sidebar = () => {
           <div className=" bg-gradient-light h-[55px] px-4 py-4 justify-between flex items-center">
             <Image src={chart} alt="" className=" " />
             <Stepper steps={steps} />
-            <Image src={close} alt="" className="w-[20px]" />
+            <button onClick={closeCart}>
+              <Image src={close} alt="Close" className="w-[20px]" />
+            </button>
           </div>
         )}
         {isHamburgerOpen && !showLogin && !showSign && !showOrderSummary && (
