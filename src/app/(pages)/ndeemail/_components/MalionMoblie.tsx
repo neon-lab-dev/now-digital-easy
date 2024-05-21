@@ -12,19 +12,19 @@ import rec1 from "@/assets/images/Rectangle 46423.svg";
 const MalionMoblie = () => {
   return (
     <div className={` bg-background-Mail`}>
-    <div className="flex justify-center gap-[150px]  items-center">
-        <div className="flex flex-col gap-6 text-start w-[600px] p-10">
+    <div className="flex justify-center gap-[150px] max-lg:gap-0  max-lg:flex-col-reverse items-center">
+        <div className="flex flex-col gap-6 text-start w-[600px] max-md:w-[400px] p-10 max-lg:text-center">
             <span className="text-[35px] text-[#000659] leading-[35px]">
             Mail on Mobile
             </span>
-            <p className="text-[17] w-[431px]">Manage your business emails even when you &apos;re away from your desk. Native mobile apps for Mail, Mail Admin, and Streams make staying in touch on the go easy and effortless.</p>
-            <div className="flex items-center gap-2">
-                <span className="text-[#0088FF] text-[20px]">Go Moblie</span>
+            <p className="text-[17] w-[500px] max-md:w-[300px]">Manage your business emails even when you &apos;re away from your desk. Native mobile apps for Mail, Mail Admin, and Streams make staying in touch on the go easy and effortless.</p>
+            <div className="flex items-center max-lg:justify-center gap-2">
+                <span className="text-[#0088FF] text-[20px] max-lg:text-center">Go Moblie</span>
                 <button>
                     <Image src={arrow} alt="arrow" />
                 </button>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center max-lg:justify-center gap-4">
                 <button className='bg-black px-3 py-1 rounded-lg'>
                     <div className='flex gap-2 justify-center items-center text-white '>
                         <Image src={apple} alt={''}/>

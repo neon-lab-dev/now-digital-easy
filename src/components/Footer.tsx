@@ -16,10 +16,9 @@ const Footer = () => {
       <Image
         className="absolute inset-0 w-full"
         style={{ backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }} src={footer} alt={"footer"} />
-
-      <div className="relative z-10 mx-[130px] mt-[150px]">
-        <div className="flex justify-between">
-          <div className="flex gap-[100px]">
+      <div className="relative z-10 px-[130px] max-md:px-[80px] max-lg:px-[100px] mt-[150px] max-lg:mt-[100px] bg-gradient-footer max-md:mt-10">
+        <div className="flex max-lg:flex-col justify-between max-lg:gap-10">
+          <div className="flex flex-wrap gap-[100px] max-lg:gap-10 max-md:gap-[40px]">
             <div>
               <span className="footer-heading">COMPANY</span>
               <ul className="flex flex-col gap-3 py-2 text-[13px] text-[#151D8C] footer-links ">
@@ -61,8 +60,8 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex flex-col">
-            <span className="font-source-sans-pro text-[17px] font-600  text-[#000659] text-right ">Transform Your Business into</span>
-            <span className="font-source-sans-pro text-[17px] font-600  text-[#000659] text-right ">Digital Organisation</span>
+            <span className="font-source-sans-pro text-[17px] font-600  text-[#000659] text-right max-lg:text-left ">Transform Your Business into</span>
+            <span className="font-source-sans-pro text-[17px] font-600  text-[#000659] text-right max-lg:text-left ">Digital Organisation</span>
             <div className="flex gap-8 py-2 px-2 items-center">
               <Link href="https://cloud.google.com/find-a-partner/partner/now-digital-easy">
                 <Image src={GooglePartner} alt={""} />
@@ -76,33 +75,33 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex mt-[60px] py-2 items-center  gap-16">
-          <Image src={logo} alt={""} />
-          <div className="flex gap-3">
+        <div className="flex mt-[60px] py-2 items-center gap-16 max-md:gap-6">
+          <Image src={logo} alt={""}  className="w-[80px]"/>
+          <div className="flex gap-3 items-center">
             <div className="flex gap-1">
               <span className="font-source-sans-pro text-[13px] text-[#151D8C] font-600">- English </span>
               <Image src={vector} alt={""} />
             </div>
             <div className="flex gap-1">
               <span className="font-source-sans-pro text-[13px] text-[#151D8C] font-600">INR ₹ </span>
-              <Image src={vector} alt={""} />
+              <Image src={vector} alt={""} className="" />
             </div>
           </div>
         </div>
         <hr className="bg-white h-[2px]" />
-        <div className="px-4 py-4 flex justify-between">
-          <span className="text-[13px] text-[#151D8C]">@2022 Nowdigitaleasy, Inc.All Rights Reserved.</span>
+        <div className="px-4 py-4 flex max-md:flex-col max-md:gap-6 justify-between">
+          <span className="text-[13px] max-md:text-[10px] text-[#151D8C]">@2022 Nowdigitaleasy, Inc.All Rights Reserved.</span>
           <div className="flex gap-2 items-center">
-            <span className="font-source-sans-pro text-[13px] text-[#151D8C]">Privacy Policy</span>
-            <span className="font-source-sans-pro text-[13px] text-[#151D8C]">Terms and Conditions</span>
+            <span className="font-source-sans-pro text-[13px] max-md:text-[9px] text-[#151D8C]">Privacy Policy</span>
+            <span className="font-source-sans-pro text-[13px] max-md:text-[9px] text-[#151D8C]">Terms and Conditions</span>
             <Link href="https://www.facebook.com/nowdigitaleasyofficial/">
-              <Image src={facebook} alt={""} />
+              <Image src={facebook} alt={""} className="w-[15px]"/>
             </Link>
             <Link href="https://www.instagram.com/nowdigitaleasy/">
-              <Image src={insta} alt={""} />
+              <Image src={insta} alt={""} className="w-[15px]" />
             </Link>
             <Link href="https://in.linkedin.com/company/nowdigitaleasy">
-              <Image src={linkedin} alt={""} />
+              <Image src={linkedin} alt={""} className="w-[15px]" />
             </Link>
           </div>
         </div>

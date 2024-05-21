@@ -6,12 +6,14 @@ import Section from '@/app/(pages)/ndeemail/_components/Section'
 import Hero from '@/app/(pages)/ndeemail/_components/Hero'
 import Stepper from '@/components/Stepper'
 import { steps } from '@/components/Sidebar'
+import Features from '../ndeemail/_components/Features'
 
 const page = () => {
   return (
     <div>
       <Hero/>
       <Section />
+      <Features/>
       <MalionMoblie/>
       <FAQs />
     </div>

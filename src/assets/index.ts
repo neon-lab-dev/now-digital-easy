@@ -32,6 +32,7 @@ import communication from "@/assets/images/communication (1) 1.png";
 import IoxHost from "@/assets/images/IoxHost.png";
 import OpenStack from "@/assets/images/New OpenStack Logo.png";
 import menuCardImg from "@/assets/images/menuCardImg.png";
+import menu from "@/assets/images/menu.svg"
 
 
 //links
@@ -69,6 +70,7 @@ const ICONS = {
   cart,
   arrowRight2,
   upArrow,
+  menu
 };
 
 export { IMAGES, ICONS };

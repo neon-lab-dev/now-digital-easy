@@ -68,8 +68,13 @@ const config: Config = {
         "background-nde-fade":
           "linear-gradient(180deg, rgba(225, 225, 248, 0) 0%, #F5F5F5 100%)",
         "gradient-checkout":
-          "linear-gradient(275.8deg, #FEF3E3 1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #CFD2FF 100%)"
-
+          "linear-gradient(275.8deg, #FEF3E3 1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #CFD2FF 100%)",
+        "gradient-footer":
+          "linear-gradient(0deg, #C9CCFF 0%, #A2A9FF 51.5%, #A2A9FF 100%)",
+        "gradient-gayway":
+          "linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 4.5%, #F5F5F5 93.5%, #FFFFFF 100%)",
+        "gradient-gif":
+          "radial-gradient(50% 65.66% at 50% 48.3%, #E5E7FF 0%, #FFFFFF 100%)" /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
 
       }),
       fontFamily: {
@@ -130,6 +135,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: []
 };
 export default config;

@@ -109,33 +109,33 @@ const BuildYourBusiness = () => {
 
   return (
     <div
-      className="px-[91px] flex flex-col gap-[50px] mt-[42px]"
+      className="px-[91px] max-lg:px-3 flex flex-col gap-[50px] mt-[42px]"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <h1 className="heading2 capitalize text-center w-[800px] ml-[250px]">
-        <div className=" w-[237px]  text-primary-400 inline-flex justify-end">
-          <div className="text-end border-b-4 border-dashed border-primary-400 w-fit ">
+      <h1 className="heading2 capitalize text-center w-[800px] max-lg:w-[700px] max-md:w-[350px] max-lg:text-[48px] max-md:text-[30px] ml-[250px] max-md:ml-0 max-lg:ml-0 max-md:leading-[30px]">
+        <div className=" w-[237px] max-md:w-[110px]  text-primary-400 inline-flex justify-end ">
+          <div className="text-end max-md:text-[30px] border-b-4 border-dashed border-primary-400 w-fit ">
             {titles[currentTitleIndex]}
           </div>
         </div>{" "}
         your business in one single platform
       </h1>
 
-      <div className="flex justify-center">
+      <div className="flex  justify-center">
         <div
           className="overflow-hidden"
           style={{ width: `${(350 + 32) * 3}px` }}
         >
           <div
-            className="flex justify-between items-center"
+            className="flex justify-between items-center "
             style={{
               width: `${(350 + 32) * businessCardDetails.length}px`,
             }}
           >
             <div
-              className="ease-linear duration-300 flex gap-8"
+              className="ease-linear max-md:flex-col  duration-300 flex gap-8 max-lg:gap-6 max-md:gap-8"
               style={{
                 transform: `translateX(-${currentSlider * (350 + 32)}px)`,
               }}
@@ -143,25 +143,25 @@ const BuildYourBusiness = () => {
               {businessCardDetails.map((detail, index) => (
                 <div
                   key={index}
-                  className="bg-gradient-card w-[350px] h-[420px] rounded-2xl"
+                  className="bg-gradient-card w-[350px] max-md:w-[330px] max-md:ml-8 max-md:h-[420px] h-[420px] max-lg:h-[350px] max-lg:w-[226px] rounded-2xl"
                 >
                   <div className="relative">
                     <Image
                       src={IMAGES.cardBg}
                       alt="cardBg"
-                      className="w-full h-[153px]"
+                      className="w-full h-[153px] max-lg:h-[140px] max-md:h-[153px]"
                     />
-                    <div className="bg-primary-400 w-full h-[60px] flex items-center absolute top-[55px]">
+                    <div className="bg-primary-400 w-full h-[60px] max-md:h-[60px] max-lg:h-[40px] flex items-center absolute top-[55px]">
                       <div className="flex items-center px-4 gap-2">
-                        <h1 className="font-source-sans-pro font-900 text-[30px] text-white">
+                        <h1 className="font-source-sans-pro font-900 text-[30px] text-white max-lg:text-[14px] max-md:text-[30px]">
                           {detail?.title}
                         </h1>
-                        <div className="bg-primary-400 w-[120px] h-[120px] rounded-full flex justify-center items-center">
-                          <div className="bg-white w-[90px] h-[90px] rounded-full flex justify-center items-center">
+                        <div className="bg-primary-400 w-[120px] max-md:w-[120px] max-md:h-[120px] max-lg:w-[100px] h-[120px] max-lg:h-[100px] rounded-full flex justify-center items-center">
+                          <div className="bg-white w-[90px] h-[90px]  rounded-full flex justify-center items-center">
                             <Image
                               src={IMAGES.communication}
                               alt="cardBg"
-                              className="w-[52px]"
+                              className="w-[52px] max-lg:w-[30px] max-md:w-[52px]"
                             />
                           </div>
                         </div>
@@ -169,10 +169,10 @@ const BuildYourBusiness = () => {
                     </div>
                   </div>
                   <div className="px-6 pb-[30px]">
-                    <h1 className="subheading3 mt-[12px] max-w-[190px]">
+                    <h1 className="subheading3 mt-[12px] max-w-[190px] max-md:text-[24px] max-lg:text-[22px] max-lg:leading-[22px]">
                       {detail?.subTitle}
                     </h1>
-                    <p className="card-text-body mt-[14px]">
+                    <p className="card-text-body mt-[14px] max-md:text-[18px] max-md:leading-[20px] max-lg:text-[12px] max-lg:leading-[13px] ">
                       {detail?.details}
                     </p>
                     <button className="card-text-cta text-primary-400 mt-5 underline transition duration-300 transform hover:-translate-y-0.5">
@@ -186,7 +186,7 @@ const BuildYourBusiness = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-[13px] justify-center">
+      <div className="flex items-center gap-[13px] justify-center max-md:hidden">
         <Image
           onClick={prevSlider}
           src={ICONS.arrowLeft}
