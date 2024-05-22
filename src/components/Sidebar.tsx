@@ -44,19 +44,19 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('Monthly');
   const [quantity, setQuantity] = useState(1);
-
   const [activeStep, setActiveStep] = useState(1)
+
+  const closeCart = () => {
+    setIsHamburgerOpen(false);
+  };
 
   const nextStep = () => {
     setActiveStep((prevStep) => prevStep + 1)
   }
-
   const prevStep = () => {
     setActiveStep((prevStep) => prevStep - 1)
   }
-
   const totalSteps = steps.length
-
   const width = `${(100 / (totalSteps - 1)) * (activeStep - 1)}%`
 
 
@@ -164,7 +164,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="relative hamburgerMenu">
+    <div className="relative hamburgerMenu max-md:hidden ">
       <Image
         onClick={toggleHamburgerMenu}
         src={ICONS.cart}
@@ -172,14 +172,15 @@ const Sidebar = () => {
         className="cursor-pointer"
       />
       <div
-        className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-[471px]   transition-all duration-300 transform ${isHamburgerOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+        className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-[471px]   transition-all duration-300 transform ${isHamburgerOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         {isHamburgerOpen && (
           <div className=" bg-gradient-light h-[55px] px-4 py-4 justify-between flex items-center">
-            <Image src={chart} alt="" className=" " />
+            <Image src={chart} alt="" className="pt-1" />
             <Stepper steps={steps} />
-            <Image src={close} alt="" className="w-[20px]" />
+            <button onClick={closeCart}>
+              <Image src={close} alt="Close" className="w-[20px]" />
+            </button>
           </div>
         )}
         {isHamburgerOpen && !showLogin && !showSign && !showOrderSummary && (
@@ -277,7 +278,7 @@ const Sidebar = () => {
               <div className="flex justify-center p-4">
                 <button
                   onClick={handleContinueToCartAndNextStep}
-                  className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px]"
+                  className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
                 >
                   Continue to Cart
                 </button>
@@ -300,7 +301,7 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="flex justify-center">
-              <button onClick={handleSignUp} className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF]  h-[40px] w-[215px]" >
+              <button onClick={handleSignUp} className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF]  h-[40px] w-[215px] rounded-[4px]" >
                 Login
               </button>
             </div>
@@ -368,7 +369,7 @@ const Sidebar = () => {
               </div>
             </div>
             <div className="flex justify-center">
-              <button onClick={handleContinueToPayAndNextStep} className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF]  h-[40px] w-[215px]" >
+              <button onClick={handleContinueToPayAndNextStep} className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF]  h-[40px] w-[215px] rounded-[4px]" >
                 Create Account
               </button>
             </div>
@@ -434,7 +435,7 @@ const Sidebar = () => {
             <hr />
             <div className="flex justify-center p-4">
               <button
-                className="font-source-sans-pro text-[17px] font-400  text-white px-10 py-1 bg-[#0011FF] rounded-xs h-[40px] w-[215px]"
+                className="font-source-sans-pro text-[17px] font-400  text-white px-10 py-1 bg-[#0011FF] rounded-xs h-[40px] w-[215px] rounded-[4px]"
               >
                 Pay ₹ 1600.00
               </button>

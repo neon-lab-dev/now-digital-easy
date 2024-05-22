@@ -17,7 +17,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description }) => {
     };
 
     return (
-        <div className='flex justify-center z-50 p-4 my-4'>
+        <div className='flex justify-center  z-50 p-4 my-4 max-lg:my-0 '>
             <div className={`flex flex-col w-[368px] h-[200px] bg-[#F0F1FF] p-3 gap-2 rounded-xl relative overflow-hidden shadow-lg `}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}>
@@ -59,22 +59,19 @@ const Services = () => {
     ];
 
     return (
-        <div className='pt-[180px] bg-background-service'>
+        <div className='pt-[180px] max-lg:pt-[50px] bg-background-service'>
             <div className='flex justify-center'>
-                <span className='text-[55px]'>Services What We Provide For You</span>
+                <span className='text-[55px] max-lg:text-[38px] max-md:text-[24px]'>Services What We Provide For You</span>
             </div>
-            <div className='flex justify-center'>
-                <div className=' grid grid-cols-3 gap-4'>
+            <div className='flex justify-center '>
+                <div className=' grid grid-cols-3 gap-4 max-md:gap-2 max-lg:grid-cols-2 max-md:grid-cols-1'>
                     {servicesData.map((service, index) => (
                         <ServiceCard key={index} title={service.title} description={service.description} />
                     ))}
                 </div>
             </div>
-            <div className='h-[100px] bg-background-fade'>
-
-            </div>
+            <div className='h-[100px] bg-background-fade'></div>
         </div>
     );
 };
-
 export default Services;

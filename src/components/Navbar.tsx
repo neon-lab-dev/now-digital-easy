@@ -1,5 +1,5 @@
 "use client";
-import { ICONS } from "@/assets";
+import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
 import Sidebar from "./Sidebar";
@@ -33,10 +33,12 @@ const Navbar = () => {
   return (
     <nav className='relative productsDropdown bg-gradient-light flex gap-[13px]'>
       <div className="bg-white bg-opacity-50 w-[57px] h-[55px] rounded-b-lg"></div>
-      <Image src={ICONS.logo} alt="logo" className="" />
+      <Link href="/" >
+      <Image src={ICONS.logo} alt="logo" className="w-[150px] h-[50px]" />
+      </Link>
       <div className="bg-white bg-opacity-50 w-full h-[55px] rounded-b-lg flex items-center justify-between">
-        <div className="w-[90%] flex justify-center"> 
-          <div className="flex items-center gap-[42px]  ">
+        <div className="w-[90%] flex justify-center "> 
+          <div className="flex items-center gap-[42px] max-lg:hidden  ">
             <Link
               onClick={toggleProductsDropdown}
               href={""}
@@ -95,18 +97,20 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-
-        <div className="flex items-center gap-[16px] pr-16 min-w-[260px]">
-          <div className="flex items-center gap-[14px] min-w-[158px]">
+        <div className="flex items-center gap-[16px] pr-16 min-w-[260px] max-lg:pr-0">
+          <div className="flex  items-center gap-[14px] min-w-[158px] max-md:hidden ">
             <button className="text-button rounded border border-primary-400 px-3 py-[10px] shadow">
               Log In
             </button>
 
-            <button className="text-button rounded border border-primary-400 bg-primary-400 text-white px-3 py-[10px] shadow">
+            <button className="text-button rounded border border-primary-400 bg-primary-400 text-white px-3 max-lg:px-1 py-[10px] shadow">
               Sign Up
             </button>
           </div>
           <Sidebar />
+          <button className="text-button  shadow px-3 max-lg:px-0 lg:hidden max-md:ml-[200px] ">
+              <Image src={ICONS.menu} alt={""}/>
+            </button>
         </div>
       </div>
     </nav>

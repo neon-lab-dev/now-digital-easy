@@ -4,32 +4,31 @@ import Image from "next/image"
 import Marquee from "react-fast-marquee"
 const Hero = () => {
     return (
-        <div className=" bg-background-light">
-            <div className="flex justify-center items-center pt-[80px] gap-[100px] ">
-                <div className="flex flex-col ">
-                    <div className="flex flex-col text-[#000659]">
-                        <span className="text-[68px] leading-[40px]">Empower Your Team</span>
-                        <span className="text-[68px]  "> With Google Workspace </span>
+        <div className=" bg-background-light ">
+            <div className="flex justify-center max-lg:flex-col items-center pt-[80px] max-lg:gap-[80px] ">
+                <div className="flex flex-col gap-2 max-lg:gap-1 max-lg:items-center max-lg:w-[600px] max-md:w-[400px] w-[800px]">
+                    <div className="flex flex-col text-[#000659] max-lg:items-center ">
+                        <span className="text-[64px] max-lg:text-[42px] leading-[60px] max-lg:leading-[42px] max-lg:text-center max-md:leading-[30px] max-md:text-[32px]">Empower Your Team  With Google Workspace</span>
                     </div>
-                    <ul className="grid grid-cols-2 gap-4 px-3 mx-4 py-2 list-disc text-[24px]">
+                    <ul className="grid grid-cols-2 gap-6  mx-6 max-lg:mx-0 py-2 list-disc text-[24px] max-lg:text-[17px] max-md:text-[15px] text-[#151D8C]">
                         <li>Custom Business Email</li>
                         <li>30 GB of Cloud Storage</li>
                         <li>High Standard Security.</li>
                         <li>100 Meet Participants</li>
                     </ul>
                     <div className="flex items-center gap-2">
-                        <span className="text-[24px]">Starts at</span>
+                        <span className="text-[24px] text-[#151D8C]">Starts at</span>
                         <span className="text-[#0011FF] text-[36px] font-900">₹136/user/mo</span>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <span className="text-[20px]">For Additional Discount</span>
+                        <span className="text-[20px] text-[#151D8C]">For Additional Discount</span>
                         <button className="bg-[#0011FF] text-white  py-3 rounded-[50px] text-[18px] w-[207px]">Request A Call Back</button>
                     </div>
                 </div>
-                <Image src={hero} alt="hero" className="w-[600px]" />
+                <Image src={hero} alt="hero" className=" max-md:w-[350px]" />
             </div>
             <div className=" pb-[25px] flex flex-col gap-[25px]">
-                <div className="flex justify-center text-[24px] py-10">
+                <div className="flex justify-center text-[24px] max-md:text-[12px] py-10">
                     12,000+ global businesses trust us to transform & grow digitally
                 </div>
                 <Marquee pauseOnHover={true} className="flex items-center">
@@ -48,7 +47,6 @@ const Hero = () => {
             <div className='h-[100px] bg-background-fade'>
             </div>
         </div>
-
     )
 }
 

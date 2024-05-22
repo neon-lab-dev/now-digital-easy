@@ -1,12 +1,14 @@
 import { ICONS, IMAGES } from "@/assets";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import GoogleWorkspacePage from "../../googleworkspace/page";
 
 const ProductDropdown = () => {
   return (
     <div className=" bg-[#F9FAFF] rounded-b-2xl w-[100vw] box-border h-[473px] shadow-2xl">
       <div className="flex justify-between pl-[30px]">
-        
+
         <div className="flex flex-col gap-[46px] ">
           <div className="mt-[22px]">
             <h1 className="text-xl font-source-sans-pro font-700 text-dark-500">
@@ -41,33 +43,37 @@ const ProductDropdown = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-primary-400 flex justify-center items-center">
-                  <Image src={IMAGES.IoxHost} alt="IoxHost" className="" />
+              <Link href="/googleworkspace">
+                <div className="flex items-center gap-3 cursor-pointer">
+                  <div className="w-9 h-9 rounded-lg bg-primary-400 flex justify-center items-center">
+                    <Image src={IMAGES.IoxHost} alt="IoxHost" className="" />
+                  </div>
+                  <div>
+                    <p className="text-[13px] font-source-sans-pro font-700 text-dark-500 mt-1">
+                      Google Workspace
+                    </p>
+                    <p className="text-[13px] font-source-sans-pro font-600 text-dark-300 tracking-tighter">
+                      Acquire & efficiently manage your workspace.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[13px] font-source-sans-pro font-700 text-dark-500 mt-1">
-                    Google Workspace
-                  </p>
-                  <p className="text-[13px] font-source-sans-pro font-600 text-dark-300 tracking-tighter">
-                    Acquire & efficiently manage your workspace.
-                  </p>
-                </div>
-              </div>
+              </Link>
 
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-primary-400 flex justify-center items-center">
-                  <Image src={IMAGES.IoxHost} alt="IoxHost" className="" />
+              <Link href="/ndeemail">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-lg bg-primary-400 flex justify-center items-center">
+                    <Image src={IMAGES.IoxHost} alt="IoxHost" className="" />
+                  </div>
+                  <div>
+                    <p className="text-[13px] font-source-sans-pro font-700 text-dark-500 mt-1">
+                      NDE Mail
+                    </p>
+                    <p className="text-[13px] font-source-sans-pro font-600 text-dark-300 tracking-tighter">
+                      Connect & optimize your email communication.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[13px] font-source-sans-pro font-700 text-dark-500 mt-1">
-                    NDE Mail
-                  </p>
-                  <p className="text-[13px] font-source-sans-pro font-600 text-dark-300 tracking-tighter">
-                    Connect & optimize your email communication.
-                  </p>
-                </div>
-              </div>
+              </Link>
             </div>
           </div>
 
@@ -216,16 +222,17 @@ const ProductDropdown = () => {
               <p className="text-dark-400 text-[13px] font-merriweather font-400 mt-3 ">
                 Experience our product with our interactive self-guided demo
               </p>
-
               <button className=" text-primary-400 font-merriweather ctext-[13px] font-400 transition duration-300 transform hover:-translate-y-0.5 flex items-center mt-[7px]">
-                Live demo
-                <Image src={ICONS.arrowRight2} alt="arrowRight2" className="" />
+                <div className="flex items-center gap-1">
+                  <span>Live demo</span>
+                  <Image src={ICONS.arrowRight2} alt="arrowRight2" className="" />
+                </div>
               </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
