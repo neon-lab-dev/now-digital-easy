@@ -201,9 +201,9 @@ const Features = () => {
                   <hr className=" bg-[#64646480] h-[2px]" />
                   <ul>
                     {similarDomains.map((domain, index) => (
-                      <div>
+                      <div  key={index}>
                         <div className="flex justify-between items-center gap-10 my-4">
-                          <li className="" key={index}>{domain}</li>
+                          <li className="" >{domain}</li>
                           <div className="flex items-center gap-5">
                             <span>1 year</span>
                             <span>₹980.00</span>
