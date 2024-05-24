@@ -8,6 +8,7 @@ import vector from "@/assets/images/Vector.svg";
 import GooglePartner from "@/assets/images/image 63.svg";
 import GoogleReview from "@/assets/images/image 64.svg";
 import facebookReview from "@/assets/images/Mask group.svg";
+import india from "@/assets/icons/India.svg"
 import Link from "next/link";
 
 const Footer = () => {
@@ -78,6 +79,7 @@ const Footer = () => {
         <div className="flex mt-[60px] py-2 items-center gap-16 max-md:gap-6">
           <Image src={logo} alt={""}  className="w-[80px]"/>
           <div className="flex gap-3 items-center">
+          <Image src={india} alt={""} />
             <div className="flex gap-1">
               <span className="font-source-sans-pro text-[13px] text-[#151D8C] font-600">- English </span>
               <Image src={vector} alt={""} />

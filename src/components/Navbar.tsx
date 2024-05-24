@@ -31,8 +31,8 @@ const Navbar = () => {
   }, [isProductsDropdownOpen]);
 
   return (
-    <nav className='relative productsDropdown bg-gradient-light flex gap-[13px]'>
-      <div className="bg-white bg-opacity-50 w-[57px] h-[55px] rounded-b-lg"></div>
+    <nav className='relative productsDropdown bg-gradient-light flex gap-[13px] font-merriweather'>
+      <div className="bg-white bg-opacity-50 w-[80px] h-[55px] rounded-b-lg"></div>
       <Link href="/" >
       <Image src={ICONS.logo} alt="logo" className="w-[150px] h-[50px]" />
       </Link>
@@ -99,11 +99,11 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-[16px] pr-16 min-w-[260px] max-lg:pr-0">
           <div className="flex  items-center gap-[14px] min-w-[158px] max-md:hidden ">
-            <button className="text-button rounded border border-primary-400 px-3 py-[10px] shadow">
+            <button className="text-button rounded border border-primary-400 px-2 py-[10px] shadow">
               Log In
             </button>
 
-            <button className="text-button rounded border border-primary-400 bg-primary-400 text-white px-3 max-lg:px-1 py-[10px] shadow">
+            <button className="text-button rounded border border-primary-400 bg-primary-400 text-white px-2 max-lg:px-1 py-[10px] shadow">
               Sign Up
             </button>
           </div>

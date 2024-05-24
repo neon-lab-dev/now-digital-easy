@@ -17,6 +17,7 @@ import form6 from "@/assets/images/image 94.svg"
 import Image from "next/image"
 import vector from "@/assets/images/Vector.svg";
 import { SetStateAction, useState } from "react"
+import axios from "axios";
 
 
 const Features = () => {
@@ -44,17 +45,30 @@ const Features = () => {
     setErrorMessage(""); // Reset error message when input changes
   };
 
-  const handleAssignDomain = () => {
-    // Simulating data to check against
-    const existingDomain = "example.com";
-    if (inputValue.toLowerCase() === existingDomain.toLowerCase()) {
-      setErrorMessage("Domain already exists. Please choose a different one."); // Set error message if input matches existing domain
-    } else {
-      setErrorMessage(""); // Clear error message if input doesn't match
-      // Proceed with other actions if needed
+  const handleAssignDomain = async () => {
+    try {
+      const response = await axios.get(`https://liveserver.nowdigitaleasy.com:5000/product/domain_availability`, {
+        params: {
+          country_code: 'IN',
+          domain: inputValue
+        }
+      });
+      const data = response.data;
+      if (data.available) {
+        // Domain is available
+        setErrorMessage(""); // Clear any previous error messages
+        // Proceed with other actions if needed
+      } else {
+        // Domain is not available
+        setErrorMessage("Domain is already taken. Please choose a different one.");
+        // You can also access similar domains from data.similar_domains if needed
+        // setSimilarDomains(data.similar_domains);
+      }
+    } catch (error) {
+      console.error("Error checking domain availability:", error);
+      // Handle error appropriately
     }
   };
-
   const handleCheckAvailability = () => {
     // Simulate data for existing and similar domains
     const existingDomains = ["example.com", "example.net", "example.org"];
@@ -65,7 +79,7 @@ const Features = () => {
     if (isDomainAvailable) {
       setErrorMessage1(""); // Clear any previous error messages
       // Additional logic if the domain is available
-      console.log("Domain is available");
+      console.log("Domain is ");
     } else {
       setErrorMessage1("Domain is already taken. Please choose a different one.");
       // Update state to store similar domains
@@ -349,17 +363,17 @@ const Features = () => {
   return (
     <div className="">
       <div className="flex justify-center pt-[120px]">
-        <span className="text-[61px] max-lg:text-[30px] max-lg:leading-[30px] max-md:text-[28px]  max-md:text-center text-[#000659]">Find the right plan for your business.</span>
+        <span className="text-[61px] max-lg:text-[30px] font-900 font-source-sans-pro max-lg:leading-[30px] max-md:text-[28px]  max-md:text-center text-[#000659]">Find the right plan for your business.</span>
       </div>
-      <div className="flex justify-center pt-[10px]">
-        <span className="text-[20px] max-md:text-center max-md:text-[16px]">Choose the Google Workspace edition that best fits your business.</span>
+      <div className="flex justify-center pt-[15px]">
+        <span className="text-[15px] max-md:text-center font-merriweather max-md:text-[16px]">Choose the Google Workspace edition that best fits your business.</span>
       </div>
       <div className="max-md:w-[400px] max-md:mx-3">
-        <div className="flex justify-center py-[120px] overflow-hidden ">
+        <div className="flex justify-center py-[50px] overflow-hidden ">
           <table className="table-fixed  w-[1252px]">
             <thead>
               <tr className="h-[200px]  border border-[#0437CD] border-b-[#AAD0FF] ">
-                <th className="w-[91px] bg-[#F2F3FF] shadow-right"></th>
+                <th className="w-[91px] bg-[#F2F3FF] "></th>
                 <th className="w-[440px] max-lg:w-[280px] max-lg:text-[18px]  max-md:w-0 "><span className=" max-md:hidden">Google Workspace Features</span></th>
                 <th className="bg-[#F2F3FF]" >
                   <div className="flex flex-col p-2 gap-3">
@@ -393,7 +407,7 @@ const Features = () => {
             <tbody>
               {servicesData.map((service, index) => (
                 <tr key={index} className="h-[80px]  border border-[#0437CD] border-t-[#AAD0FF] border-b-[#AAD0FF] ">
-                  <th className="w-[91px] bg-[#F2F3FF] shadow-right ">
+                  <th className="w-[91px] bg-[#F2F3FF] ">
                     <div className="flex justify-center">
                       <Image src={service.image} alt="email" />
                     </div>
@@ -416,5 +430,4 @@ const Features = () => {
     </div>
   )
 }
-
 export default Features

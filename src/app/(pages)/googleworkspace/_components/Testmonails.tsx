@@ -103,8 +103,8 @@ const Testimonials: React.FC = () => {
             <div className=" pt-[100px] max-lg:pt-[50px] flex">
                 <div className='flex justify-center'>
                     <div className="flex flex-col gap-4 text-start pl-[130px] max-lg:pl-[60px] max-md:pl-[20px]">
-                        <span className="subheading1 text-dark-200 max-md:text-[20px]">People just love working with us!</span>
-                        <span className="heading4 max-lg:text-[40px] max-md:text-[24px] max-md:leading-[24px]">Digitalized Business, Happy Customers, That’s Impact</span>
+                        <span className="subheading1 text-[#646464] max-md:text-[20px]">People just love working with us!</span>
+                        <span className="heading4 max-lg:text-[40px] max-md:text-[24px] max-md:leading-[24px] text-[#000659]">Digitalized Business, Happy Customers, That’s Impact</span>
                     </div>
                 </div>
             </div>
