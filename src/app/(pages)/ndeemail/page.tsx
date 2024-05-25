@@ -1,23 +1,21 @@
-"use client"
-import FAQs from '@/components/FAQs'
-import React from 'react'
-import MalionMoblie from './_components/MalionMoblie'
-import Section from '@/app/(pages)/ndeemail/_components/Section'
-import Hero from '@/app/(pages)/ndeemail/_components/Hero'
-import Stepper from '@/components/Stepper'
-import { steps } from '@/components/Sidebar'
-import Features from '../ndeemail/_components/Features'
+"use client";
+import FAQs from "@/components/FAQs";
+import React from "react";
+import MalionMoblie from "./_components/MalionMoblie";
+import Section from "@/app/(pages)/ndeemail/_components/Section";
+import Hero from "@/app/(pages)/ndeemail/_components/Hero";
+import Features from "../ndeemail/_components/Features";
 
 const page = () => {
   return (
     <div>
-      <Hero/>
+      <Hero />
       <Section />
-      <Features/>
-      <MalionMoblie/>
+      <Features />
+      <MalionMoblie />
       <FAQs />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

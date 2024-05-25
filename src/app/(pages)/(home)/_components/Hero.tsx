@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <div className='bg-gradient-light'>
       <div className="flex  gap-[31px] pl-[72px] max-md:pl-8 pt-[94px] max-lg:flex-col">
-        <div className="w-[600px] max-md:w-[350px] ">
+        <div className="w-[700px] max-md:w-[350px] ">
           {/* Heading */}
           <div className="flex max-lg:justify-center">
             <h1 className="heading1 tracking-[-2px] max-lg:text-[42px] max-md:text-[26px]">

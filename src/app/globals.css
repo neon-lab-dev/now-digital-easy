@@ -1,20 +1,54 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 
-@font-face {
+/* @font-face {
   font-family: Source Sans Pro;
   src: url("/fonts/SourceSansPro-Black.otf") format("opentype");
 }
 @font-face {
   font-family: Source Sans lite;
   src: url("/fonts/SourceSansPro-Regular.otf") format("opentype");
-}
+} */
 
-/* @font-face {
+@font-face {
   font-family:'Source Sans Pro';
   src: url('../assets/fonts/SourceSansPro-ExtraLight.otf') format('otf');
-  font-weight: 100;
+  font-weight: 400;
   font-style: normal;
-} */
+}
+
+@font-face {
+  font-family:'Source Sans Pro';
+  src: url('../assets/fonts/SourceSansPro-Light.otf') format('otf');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family:'Source Sans Pro';
+  src: url('../assets/fonts/SourceSansPro-Regular.otf') format('otf');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family:'Source Sans Pro';
+  src: url('../assets/fonts/SourceSansPro-Semibold.otf') format('otf');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family:'Source Sans Pro';
+  src: url('../assets/fonts/SourceSansPro-Bold.otf') format('otf');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  src: url('../assets//fonts/Merriweather-Regular.ttf') format('truetype');
+  /* Add additional font weights and styles if needed */
+}
 
 /* Define other weights if needed */
 
@@ -24,9 +58,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply font-source-sans-pro;
-}
+
 
 .nav-link {
   @apply text-[15px] font-400  leading-[22px] ;
