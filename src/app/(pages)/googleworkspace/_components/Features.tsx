@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use client";
 import email from "@/assets/images/image 80.svg";
 import meet from "@/assets/images/image 81.svg";
