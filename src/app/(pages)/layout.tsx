@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -26,7 +25,7 @@ export default function RootLayout({
             <ToastContainer />
             <Navbar />
             <main>{children}</main>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </body>
       </html>

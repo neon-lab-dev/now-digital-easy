@@ -1,8 +1,8 @@
 import { ICONS, IMAGES } from "@/assets";
+import { PRODUCT_DROPDOWN_DATA } from "@/assets/data/navlinks";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { PRODUCT_DROPDOWN_DATA } from "./Navbar";
 
 type Props = {
   closeDropdown: () => void;
@@ -12,7 +12,7 @@ const ProductDropdown = ({ closeDropdown }: Props) => {
   return (
     <div
       onClick={() => closeDropdown()}
-      className=" bg-[#F9FAFF] rounded-b-2xl w-[100vw] box-border h-[473px] shadow-2xl"
+      className=" bg-[#F9FAFF] rounded-b-2xl w-[100vw] box-border h-[473px] shadow-2xl font-600"
     >
       <div className="flex justify-between pl-[30px]">
         <div className="flex flex-col gap-[46px] ">
