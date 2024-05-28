@@ -6,6 +6,9 @@ import { ReactQueryClientProvider } from "@/util/Providers";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for react-toastify
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 export const metadata: Metadata = {
   title: "Now Digital Easy",
   description:
@@ -24,7 +27,7 @@ export default function RootLayout({
           <div className="flex flex-col">
             <ToastContainer />
             <Navbar />
-            <main>{children}</main>
+            <main className="pb-32">{children}</main>
             {/* <Footer /> */}
           </div>
         </body>
