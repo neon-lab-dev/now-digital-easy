@@ -33,7 +33,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 }) => {
     return (
         <div
-            className={`relative h-[299px] max-md:h-[250px] max-md:w-[380px] max-lg:w-[652px] ${testimonial.width ? 'w-[752px] ': 'w-[500px]'} ${isHovered ? 'bg-[#C9CDFF]' : 'bg-background-card'}`}
+            className={`relative h-[299px] max-md:h-[250px] max-md:w-[380px] max-xl:w-[652px] ${testimonial.width ? 'w-[752px] ': 'w-[500px]'} ${isHovered ? 'bg-[#C9CDFF]' : 'bg-background-card'}`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
@@ -52,7 +52,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
                     className=' max-md:w-[15px]'
                 />
             </div>
-            <div className={`pl-[23px] py-4 max-md:py-1 h-[140px] ${testimonial.width?'w-[480px]':'w-[300px]'} max-md:w-[200px] max-lg:w-[500px] max-md:text-[12px]`}>
+            <div className={`pl-[23px] py-4 max-md:py-1 h-[140px] ${testimonial.width?'w-[480px]':'w-[300px]'} max-md:w-[200px] max-xl:w-[500px] max-md:text-[12px]`}>
                 <span className="text-base-bold max-md:text-[10px] max-md:leading-[5px]">
                     {`“${testimonial.quote}”`}
                 </span>
@@ -108,7 +108,7 @@ const Testimonials: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-wrap justify-center gap-3 mt-10">
+            <div className="flex flex-wrap justify-center gap-3 mt-10 max-w-[1350px] mx-auto">
                 {testimonials.map((testimonial, index) => (
                     <TestimonialCard
                         key={index}
