@@ -136,5 +136,8 @@
 }
 
 .wrapper {
-  @apply px-4;
+  @apply px-[20px] md:px-[40px] lg:px-[72px];
+}
+.max-width {
+  @apply xl:max-w-7xl xl:mx-auto;
 }

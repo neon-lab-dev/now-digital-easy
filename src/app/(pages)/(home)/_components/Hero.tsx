@@ -2,54 +2,75 @@ import Image from "next/image";
 import React from "react";
 import arrowRight from "../../../../assets/icons/arrow-right.svg";
 import Marquee from "react-fast-marquee";
-import { ICONS, IMAGES } from "@/assets";
+import { IMAGES } from "@/assets";
+import { twMerge } from "tailwind-merge";
+import Button from "@/components/Buttton";
 
 const Hero = () => {
   return (
-    <div className='bg-gradient-light'>
-      <div className="flex  gap-[31px] pl-[72px] max-md:pl-8 pt-[94px] max-lg:flex-col">
-        <div className="w-[700px] max-md:w-[350px] ">
+    <div className="bg-gradient-light wrapper py-8 flex flex-col gap-12 sm:gap-16 items-center justify-center">
+      <div className="flex flex-col gap-14 lg:gap-8 max-w-[550px] lg:max-w-none mx-auto sm:gap-24 lg:justify-between lg:flex-row w-full pt-12 lg:pt-24 xl:max-w-7xl">
+        <div className="flex flex-col lg:mt-auto gap-4 sm:gap-6 items-center lg:items-start justify-center lg:justify-start max-w-[700px]">
           {/* Heading */}
-          <div className="flex max-lg:justify-center">
-            <h1 className="heading1 tracking-[-2px] max-lg:text-[42px] max-md:text-[26px]">
-              Hey Business Owners<br /> Go Digital Effortlessly
-            </h1>
-          </div>
-          <p className="text-base-bold mt-[21px] max-md:text-[15px] max-md:text-center">
+          <h1 className="heading1 tracking-[-2px] max-2xl:text-[50px] max-lg:text-[42px] max-md:text-[26px]">
+            Hey Business Owners
+            <br /> Go Digital Effortlessly
+          </h1>
+          <p className="text-base-bold max-md:text-[15px] text-center lg:text-left">
             Stop being static! Scale your business by going digital, the easy
             way, with NDE. We’re technology-enabled and structured for speed and
             efficiency to meet the ever-changing needs of today’s business.
           </p>
 
-          <div className="flex max-lg:justify-center max-lg:py-6">
-            <button className="mt-[29px] w-[185px] px-6 py-3  bg-primary-400 flex items-center gap-2 text-white rounded-[50px] cta">
-              Get Started
-              <Image
-                src={arrowRight}
-                alt="arrowRight"
-                className="w-[10px] h-[16px]"
-              />
-            </button>
-          </div>
+          <Button
+            variant="cta"
+            className="w-[185px] mt-4 sm:mt-8 cta flex items-center justify-center"
+          >
+            Get Started
+            <Image
+              src={arrowRight}
+              alt="arrowRight"
+              className="w-[10px] h-[16px]"
+            />
+          </Button>
         </div>
 
         {/* video */}
-        <div className="w-[55%] max-lg:w-[600px] max-md:mr-0  mr-16 aspect-[550/332] max-md:w-[370px] rounded-[34px] border-[15px] max-md:border-[10px] border-dark-500"></div>
+        <div className="aspect-[1.6/1] w-full lg:h-[280px] xl:h-[344px] lg:w-auto rounded-[34px] border-8 md:border-[14px] max-md:border-[10px] border-dark-500"></div>
       </div>
-      <div className="mt-[88px] pb-[25px] flex flex-col gap-[25px] max-md:w-full">
+
+      {/* clients */}
+      <div className="flex flex-col gap-5 sm:gap-7 w-full max-width">
         <h2 className="text-base-bold text-center max-md:text-[13px]">
           12,000+ global businesses trust us to transform & grow digitally
         </h2>
-        <Marquee pauseOnHover={true} className="flex items-center">
-          <Image src={IMAGES.img1} alt="logo1" className="mr-[62px]" />
-          <Image src={IMAGES.img2} alt="logo1" className="mr-[62px]" />
-          <Image src={IMAGES.img3} alt="logo1" className="mr-[62px]" />
-          <Image src={IMAGES.img4} alt="logo1" className="mr-[62px]" />
-          <Image src={IMAGES.img5} alt="logo1" className="mr-[62px]" />
-          <Image src={IMAGES.img6} alt="logo1" className="mr-[62px]" />
-          <Image src={IMAGES.img7} alt="logo1" className="mr-[62px]" />
-          <Image src={IMAGES.img8} alt="logo1" className="mr-[62px]" />
-          <Image src={IMAGES.img4} alt="logo1" className="mr-[62px]" />
+        <Marquee
+          pauseOnHover={true}
+          className="flex items-center justify-center"
+        >
+          {[
+            IMAGES.img1,
+            IMAGES.img2,
+            IMAGES.img3,
+            IMAGES.img4,
+            IMAGES.img5,
+            IMAGES.img6,
+            IMAGES.img7,
+            IMAGES.img8,
+          ].map((img, index) => (
+            <Image
+              key={index}
+              src={img}
+              alt="logo"
+              className={twMerge(
+                "object-contain object-center max-h-[60px] max-w-[60px]",
+                index !== 0 ? "ml-14" : ""
+              )}
+              height={100}
+              width={100}
+              quality={100}
+            />
+          ))}
         </Marquee>
       </div>
     </div>

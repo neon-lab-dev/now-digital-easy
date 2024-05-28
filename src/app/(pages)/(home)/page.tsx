@@ -8,8 +8,8 @@ import StartNow from "./_components/StartNow";
 export default function Home() {
   return (
     <>
-      {/* <Hero />
-      <BuildYourBusiness />
+      <Hero />
+      {/* <BuildYourBusiness />
       <Gateway />
       <Testmonials  />
       <BusniessHire/>
