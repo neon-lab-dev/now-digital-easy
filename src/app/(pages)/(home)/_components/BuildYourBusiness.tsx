@@ -10,6 +10,7 @@ const BuildYourBusiness = () => {
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
   const cardContainerRef = useRef<HTMLDivElement>(null);
 
+  // dynamically change the title
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTitleIndex((prevIndex) => (prevIndex + 1) % titles.length);
@@ -18,6 +19,7 @@ const BuildYourBusiness = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // scroll the card container
   const handleScrollCard = (dir: "left" | "right") => {
     const withToScroll = (() => {
       const windowWidth = window.innerWidth;
@@ -55,7 +57,7 @@ const BuildYourBusiness = () => {
     <div className="flex flex-col items-center justify-center gap-[50px] mt-12 wrapper md:mt-24 max-width">
       <h1 className="heading2 capitalize text-center w-[800px] max-lg:w-[700px] max-md:w-[350px] max-lg:text-[48px] max-md:text-[30px] max-md:leading-[30px]">
         <div className=" w-[237px] max-md:w-[110px]  text-primary-400 inline-flex justify-end ">
-          <div className="text-end max-md:text-[30px] border-b-4 border-dashed border-primary-400 w-fit ">
+          <div className="relative bottom-1 max-md:text-[30px] mr-1 border-b-[3px] border-dashed border-primary-400 w-fit leading-[1] font-source-sans-pro">
             {titles[currentTitleIndex]}
           </div>
         </div>{" "}
@@ -78,6 +80,7 @@ const BuildYourBusiness = () => {
         </div>
       </div>
 
+      {/* scroll cards btn */}
       <div className="flex items-center gap-[13px] justify-center">
         <button onClick={() => handleScrollCard("left")} className="p-1">
           <Image
@@ -86,23 +89,6 @@ const BuildYourBusiness = () => {
             className="w-[12px] h-[12px]"
           />
         </button>
-
-        {/* <div className="flex items-center gap-2">
-          {[...Array(Math.ceil(businessCardDetails.length / 3)).keys()].map(
-            (index) => (
-              <div
-                key={index}
-                className={`w-4 h-4 rounded-full ${
-                  currentSlider === index * 3
-                    ? "bg-primary-100"
-                    : "bg-dark-400 opacity-40"
-                }`}
-                onClick={() => setCurrentSlider(index * 3)}
-                style={{ cursor: "pointer" }}
-              ></div>
-            )
-          )}
-        </div> */}
 
         <button className="p-1" onClick={() => handleScrollCard("right")}>
           <Image

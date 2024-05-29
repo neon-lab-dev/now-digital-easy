@@ -106,7 +106,7 @@
 }
 
 .subheading3 {
-  @apply text-subheading3 font-900 leading-subheading3 tracking-1;
+  @apply text-[20px] sm:text-base xl:text-[24px] font-900 leading-[17px] tracking-1;
 }
 
 .text-s {
@@ -126,11 +126,11 @@
 }
 
 .card-text-body {
-  @apply font-merriweather text-card-text-body font-400 leading-card-text-body;
+  @apply font-merriweather text-[13x] font-400 leading-card-text-body;
 }
 
 .card-text-cta {
-  @apply text-card-text-cta font-900 leading-card-text-cta;
+  @apply text-base font-900 leading-card-text-cta;
 }
 
 .banner-cta {
