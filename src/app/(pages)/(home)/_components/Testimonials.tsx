@@ -1,5 +1,4 @@
 import { TESTIMONIALS } from "@/assets/data/testimonials";
-import { useState } from "react";
 import TestimonialCard from "./TestimonialsCard";
 
 const Testimonials: React.FC = () => {
