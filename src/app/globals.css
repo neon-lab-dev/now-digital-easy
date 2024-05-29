@@ -72,7 +72,7 @@
 }
 
 .heading2 {
-  @apply text-heading2 font-900 leading-heading2 tracking-2;
+  @apply text-heading2 font-900 tracking-2;
 }
 
 .heading4 {
