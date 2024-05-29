@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <Hero />
       <BuildYourBusiness />
-      {/* <Gateway /> */}
+      <Gateway />
       {/* <Testimonials /> */}
       {/* <BusinessHire /> */}
       {/* <StartNow /> */}
