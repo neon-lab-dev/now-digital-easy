@@ -12,7 +12,7 @@ export default function Home() {
       <BuildYourBusiness />
       <Gateway />
       <Testimonials />
-      {/* <BusinessHire /> */}
+      <BusinessHire />
       {/* <StartNow /> */}
     </>
   );

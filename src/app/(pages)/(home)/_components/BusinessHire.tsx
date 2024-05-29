@@ -42,18 +42,18 @@ const BusinessHire = () => {
     <div className="flex flex-col gap-11 pt-[120px] max-width wrapper">
       <div className="flex justify-center">
         <div className="w-[75%] text-center flex flex-col gap-10 text-[#363B4C] items-center">
-          <span className="heading2 max-lg:text-[36px] max-lg:leading-[30px]">
+          <span className="text-[24px] md:text-[36px] xl:text-[42px] max-lg:text-[40px] max-md:text-[24px] font-700 leading-tight">
             Businesses hire us because of the results we provide.
           </span>
-          <span className="text-s flex items-center justify-center w-[650px] max-lg:w-[550px] max-md:w-[350px] max-lg:text-[14px] ">
+          <span className="text-s flex items-center justify-center w-[650px] max-lg:w-[550px] max-md:w-[350px] max-lg:text-[14px] md:!text-[18px]">
             We transform businesses wholly, across all the digital touch-points
             with targeted, highly relevant and personalized experiences.
           </span>
         </div>
       </div>
-      <div className="flex max-lg:flex-col justify-center py-10 gap-4 max-lg:mx-8">
-        <div className="h-[556px] w-[850px] max-lg:w-[712px] max-md:w-[350px] max-md:h-[300px] rounded-[60px] bg-gradient-gif flex-grow"></div>
-        <div className="flex flex-col gap-6 w-full xl:max-w-[385px]">
+      <div className="flex max-lg:flex-col justify-center py-10 gap-4 md:gap-12">
+        <div className="h-[274px] w-full md:h-[525px] border-2 rounded-3xl lg:h-auto bg-gradient-gif flex-grow "></div>
+        <div className="flex flex-col gap-6 w-full lg:max-w-[385px]">
           {BUTTONS.map((button, index) => (
             <button
               key={index}
