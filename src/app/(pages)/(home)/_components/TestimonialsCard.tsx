@@ -16,7 +16,7 @@ const TestimonialCard = (props: Props) => {
   return (
     <div
       className={twMerge(
-        "relative w-full flex flex-col group h-[156px] sm:h-[180px] md:h-[250px] hover:bg-[#C9CDFF] p-3 md:p-8 overflow-hidden bg-gradient-card",
+        "relative w-full flex flex-col group h-[156px] sm:h-[180px] md:h-[250px] hover:bg-[#C9CDFF] p-3 xl:p-12 md:p-8 overflow-hidden bg-gradient-card",
         width.card
       )}
     >

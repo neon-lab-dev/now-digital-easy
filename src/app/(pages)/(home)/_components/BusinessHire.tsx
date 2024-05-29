@@ -41,7 +41,7 @@ const BusinessHire = () => {
   return (
     <div className="flex flex-col gap-11 pt-[120px] max-width wrapper">
       <div className="flex justify-center">
-        <div className="w-[75%] text-center flex flex-col gap-10 text-[#363B4C] items-center">
+        <div className="w-[75%] text-center flex flex-col gap-5 md:gap-9 text-[#363B4C] items-center">
           <span className="text-[24px] md:text-[36px] xl:text-[42px] max-lg:text-[40px] max-md:text-[24px] font-700 leading-tight">
             Businesses hire us because of the results we provide.
           </span>
@@ -57,7 +57,7 @@ const BusinessHire = () => {
           {BUTTONS.map((button, index) => (
             <button
               key={index}
-              className={`rounded-xl flex items-center max-lg:justify-center gap-3 px-3 w-full h-[92px] border-[3px] bg-[#F8F9FA]  ${
+              className={`rounded-xl flex items-center !text-[20px] md:!text-[24px] max-lg:justify-center gap-3 px-3 w-full h-[92px] border-[3px] bg-[#F8F9FA]  ${
                 activeButton === button.label
                   ? "border-[#1224F1] shadow-lg"
                   : "border-none"
