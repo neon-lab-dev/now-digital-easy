@@ -118,16 +118,15 @@ const FOOTER_LINKS = [
 const Footer = () => {
   const [activeLink, setActiveLink] = useState<number | null>(null);
   return (
-    <footer className="relative mt-[180px]">
+    <footer className="relative mt-[100px] max-h-[500px]">
       <Image
-        className="absolute inset-0 w-full"
-        style={{ backgroundSize: "cover", backgroundRepeat: "no-repeat" }}
+        className="absolute inset-0 w-full h-full object-contain lg:object-cover z-0 object-top"
         src={footer}
         alt={"footer"}
       />
-      <div className="relative z-10 px-[130px] max-md:px-[80px] max-lg:px-[100px] mt-[150px] max-lg:mt-[100px] bg-gradient-footer max-md:mt-10">
+      <div className="relative z-10 wrapper mt-[150px] max-lg:mt-[100px] 3xl:mt-[200px] bg-gradient-footer max-md:mt-10">
         <div className="flex max-lg:flex-col justify-between max-lg:gap-10">
-          <div className="flex flex-col md:flex-row mt-12 md:mt-0 gap-[100px] max-lg:gap-10 max-md:gap-[40px]">
+          <div className="flex flex-col md:flex-row mt-12 md:mt-0 gap-4">
             {FOOTER_LINKS.map((footerLink, i) => (
               <div key={i}>
                 <div className="flex justify-between items-center gap-12">
@@ -147,14 +146,15 @@ const Footer = () => {
                     />
                   </button>
                 </div>
-                <ul className="flex md:hidden flex-col gap-3 py-2 text-[13px] text-[#151D8C] footer-links ">
-                  {activeLink === i &&
-                    footerLink.links.map((link) => (
-                      <li key={link.label}>
+                {activeLink === i && (
+                  <ul className="flex ml-4 md:hidden flex-col gap-2 py-4 text-[14px] text-[#151D8C] footer-links ">
+                    {footerLink.links.map((link) => (
+                      <li key={link.label} className="">
                         <Link href={link.href}>{link.label}</Link>
                       </li>
                     ))}
-                </ul>
+                  </ul>
+                )}
                 <ul className="md:flex hidden flex-col gap-3 py-2 text-[13px] text-[#151D8C] footer-links ">
                   {footerLink.links.map((link) => (
                     <li key={link.label}>

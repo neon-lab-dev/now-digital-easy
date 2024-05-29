@@ -31,8 +31,8 @@ export default function RootLayout({
           <div className="flex flex-col">
             <ToastContainer />
             <Navbar />
-            <main className="pb-32">{children}</main>
-            {/* <Footer /> */}
+            <main className="">{children}</main>
+            <Footer />
           </div>
         </body>
       </html>
