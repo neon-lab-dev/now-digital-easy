@@ -32,6 +32,9 @@ const config: Config = {
           100: "#00F0FF",
         },
       },
+      screens: {
+        "3xl": "1610px",
+      },
       backgroundImage: (theme) => ({
         "gradient-light":
           "linear-gradient(90.37deg, #D2D5FD 0.32%, #D8DAF8 22.3%, #EFE8E7 49.57%, #FEF3E2 99.68%)",
@@ -80,6 +83,7 @@ const config: Config = {
         500: "500",
         600: "600",
         700: "700",
+        800: "800",
         900: "900",
       },
       fontSize: {

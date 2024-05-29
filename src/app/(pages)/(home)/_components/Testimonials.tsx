@@ -3,20 +3,20 @@ import TestimonialCard from "./TestimonialsCard";
 
 const Testimonials: React.FC = () => {
   return (
-    <div className="flex flex-col gap-10 wrapper max-w-[1350px] m-auto">
+    <div className="flex flex-col gap-10 wrapper max-w-[1400px] m-auto 2xl:min-w-[1264px]">
       <div className="lg:pt-[100px] pt-[50px] flex">
         <div className="flex justify-center">
-          <div className="flex flex-col gap-4 text-start">
-            <span className="subheading1 text-dark-200 max-md:text-[20px]">
+          <div className="flex flex-col gap-1.5 sm:gap-2 md:gap-4 text-start">
+            <span className="text-dark-200 text-lg md:text-[28px] xl:text-2xl font-700">
               People just love working with us!
             </span>
-            <span className="heading4 max-lg:text-[40px] max-md:text-[24px]">
+            <span className="text-[24px] md:text-[36px] xl:text-[42px] max-lg:text-[40px] max-md:text-[24px] font-700">
               Digitalized Business, Happy Customers, That’s Impact
             </span>
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-center gap-3 xl:min-w-[1265px] mx-auto">
+      <div className="flex flex-wrap justify-center gap-3 max-w-[420px] md:max-w-[700px] 2xl:max-w-none mx-auto 2xl:min-w-[1264px]">
         {TESTIMONIALS.map((testimonial, index) => (
           <TestimonialCard key={index} {...testimonial} index={index} />
         ))}
