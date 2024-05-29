@@ -43,24 +43,19 @@ const config: Config = {
           "linear-gradient(275.8deg,  #CFD2FF  1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #FEF3E3 100%)",
         "background-light":
           "linear-gradient(270.23deg, rgba(186, 215, 201, 0.9) 0.38%, rgba(254, 243, 227, 0.9) 49.19%, rgba(211, 214, 253, 0.9) 99.99%)",
-        "background-card":
-          "linear-gradient(180deg, #FEF3E3 0%, #CFD2FF 100%);",
+        "background-card": "linear-gradient(180deg, #FEF3E3 0%, #CFD2FF 100%);",
         "background-FAQ":
           "linear-gradient(237.45deg, #FEF3E3 1.14%, #F3F3FF 47.1%, #E4E6FF 98.67%)",
         "background-Discover":
           "linear-gradient(90deg, #F2F3FF 0.01%, #DEEBFC 100%)",
         "background-fade":
           "linear-gradient(180deg, rgba(225, 225, 248, 0) 0%, #FFFFFF 100%)",
-        "background-fade1":
-          "linear-gradient(180deg, #FEF3E4 0%, #FFFFFF 100%)",
+        "background-fade1": "linear-gradient(180deg, #FEF3E4 0%, #FFFFFF 100%)",
         "background-service":
           "linear-gradient(180deg, #FEF3E3 0%, #CFD2FF 100%)",
-        "bg-background":
-          "linear-gradient(180deg, #EEFAFF 0%, #F5F5F5 100%)",
-        "fg-background":
-          "linear-gradient(180deg, #F5F5F5 0%, #EEFAFF 100%)",
-        "gg-background":
-          "linear-gradient(180deg, #F5F5F5 0%, #EAEBFF 100%)",
+        "bg-background": "linear-gradient(180deg, #EEFAFF 0%, #F5F5F5 100%)",
+        "fg-background": "linear-gradient(180deg, #F5F5F5 0%, #EEFAFF 100%)",
+        "gg-background": "linear-gradient(180deg, #F5F5F5 0%, #EAEBFF 100%)",
         "background-Mail":
           "linear-gradient(0.3deg, #CBEFFF -3.29%, #D3D6FD 99.74%)",
         "background-nde":
@@ -71,11 +66,10 @@ const config: Config = {
           "linear-gradient(275.8deg, #FEF3E3 1.51%, #F3F3FF 28.1%, #E4E6FF 55.68%, #CFD2FF 100%)",
         "gradient-footer":
           "linear-gradient(0deg, #C9CCFF 0%, #A2A9FF 51.5%, #A2A9FF 100%)",
-        "gradient-gayway":
+        "gradient-gateway":
           "linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 4.5%, #F5F5F5 93.5%, #FFFFFF 100%)",
         "gradient-gif":
-          "radial-gradient(50% 65.66% at 50% 48.3%, #E5E7FF 0%, #FFFFFF 100%)" /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
-
+          "radial-gradient(50% 65.66% at 50% 48.3%, #E5E7FF 0%, #FFFFFF 100%)" /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
       }),
       fontFamily: {
         merriweather: ["Merriweather", "serif"],
@@ -135,6 +129,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [  ]
+  plugins: [],
 };
 export default config;

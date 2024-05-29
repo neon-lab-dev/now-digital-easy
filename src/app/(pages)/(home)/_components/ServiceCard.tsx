@@ -10,7 +10,7 @@ type Props = {
 
 const ServiceCard = ({ details, subTitle, title }: Props) => {
   return (
-    <div className="bg-gradient-card max-w-[85%] w-[350px] max-md:w-[330px]  max-md:h-[420px] h-[420px] max-lg:h-[350px] max-lg:w-[226px] rounded-2xl">
+    <div className="bg-gradient-card snap-center max-w-[85%] min-w-[300px] sm:min-w-[350px] max-md:w-[330px]  max-md:h-[420px] h-[420px] max-lg:h-[350px] max-lg:w-[226px] rounded-2xl">
       <div className="relative">
         <Image
           src={IMAGES.cardBg}
@@ -36,7 +36,7 @@ const ServiceCard = ({ details, subTitle, title }: Props) => {
       </div>
       <div className="px-6 pb-[30px]">
         <h1 className="subheading3 mt-[12px] max-w-[190px] max-md:text-[24px] max-lg:text-[22px] max-lg:leading-[22px]">
-          {subTitle}
+          {subTitle.length > 25 ? subTitle.slice(0, 22) + "..." : subTitle}
         </h1>
         <p className="card-text-body mt-[14px] max-md:text-[18px] max-md:leading-[20px] max-lg:text-[12px] max-lg:leading-[13px] ">
           {details}

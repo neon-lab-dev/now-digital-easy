@@ -1,45 +1,14 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { ICONS, IMAGES } from "@/assets";
-import Image from "next/image";
 import ServiceCard from "./ServiceCard";
 import { BUSINESS_DETAILS } from "@/assets/data/businessDetails";
-import Slider from "react-slick";
+import Image from "next/image";
+import { ICONS } from "@/assets";
 
 const BuildYourBusiness = () => {
   const titles = ["Build", "Manage", "Grow"];
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
-
-  //change slidesToShow based on screen size
-  const handleCheckScreenSize = () => {
-    if (window.innerWidth >= 1024) {
-      return 3;
-    } else if (window.innerWidth >= 768) {
-      return 2;
-    } else {
-      return 1;
-    }
-  };
-
-  const [slidesToShow, setSlidesToShow] = useState(() =>
-    handleCheckScreenSize()
-  );
-
-  useEffect(() => {
-    const setSliderCount = () => {
-      setSlidesToShow(handleCheckScreenSize());
-    };
-    window.addEventListener("resize", setSliderCount);
-    return () => window.removeEventListener("resize", setSliderCount);
-  }, []);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: slidesToShow,
-    slidesToScroll: slidesToShow,
-  };
+  const cardContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -48,6 +17,39 @@ const BuildYourBusiness = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleScrollCard = (dir: "left" | "right") => {
+    const withToScroll = (() => {
+      const windowWidth = window.innerWidth;
+      if (windowWidth < 400) {
+        return 300;
+      }
+      if (windowWidth < 768) {
+        return 400;
+      }
+      if (windowWidth < 1024) {
+        return 500;
+      }
+      if (windowWidth < 1440) {
+        return 600;
+      } else {
+        return 700;
+      }
+    })();
+    if (cardContainerRef.current) {
+      if (dir === "left") {
+        cardContainerRef.current.scrollBy({
+          left: -withToScroll,
+          behavior: "smooth",
+        });
+      } else {
+        cardContainerRef.current.scrollBy({
+          left: withToScroll,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center gap-[50px] mt-12 wrapper md:mt-24 max-width">
@@ -60,8 +62,11 @@ const BuildYourBusiness = () => {
         your business in one single platform
       </h1>
 
-      <div className="slider-container w-full">
-        <Slider {...settings}>
+      <div className="max-w-full overflow-hidden">
+        <div
+          ref={cardContainerRef}
+          className="flex gap-4 scrollbar-none items-start snap-mandatory snap-x justify-start overflow-x-auto overflow-y-hidden  w-full"
+        >
           {BUSINESS_DETAILS.map((businessCard, index) => (
             <ServiceCard
               key={index}
@@ -70,18 +75,19 @@ const BuildYourBusiness = () => {
               details={businessCard.details}
             />
           ))}
-        </Slider>
+        </div>
       </div>
 
-      {/* <div className="flex items-center gap-[13px] justify-center max-md:hidden">
-        <Image
-          onClick={prevSlider}
-          src={ICONS.arrowLeft}
-          alt="cardBg"
-          className="w-[6px] h-[12px] cursor-pointer"
-        />
+      <div className="flex items-center gap-[13px] justify-center">
+        <button onClick={() => handleScrollCard("left")} className="p-1">
+          <Image
+            src={ICONS.arrowLeft}
+            alt="cardBg"
+            className="w-[12px] h-[12px]"
+          />
+        </button>
 
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           {[...Array(Math.ceil(businessCardDetails.length / 3)).keys()].map(
             (index) => (
               <div
@@ -96,15 +102,18 @@ const BuildYourBusiness = () => {
               ></div>
             )
           )}
-        </div>
+        </div> */}
 
-        <Image
-          onClick={nextSlider}
-          src={ICONS.arrowRight}
-          alt="cardBg"
-          className="w-[6px] h-[12px] cursor-pointer"
-        />
-      </div> */}
+        <button className="p-1" onClick={() => handleScrollCard("right")}>
+          <Image
+            src={ICONS.arrowRight}
+            alt="cardBg"
+            className="w-[12px] h-[12px]"
+            height={12}
+            width={12}
+          />
+        </button>
+      </div>
     </div>
   );
 };

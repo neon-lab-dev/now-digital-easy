@@ -9,10 +9,10 @@ export default function Home() {
     <>
       <Hero />
       <BuildYourBusiness />
-      {/* <Gateway />
-      <Testmonials  />
-      <BusniessHire/>
-      <StartNow/> */}
+      <Gateway />
+      {/* <Testmonials />
+      <BusniessHire />
+      <StartNow /> */}
     </>
   );
 }
