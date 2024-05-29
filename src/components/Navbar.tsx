@@ -61,6 +61,7 @@ const Navbar = () => {
             <div className="flex items-center gap-[42px] max-lg:hidden  ">
               {NAV_LINKS.map((item, i) => (
                 <button
+                key={i}
                   onClick={
                     item.href
                       ? () => router.push(item.href)
@@ -144,7 +145,7 @@ const Navbar = () => {
           <Image src={x} alt="close" height={24} width={24} />
         </button>
         {NAV_LINKS.map((item, i) => (
-          <div className="flex flex-col gap-1 w-full">
+          <div key={i} className="flex flex-col gap-1 w-full">
             <button
               onClick={
                 item.href
@@ -174,8 +175,8 @@ const Navbar = () => {
             {activeDropdown === item.name && (
               <div className="flex flex-col gap-2">
                 {item.dropdowns &&
-                  Object.keys(item.dropdowns).map((key) => (
-                    <div className="flex flex-col gap-1 ml-2">
+                  Object.keys(item.dropdowns).map((key, i) => (
+                    <div key={i} className="flex flex-col gap-1 ml-2">
                       <span className="text-lg">
                         {key[0].toUpperCase() + key.slice(1).toLowerCase()}
                       </span>

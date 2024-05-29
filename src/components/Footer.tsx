@@ -129,7 +129,7 @@ const Footer = () => {
         <div className="flex max-lg:flex-col justify-between max-lg:gap-10">
           <div className="flex flex-col md:flex-row mt-12 md:mt-0 gap-[100px] max-lg:gap-10 max-md:gap-[40px]">
             {FOOTER_LINKS.map((footerLink, i) => (
-              <div>
+              <div key={i}>
                 <div className="flex justify-between items-center gap-12">
                   <span className="footer-heading">{footerLink.title}</span>
                   <button
