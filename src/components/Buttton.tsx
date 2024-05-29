@@ -7,11 +7,11 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = "primary", className = "", ...props }, ref) => {
-    const baseStyles = `text-button rounded-[4px] border px-3 shadow`;
+    const baseStyles = `text-button rounded-[4px] border px-3 shadow font-600`;
 
     const variantStyles = {
-      primary: `border-primary-400 hidden md:block`,
-      secondary: `border-primary-400 bg-primary-400 text-white hidden max-lg:px-1`,
+      primary: `border-primary-400`,
+      secondary: `border-primary-400 bg-primary-400 text-white max-lg:px-1`,
       cta: `px-6 py-3 bg-primary-400 flex items-center gap-2 text-white rounded-[50px]`,
     };
 

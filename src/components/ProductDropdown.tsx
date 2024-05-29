@@ -12,14 +12,12 @@ const ProductDropdown = ({ closeDropdown }: Props) => {
   return (
     <div
       onClick={() => closeDropdown()}
-      className=" bg-[#F9FAFF] rounded-b-2xl w-[100vw] box-border h-[473px] shadow-2xl font-600"
+      className=" bg-[#F9FAFF] rounded-b-2xl w-screen box-border h-[473px] shadow-2xl font-600"
     >
       <div className="flex justify-between pl-[30px]">
         <div className="flex flex-col gap-[46px] ">
           <div className="mt-[22px]">
-            <h1 className="text-xl font-source-sans-pro font-700 text-dark-500">
-              Build
-            </h1>
+            <h1 className="text-xl font-700 text-dark-500">Build</h1>
             <div className="grid grid-cols-2 gap-5 mt-[14px]">
               {PRODUCT_DROPDOWN_DATA.build.map((item, i) => (
                 <ProductDropdownLink key={i} {...item} />
@@ -28,9 +26,7 @@ const ProductDropdown = ({ closeDropdown }: Props) => {
           </div>
 
           <div>
-            <h1 className="text-xl font-source-sans-pro font-700 text-dark-500">
-              Manage
-            </h1>
+            <h1 className="text-xl font-700 text-dark-500">Manage</h1>
             <div className="grid grid-cols-2 gap-5 mt-[14px]">
               {PRODUCT_DROPDOWN_DATA.manage.map((item, i) => (
                 <ProductDropdownLink key={i} {...item} />
@@ -40,9 +36,7 @@ const ProductDropdown = ({ closeDropdown }: Props) => {
         </div>
 
         <div className="mt-[22px]">
-          <h1 className="text-xl font-source-sans-pro font-700 text-dark-500">
-            Grow
-          </h1>
+          <h1 className="text-xl font-700 text-dark-500">Grow</h1>
           <div className="flex flex-col gap-[30px] mt-[14px]">
             {PRODUCT_DROPDOWN_DATA.grow.map((item, i) => (
               <ProductDropdownLink key={i} {...item} />
@@ -57,7 +51,7 @@ const ProductDropdown = ({ closeDropdown }: Props) => {
             </div>
 
             <div className="bg-white rounded-b-2xl px-[15px] py-5">
-              <h1 className="text-xl font-source-sans-pro font-700 text-dark-500">
+              <h1 className="text-xl font-700 text-dark-500">
                 Try our interactive self-guided demo
               </h1>
               <p className="text-dark-400 text-[13px] font-merriweather font-400 mt-3 ">
@@ -92,10 +86,8 @@ const ProductDropdownLink = ({
         <Image src={item.img} alt="IoxHost" className="" />
       </div>
       <div>
-        <p className="text-[13px] font-source-sans-pro font-700 text-dark-500 mt-1">
-          {item.title}
-        </p>
-        <p className="text-[13px] font-source-sans-pro font-600 text-dark-300 tracking-tighter">
+        <p className="text-[13px] font-700 text-dark-500 mt-1">{item.title}</p>
+        <p className="text-[13px] font-600 text-dark-300 tracking-tighter">
           {item.description}
         </p>
       </div>

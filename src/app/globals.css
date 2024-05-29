@@ -1,46 +1,52 @@
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 
-/* @font-face {
-  font-family: Source Sans Pro;
-  src: url("/fonts/SourceSansPro-Black.otf") format("opentype");
-}
-@font-face {
-  font-family: Source Sans lite;
-  src: url("/fonts/SourceSansPro-Regular.otf") format("opentype");
-} */
-
+/* Source Sans pro */
 @font-face {
   font-family: "Source Sans Pro";
   src: url("../assets/fonts/SourceSansPro-ExtraLight.otf") format("otf");
-  font-weight: 400;
+  font-weight: 200;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Source Sans Pro";
   src: url("../assets/fonts/SourceSansPro-Light.otf") format("otf");
-  font-weight: 500;
+  font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Source Sans Pro";
   src: url("../assets/fonts/SourceSansPro-Regular.otf") format("otf");
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Source Sans Pro";
   src: url("../assets/fonts/SourceSansPro-Semibold.otf") format("otf");
-  font-weight: 700;
+  font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Source Sans Pro";
   src: url("../assets/fonts/SourceSansPro-Bold.otf") format("otf");
-  font-weight: 900;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("../assets/fonts/SourceSansPro-Black.otf") format("otf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("../assets//fonts/Merriweather-Light.ttf") format("truetype");
+  font-weight: 300;
   font-style: normal;
 }
 
@@ -51,28 +57,44 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Merriweather";
+  src: url("../assets//fonts/Merriweather-Bold.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("../assets//fonts/Merriweather-Black.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
 /* Define other weights if needed */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply font-source-sans-pro;
+}
+
 .nav-link {
-  @apply text-[15px] font-400  leading-[22px];
-  font-family: "Source Sans lite";
+  @apply text-[15px] font-600;
 }
 
 .text-button {
-  @apply text-[15px] font-600 leading-[14px];
+  @apply text-[15px] font-600;
 }
 
 .heading1 {
-  @apply text-heading1 font-900 leading-heading1;
-  color: #000333;
+  @apply font-900 text-[28px] md:text-[42px] xl:text-[46px] 2xl:text-[56px] leading-[30px] md:leading-[46px] xl:leading-[67px];
 }
 
 .heading2 {
-  @apply text-heading2 font-900 tracking-2;
+  @apply text-heading2 font-900 tracking-2 font-merriweather;
 }
 
 .heading4 {
@@ -100,7 +122,7 @@
 }
 
 .text-base-bold {
-  @apply font-merriweather text-text-base font-700 leading-text-base-bold;
+  @apply font-merriweather text-text-base font-700  leading-[23px] md:leading-[27px];
 }
 
 .card-text-body {

@@ -8,15 +8,15 @@ import Button from "@/components/Buttton";
 
 const Hero = () => {
   return (
-    <div className="bg-gradient-light wrapper py-8 flex flex-col gap-12 sm:gap-16 items-center justify-center">
-      <div className="flex flex-col gap-14 lg:gap-8 max-w-[550px] lg:max-w-none mx-auto sm:gap-24 lg:justify-between lg:flex-row w-full pt-12 lg:pt-24 xl:max-w-7xl">
+    <div className="bg-gradient-light wrapper py-8 flex flex-col gap-12 sm:gap-16 xl:gap-24 items-center justify-center">
+      <div className="flex flex-col gap-14 lg:gap-8 max-w-[550px] lg:max-w-none mx-auto sm:gap-24 lg:justify-between lg:flex-row w-full pt-12 xl:gap-24  lg:pt-24 xl:max-w-7xl">
         <div className="flex flex-col lg:mt-auto gap-4 sm:gap-6 items-center lg:items-start justify-center lg:justify-start max-w-[700px]">
           {/* Heading */}
-          <h1 className="heading1 tracking-[-2px] max-2xl:text-[50px] max-lg:text-[42px] max-md:text-[26px]">
+          <h1 className="heading1 text-text-900">
             Hey Business Owners
             <br /> Go Digital Effortlessly
           </h1>
-          <p className="text-base-bold max-md:text-[15px] text-center lg:text-left">
+          <p className="text-s text-center lg:text-left font-500 text-text-900/80">
             Stop being static! Scale your business by going digital, the easy
             way, with NDE. We’re technology-enabled and structured for speed and
             efficiency to meet the ever-changing needs of today’s business.
@@ -41,7 +41,7 @@ const Hero = () => {
 
       {/* clients */}
       <div className="flex flex-col gap-5 sm:gap-7 w-full max-width">
-        <h2 className="text-base-bold text-center max-md:text-[13px]">
+        <h2 className="text-text-700 text-base-bold text-center max-md:text-[13px]">
           12,000+ global businesses trust us to transform & grow digitally
         </h2>
         <Marquee

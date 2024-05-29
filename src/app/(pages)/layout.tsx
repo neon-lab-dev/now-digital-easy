@@ -10,6 +10,13 @@ export const metadata: Metadata = {
   title: "Now Digital Easy",
   description:
     "Stop being static! Scale your business by going digital, the easy way, with NDE. We're technology-enabled and structured for speed and efficiency to meet the ever-changing needs of today's business.",
+  icons: [
+    {
+      rel: "icon",
+      href: "/favicon.svg",
+      url: "/favicon.svg",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -20,7 +27,7 @@ export default function RootLayout({
   return (
     <ReactQueryClientProvider>
       <html lang="en">
-        <body>
+        <body className="overflow-x-hidden">
           <div className="flex flex-col">
             <ToastContainer />
             <Navbar />

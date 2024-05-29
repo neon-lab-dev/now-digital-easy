@@ -41,7 +41,7 @@ const Navbar = () => {
     <>
       <nav
         ref={dropdownRef}
-        className="relative bg-gradient-light flex items-center justify-between font-merriweather h-[60px] xl:h-[55px] w-full"
+        className="relative bg-gradient-light flex items-center justify-between h-[60px] xl:h-[55px] w-full"
       >
         {/* logo */}
         <div className="flex items-center justify-center h-full">
@@ -61,7 +61,7 @@ const Navbar = () => {
             <div className="flex items-center gap-[42px] max-lg:hidden  ">
               {NAV_LINKS.map((item, i) => (
                 <button
-                key={i}
+                  key={i}
                   onClick={
                     item.href
                       ? () => router.push(item.href)
@@ -72,7 +72,7 @@ const Navbar = () => {
                               : (item.name as ActiveDropdown)
                           )
                   }
-                  className="flex items-center gap-2 nav-link hover:text-primary-400 transition duration-300"
+                  className="flex items-center gap-2 nav-link hover:text-primary-400 transition"
                 >
                   {item.name}
                   {item.href ? null : activeDropdown === item.name ? (
@@ -158,7 +158,7 @@ const Navbar = () => {
                       )
               }
               key={i}
-              className="flex items-center justify-between gap-2 nav-link hover:text-primary-400 transition duration-300 !text-xl w-full"
+              className="flex items-center justify-between gap-2 nav-link !font-500 hover:text-primary-400 transition duration-300 !text-xl w-full"
             >
               {item.name}
               {!item.href && (
