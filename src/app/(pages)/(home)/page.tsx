@@ -1,4 +1,4 @@
-import Testmonials from "./_components/Testmonials";
+import Testimonials from "./_components/Testimonials";
 import Gateway from "./_components/Gateway";
 import Hero from "./_components/Hero";
 import BuildYourBusiness from "./_components/BuildYourBusiness";
@@ -10,8 +10,8 @@ export default function Home() {
       <Hero />
       <BuildYourBusiness />
       <Gateway />
-      {/* <Testmonials />
-      <BusniessHire />
+      <Testimonials />
+      {/* <BusniessHire />
       <StartNow /> */}
     </>
   );
