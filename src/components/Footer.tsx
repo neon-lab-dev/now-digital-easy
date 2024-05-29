@@ -205,25 +205,38 @@ const Footer = () => {
         </div>
         <hr className="bg-white h-[2px]" />
         <div className="px-4 py-4 flex max-md:flex-col max-md:gap-6 justify-between">
-          <span className="text-[13px] max-md:text-[10px] text-[#151D8C]">
+          <span className="text-[13px] max-md:text-[10px] text-center md:text-left text-[#151D8C]">
             @2022 Nowdigitaleasy, Inc.All Rights Reserved.
           </span>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center justify-center">
             <span className="font-source-sans-pro text-[13px] max-md:text-[9px] text-[#151D8C]">
               Privacy Policy
             </span>
             <span className="font-source-sans-pro text-[13px] max-md:text-[9px] text-[#151D8C]">
               Terms and Conditions
             </span>
-            <Link href="https://www.facebook.com/nowdigitaleasyofficial/">
-              <Image src={facebook} alt={""} className="w-[15px]" />
-            </Link>
-            <Link href="https://www.instagram.com/nowdigitaleasy/">
-              <Image src={insta} alt={""} className="w-[15px]" />
-            </Link>
-            <Link href="https://in.linkedin.com/company/nowdigitaleasy">
-              <Image src={linkedin} alt={""} className="w-[15px]" />
-            </Link>
+            {[
+              {
+                href: "https://www.facebook.com/nowdigitaleasyofficial/",
+                icon: facebook,
+              },
+              {
+                href: "https://www.instagram.com/nowdigitaleasy/",
+                icon: insta,
+              },
+              {
+                href: "https://in.linkedin.com/company/nowdigitaleasy",
+                icon: linkedin,
+              },
+            ].map((social, index) => (
+              <Link key={index} href={social.href}>
+                <Image
+                  src={social.icon}
+                  alt={""}
+                  className="w-[24px] h-[24px]"
+                />
+              </Link>
+            ))}
           </div>
         </div>
       </div>

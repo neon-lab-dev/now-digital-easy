@@ -18,7 +18,7 @@ const StartNow = () => {
           </span>
           <Button
             variant="cta"
-            className="w-[185px] mt-4 sm:mt-8 cta flex items-center justify-center"
+            className="w-[185px] rounded-[16px] mt-4 sm:mt-0 cta flex items-center justify-center"
           >
             Start Now
             <Image src={arrow} alt="arrowRight" className="w-[10px] h-[16px]" />

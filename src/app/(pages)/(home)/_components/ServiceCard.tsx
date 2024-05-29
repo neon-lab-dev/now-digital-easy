@@ -39,7 +39,7 @@ const ServiceCard = ({ details, subTitle, title }: Props) => {
           {subTitle.length > 30 ? subTitle.slice(0, 27) + "..." : subTitle}
         </h1>
         <p className="card-text-body mt-2 md:mt-4">{details}</p>
-        <button className="card-text-cta text-primary-400 mt-5 underline transition duration-300 transform hover:-translate-y-0.5">
+        <button className="card-text-cta !font-900 text-primary-400 mt-5 underline transition duration-300 transform hover:-translate-y-0.5">
           Know More
         </button>
       </div>

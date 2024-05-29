@@ -16,7 +16,7 @@ const Testimonials: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-center gap-3 max-w-[420px] md:max-w-[700px] 2xl:max-w-none mx-auto 2xl:min-w-[1264px]">
+      <div className="flex flex-wrap justify-center gap-3 max-w-full md:max-w-full lg:max-w-[900px] 2xl:max-w-none mx-auto 2xl:min-w-[1264px]">
         {TESTIMONIALS.map((testimonial, index) => (
           <TestimonialCard key={index} {...testimonial} index={index} />
         ))}

@@ -24,7 +24,7 @@ const Hero = () => {
 
           <Button
             variant="cta"
-            className="w-[185px] mt-4 sm:mt-8 cta flex items-center justify-center"
+            className="w-[185px] mt-4 sm:mt-8 lg:mt-0 cta flex items-center justify-center"
           >
             Get Started
             <Image
