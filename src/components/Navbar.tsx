@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import x from "@/assets/icons/x.svg";
 import { NAV_LINKS } from "@/assets/data/navlinks";
 import { twMerge } from "tailwind-merge";
-import Button from "./Buttton";
+import Button from "./Button";
 
 type ActiveDropdown = "Products" | "Resources" | "More" | null;
 

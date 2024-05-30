@@ -33,6 +33,7 @@ const config: Config = {
         },
       },
       screens: {
+        xs: "450px",
         "3xl": "1610px",
       },
       backgroundImage: (theme) => ({

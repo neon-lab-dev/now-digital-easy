@@ -1,6 +1,6 @@
 import start from "@/assets/images/Group 69477.svg";
 import arrow from "@/assets/images/arrowright.svg";
-import Button from "@/components/Buttton";
+import Button from "@/components/Button";
 
 import Image from "next/image";
 const StartNow = () => {

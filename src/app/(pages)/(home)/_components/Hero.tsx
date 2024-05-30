@@ -4,7 +4,7 @@ import arrowRight from "../../../../assets/icons/arrow-right.svg";
 import Marquee from "react-fast-marquee";
 import { IMAGES } from "@/assets";
 import { twMerge } from "tailwind-merge";
-import Button from "@/components/Buttton";
+import Button from "@/components/Button";
 
 const Hero = () => {
   return (
