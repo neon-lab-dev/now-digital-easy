@@ -14,7 +14,7 @@ const GoogleWorkspacePage = () => {
     <div>
       <Hero />
       <Collaboration />
-      {/* <Services /> */}
+      <Services />
       {/* <Features /> */}
       {/* <Testimonials /> */}
       {/* <Discover /> */}
