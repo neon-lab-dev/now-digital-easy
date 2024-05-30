@@ -5,9 +5,9 @@ import Hero from "./_components/Hero";
 import Collaboration from "./_components/Collaboration";
 import Services from "./_components/Services";
 import Features from "./_components/Features";
-import Testimonials from "./_components/Testmonails";
 import FAQs from "@/components/FAQs";
 import Discover from "./_components/Discover";
+import Testimonials from "@/components/Testimonials";
 
 const GoogleWorkspacePage = () => {
   return (
@@ -16,7 +16,7 @@ const GoogleWorkspacePage = () => {
       <Collaboration />
       <Services />
       {/* <Features /> */}
-      {/* <Testimonials /> */}
+      <Testimonials />
       {/* <Discover /> */}
       {/* <FAQs /> */}
     </div>
