@@ -10,7 +10,7 @@ type Props = (typeof TESTIMONIALS)[number] & {
 const TestimonialCard = (props: Props) => {
   const isLarge = props.index === 0 || props.index === 3;
   const width = {
-    card: isLarge ? "2xl:w-[752px]" : "2xl:w-[500px]",
+    card: isLarge ? "xl:w-[652px] 2xl:w-[700px]" : "xl:w-[487px] 2xl:w-[500px]",
     quote: isLarge ? "w-[180px]" : "w-[150px]",
   };
   return (
@@ -34,7 +34,7 @@ const TestimonialCard = (props: Props) => {
           className=" max-md:w-[15px]"
         />
       </div>
-      <div className={twMerge("w-[68%] max-md:text-[12px]")}>
+      <div className={twMerge("w-[68%] max-w-[calc(100%-100px)] xl:max-w-[calc(100%-150px)] max-md:text-[12px]")}>
         <span className="text-[10px] sm:text-[12px] md:text-[16px]  text-[#212529] font-merriweather font-600">
           {props.quote.length > 130
             ? `${props.quote.slice(0, 130)}...`

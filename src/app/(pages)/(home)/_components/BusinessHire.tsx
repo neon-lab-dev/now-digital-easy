@@ -42,7 +42,7 @@ const BusinessHire = () => {
     <div className="flex flex-col gap-11 pt-[120px] max-width wrapper">
       <div className="flex justify-center">
         <div className="w-[75%] text-center flex flex-col gap-5 md:gap-6 text-[#363B4C] items-center">
-          <span className="text-[20px] md:text-[36px] xl:text-[42px] font-700 leading-tight">
+          <span className="text-[20px] md:text-[36px] xl:text-[42px] font-900 leading-tight font-merriweather">
             Businesses hire us because of the results we provide.
           </span>
           <span className="text-s flex items-center justify-center w-[650px] max-lg:w-[550px] max-md:w-[350px] max-lg:text-[14px]">
