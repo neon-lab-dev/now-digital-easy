@@ -15,10 +15,10 @@ const GoogleWorkspacePage = () => {
       <Hero />
       <Collaboration />
       <Services />
-      {/* <Features /> */}
+      <Features />
       <Testimonials />
-      {/* <Discover /> */}
-      {/* <FAQs /> */}
+      <Discover />
+      <FAQs />
     </div>
   );
 };
