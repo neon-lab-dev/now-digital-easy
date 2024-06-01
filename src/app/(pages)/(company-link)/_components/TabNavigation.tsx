@@ -7,7 +7,7 @@ import Image from "next/image";
 const TabNavigation = () => {
   const pathname = usePathname();
   return (
-    <div className="h-fit w-full md:min-w-[200px] lg:min-w-[275px] overflow-hidden">
+    <div className="h-fit md:w-[200px] md:min-w-[200px] lg:min-w-[275px] overflow-hidden">
       <div className="flex gap-3 overflow-x-auto md:flex-col md:w-[200px] lg:w-[275px]">
         {[
           {
