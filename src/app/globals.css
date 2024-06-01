@@ -77,9 +77,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   @apply font-source-sans-pro;
-}
+} */
 
 .nav-link {
   @apply text-[15px] font-600;

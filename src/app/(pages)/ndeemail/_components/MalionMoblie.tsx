@@ -14,12 +14,12 @@ const MalionMoblie = () => {
     <div className={` bg-background-Mail`}>
     <div className="flex justify-center gap-[150px] max-lg:gap-0  max-lg:flex-col-reverse items-center">
         <div className="flex flex-col gap-6 text-start w-[600px] max-md:w-[400px] p-10 max-lg:text-center">
-            <span className="text-[35px] text-[#000659] leading-[35px]">
+            <span className="text-[35px] text-[#000659] font-source-sans-pro font-900 leading-[35px]">
             Mail on Mobile
             </span>
-            <p className="text-[17] w-[500px] max-md:w-[300px]">Manage your business emails even when you &apos;re away from your desk. Native mobile apps for Mail, Mail Admin, and Streams make staying in touch on the go easy and effortless.</p>
+            <p className="text-[17] w-[500px] max-md:w-[300px] font-merriweather font-normal text-[#646464]">Manage your business emails even when you &apos;re away from your desk. Native mobile apps for Mail, Mail Admin, and Streams make staying in touch on the go easy and effortless.</p>
             <div className="flex items-center max-lg:justify-center gap-2">
-                <span className="text-[#0088FF] text-[20px] max-lg:text-center">Go Moblie</span>
+                <span className="text-[#0088FF] text-[20px] max-lg:text-center font-merriweather font-semibold">Go Moblie</span>
                 <button>
                     <Image src={arrow} alt="arrow" />
                 </button>
