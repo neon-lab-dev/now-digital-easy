@@ -1,119 +1,215 @@
 "use client";
-import { ICONS, IMAGES } from "@/assets";
+import { ICONS } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
 import Sidebar from "./Sidebar";
-import { useState, useEffect } from "react";
-import ProductDropdown from "./../app/(pages)/(home)/_components/ProductDropdown";
+import { useState, useEffect, useRef } from "react";
+import ProductDropdown from "./ProductDropdown";
+import { useRouter } from "next/navigation";
+import x from "@/assets/icons/x.svg";
+import { NAV_LINKS } from "@/assets/data/navlinks";
+import { twMerge } from "tailwind-merge";
+import Button from "./Button";
+
+type ActiveDropdown = "Products" | "Resources" | "More" | null;
 
 const Navbar = () => {
-  const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>(null);
+  const router = useRouter();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const toggleProductsDropdown = () => {
-    setIsProductsDropdownOpen(!isProductsDropdownOpen);
-  };
-
+  // close on click outside
   useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent): void => {
-      const closestDropdown = (event.target as HTMLElement).closest(
-        ".productsDropdown"
-      );
-      if (isProductsDropdownOpen && closestDropdown === null) {
-        setIsProductsDropdownOpen(false);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        if (window.innerWidth < 1024) return;
+        setActiveDropdown(null);
       }
     };
 
-    document.addEventListener("mousedown", handleOutsideClick);
-
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isProductsDropdownOpen]);
+  }, []);
 
   return (
-    <nav className='relative productsDropdown bg-gradient-light flex gap-[13px] font-merriweather'>
-      <div className="bg-white bg-opacity-50 w-[80px] h-[55px] rounded-b-lg"></div>
-      <Link href="/" >
-      <Image src={ICONS.logo} alt="logo" className="w-[150px] h-[50px]" />
-      </Link>
-      <div className="bg-white bg-opacity-50 w-full h-[55px] rounded-b-lg flex items-center justify-between">
-        <div className="w-[90%] flex justify-center "> 
-          <div className="flex items-center gap-[42px] max-lg:hidden  ">
-            <Link
-              onClick={toggleProductsDropdown}
-              href={""}
-              className="flex items-center gap-2 nav-link hover:text-primary-400 transition duration-300"
+    <>
+      <nav
+        ref={dropdownRef}
+        className="relative bg-gradient-light flex items-center justify-between h-[60px] xl:h-[55px] w-full"
+      >
+        {/* logo */}
+        <div className="flex items-center justify-center h-full">
+          <div className="bg-white bg-opacity-50 min-w-[20px] md:w-[40px] xl:w-[54px] h-full rounded-br-lg"></div>
+          <Link href="/" className="px-3">
+            <Image
+              src={ICONS.logo}
+              alt="logo"
+              className="min-w-[80px] h-full"
+            />
+          </Link>
+        </div>
+
+        {/* main nav links for  large devices */}
+        <div className="bg-white bg-opacity-50 flex-grow justify-center h-full rounded-b-lg flex items-center ">
+          <div className="flex justify-center">
+            <div className="flex items-center gap-[42px] max-lg:hidden  ">
+              {NAV_LINKS.map((item, i) => (
+                <button
+                  key={i}
+                  onClick={
+                    item.href
+                      ? () => router.push(item.href)
+                      : () =>
+                          setActiveDropdown((prev) =>
+                            prev === item.name
+                              ? null
+                              : (item.name as ActiveDropdown)
+                          )
+                  }
+                  className="flex items-center gap-2 nav-link hover:text-primary-400 transition"
+                >
+                  {item.name}
+                  {item.href ? null : activeDropdown === item.name ? (
+                    <Image
+                      src={ICONS.downArrow}
+                      alt="downArrow"
+                      className="rotate-180"
+                    />
+                  ) : (
+                    <Image src={ICONS.downArrow} alt="downArrow" className="" />
+                  )}
+                </button>
+              ))}
+
+              {activeDropdown === "Products" && (
+                <div className="absolute top-14 z-50 left-0 box-border">
+                  <ProductDropdown
+                    closeDropdown={() => setActiveDropdown(null)}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-4 h-full bg-white items-center bg-opacity-50 pr-4 lg:pr-14">
+          <Button
+            variant="primary"
+            className="hidden sm:flex h-[34px] items-center justify-center"
+          >
+            Log In
+          </Button>
+
+          <Button
+            className="hidden sm:flex items-center justify-center h-[34px]"
+            variant="secondary"
+          >
+            Sign Up
+          </Button>
+
+          <Sidebar />
+
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="text-button px-3 h-full lg:hidden min-w-[50px]"
+          >
+            <Image src={ICONS.menu} alt={""} height={26} width={26} />
+          </button>
+        </div>
+        {/* mobile navbar toggler */}
+      </nav>
+
+      {/* overlay */}
+      {isSidebarOpen && (
+        <div
+          onClick={() => setIsSidebarOpen(false)}
+          className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
+        />
+      )}
+      {/* side navbar for mobile devices */}
+      <aside
+        className={twMerge(
+          "bg-white w-[250px] h-screen transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-20 px-6 gap-3 overflow-x-hidden overflow-y-auto",
+          isSidebarOpen ? "translate-x-0" : "translate-x-full "
+        )}
+      >
+        <button
+          onClick={() => setIsSidebarOpen(false)}
+          className="absolute top-4 right-4"
+        >
+          <Image src={x} alt="close" height={24} width={24} />
+        </button>
+        {NAV_LINKS.map((item, i) => (
+          <div key={i} className="flex flex-col gap-1 w-full">
+            <button
+              onClick={
+                item.href
+                  ? () => router.push(item.href)
+                  : () =>
+                      setActiveDropdown((prev) =>
+                        prev === item.name
+                          ? null
+                          : (item.name as ActiveDropdown)
+                      )
+              }
+              key={i}
+              className="flex items-center justify-between gap-2 nav-link !font-500 hover:text-primary-400 transition duration-300 !text-xl w-full"
             >
-              Products
-              {isProductsDropdownOpen ? (
+              {item.name}
+              {!item.href && (
                 <Image
                   src={ICONS.downArrow}
                   alt="downArrow"
-                  className="rotate-180"
+                  className={activeDropdown === item.name ? "rotate-180" : ""}
+                  height={12}
+                  width={12}
                 />
-              ) : (
-                <Image src={ICONS.downArrow} alt="downArrow" className="" />
               )}
-            </Link>
-
-            {isProductsDropdownOpen && (
-              <div
-                className={`${
-                  isProductsDropdownOpen ? "visible" : "invisible"
-                } absolute top-14 z-50 left-0 box-border`}
-              >
-                <ProductDropdown />
+            </button>
+            <hr />
+            {activeDropdown === item.name && (
+              <div className="flex flex-col gap-2">
+                {item.dropdowns &&
+                  Object.keys(item.dropdowns).map((key, i) => (
+                    <div key={i} className="flex flex-col gap-1 ml-2">
+                      <span className="text-lg">
+                        {key[0].toUpperCase() + key.slice(1).toLowerCase()}
+                      </span>
+                      <div className="flex flex-col items-start gap-2 ml-2">
+                        {
+                          //  @ts-ignore
+                          item.dropdowns[key].map((item, i) => (
+                            <Link
+                              onClick={() => setIsSidebarOpen(false)}
+                              href={item.href}
+                              key={i}
+                              className="text-sm font-400 text-dark-400 flex gap-4"
+                            >
+                              <Image
+                                alt=""
+                                src={item.img}
+                                height={20}
+                                width={20}
+                                className="bg-primary-300 p-1 rounded-md"
+                              />
+                              <span>{item.title}</span>
+                            </Link>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  ))}
               </div>
             )}
-
-            <Link
-              href={""}
-              className="flex items-center gap-2 nav-link hover:text-primary-400 transition duration-300"
-            >
-              Resources
-              <Image src={ICONS.downArrow} alt="downArrow" className="" />
-            </Link>
-
-            <Link
-              href={""}
-              className="nav-link hover:text-primary-400 transition duration-300"
-            >
-              Pricing
-            </Link>
-
-            <Link
-              href={""}
-              className="nav-link hover:text-primary-400 transition duration-300"
-            >
-              Demo
-            </Link>
-
-            <Link
-              href={""}
-              className="flex items-center gap-2 nav-link hover:text-primary-400 transition duration-300"
-            >
-              More
-              <Image src={ICONS.downArrow} alt="downArrow" className="" />
-            </Link>
           </div>
-        </div>
-        <div className="flex items-center gap-[16px] pr-16 min-w-[260px] max-lg:pr-0">
-          <div className="flex  items-center gap-[14px] min-w-[158px] max-md:hidden ">
-            <button className="text-button rounded border border-primary-400 px-2 py-[10px] shadow">
-              Log In
-            </button>
-
-            <button className="text-button rounded border border-primary-400 bg-primary-400 text-white px-2 max-lg:px-1 py-[10px] shadow">
-              Sign Up
-            </button>
-          </div>
-          <Sidebar />
-          <button className="text-button  shadow px-3 max-lg:px-0 lg:hidden max-md:ml-[200px] ">
-              <Image src={ICONS.menu} alt={""}/>
-            </button>
-        </div>
-      </div>
-    </nav>
+        ))}
+      </aside>
+    </>
   );
 };
 export default Navbar;

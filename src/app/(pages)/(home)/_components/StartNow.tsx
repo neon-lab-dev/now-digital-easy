@@ -1,26 +1,37 @@
-import start from "@/assets/images/Group 69477.svg"
-import arrow from "@/assets/images/arrowright.svg"
+import start from "@/assets/images/Group 69477.svg";
+import arrow from "@/assets/images/arrowright.svg";
+import Button from "@/components/Button";
 
-import Image from "next/image"
+import Image from "next/image";
 const StartNow = () => {
-    return (
-        <div className="flex justify-center">
-            <div className="bg-gradient-start max-md:flex-col max-md:gap-6 max-lg:ml-4 max-md:ml-0 flex w-[1250px] max-lg:w-[710px] h-[376px] max-md:h-full max-md:w-full rounded-[50px] mt-[120px] items-center max-md:py-4">
-                <div className="flex flex-col w-[900px] max-lg:w-[450px] max-md:w-[350px] gap-4 items-start max-md:items-center pl-[30px] max-lg:pl-8 max-md:pl-0">
-                    <span className="heading4 w-[500px] max-lg:w-[400px] max-md:w-[350px] max-md:text-center ">For what you are<br/> waiting for?</span>
-                    <span className="text-base w-[417px] max-md:w-[340px]  max-md:text-center ">12,000+ global businesses found an empowering digital transformation. Its your turn.</span>
-                    <button className="w-[144px] h-[49px] bg-[#0011FF] p-2 rounded-xl ">
-                        <div className="flex justify-center items-center gap-3">
-                            <span className=" font-source-sans-pro text-[15px] text-white">Start Now</span>
-                            <Image src={arrow} alt={""} />
-                        </div>
-                    </button>
-                </div>
-                <Image src={start} alt="start" className=" max-lg:w-[240px]" />
-            </div>
+  return (
+    <div className="flex justify-center wrapper mt-[112px] max-width">
+      <div className="bg-gradient-start sm:max-h-[376px] h-fit md:max-h-none sm:max-w-[1150px] w-full flex flex-col sm:flex-row items-center justify- sm:justify-between gap-12 px-[30px] py-[60px] rounded-[40px] lg:px-[40px]">
+        <div className="flex flex-col items-center sm:items-start justify-center sm:justify-start text-[22px] gap-5 font-800 leading-tight max-w-[400px]">
+          <span className="text-center sm:text-2xl md:text-4xl leading-tight sm:text-left">
+            For what you are
+            <br className="hidden sm:block" /> waiting for?
+          </span>
+          <span className="text-base text-center font-merriweather sm:text-left">
+            12,000+ global businesses found an empowering digital
+            transformation. Its your turn.
+          </span>
+          <Button
+            variant="cta"
+            className="w-[185px] rounded-[16px] mt-4 sm:mt-0 cta flex items-center justify-center"
+          >
+            Start Now
+            <Image src={arrow} alt="arrowRight" className="w-[10px] h-[16px]" />
+          </Button>
         </div>
+        <Image
+          src={start}
+          alt="start"
+          className="w-full h-auto sm:h-full sm:w-auto"
+        />
+      </div>
+    </div>
+  );
+};
 
-    )
-}
-
-export default StartNow
+export default StartNow;

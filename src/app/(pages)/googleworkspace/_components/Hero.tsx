@@ -1,53 +1,101 @@
-import { IMAGES } from "@/assets"
-import hero from "@/assets/images/Group 69102 (1).svg"
-import Image from "next/image"
-import Marquee from "react-fast-marquee"
-const Hero = () => {
-    return (
-        <div className=" bg-background-light ">
-            <div className="flex justify-center max-lg:flex-col items-center pt-[80px] max-lg:gap-[80px] ">
-                <div className="flex flex-col gap-4 max-lg:gap-1 max-lg:items-center max-lg:w-[600px] max-md:w-[375px] w-[760px] ">
-                    <div className="flex flex-col text-[#000659] max-lg:items-center ">
-                        <span className="text-[58px] max-lg:text-[42px] font-source-sans-pro font-900 leading-[62px] max-lg:leading-[42px] tracking-[-2px] max-lg:text-center  max-md:text-[26px] max-md:leading-[28px]">Empower Your Team  With Google Workspace</span>
-                    </div>
-                    <ul className="grid grid-cols-2 gap-4 max-md:ml-4 font-merriweather mx-6 max-lg:mx-0 py-2 list-disc text-[17px] font-700 max-lg:text-[17px] max-md:text-[12px] text-[#151D8C]">
-                        <li>Custom Business Email</li>
-                        <li>30 GB of Cloud Storage</li>
-                        <li>High Standard Security.</li>
-                        <li>100 Meet Participants</li>
-                    </ul>
-                    <div className="flex items-center gap-2 font-merriweather">
-                        <span className="text-[17px] text-[#151D8C] font-700">Starts at</span>
-                        <span className="text-[#0011FF] text-[28px] font-900">₹136/user/mo</span>
-                    </div>
-                    <span className="text-[14px] text-[#151D8C] font-700 font-merriweather max-md:mr-[110px] ">For Additional Discount</span>
-                    <div className="flex flex-col gap-1 font-merriweather">
-                        <button className="bg-[#0011FF] text-white  py-3 rounded-[50px] text-[15px] w-[207px] max-md:mt-[30px]">Request A Call Back</button>
-                    </div>
-                </div>
-                <Image src={hero} alt="hero" className=" max-md:w-[350px] w-[550px] max-2xl:w-[400px]" />
-            </div>
-            <div className="flex justify-center text-[24px] max-md:text-[16px] text-center font-700 py-16 font-merriweather">
-                    12,000+ global businesses trust us to transform & grow digitally
-                </div>
-            <div className=" pb-[25px] flex flex-col gap-[25px] pt-[35px] max-md:pt-0">
-                <Marquee pauseOnHover={true} className="flex items-center">
-                    <Image src={IMAGES.img4} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img1} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img2} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img3} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img4} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img5} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img6} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img7} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img8} alt="logo1" className="mr-[62px] w-[98px]" />
-                    <Image src={IMAGES.img4} alt="logo1" className="mr-[62px] w-[98px]" />
-                </Marquee>
-            </div>
-            <div className='h-[100px] bg-background-fade'>
-            </div>
-        </div>
-    )
-}
+import Image from "next/image";
+import { IMAGES } from "@/assets";
+import hero from "@/assets/images/Group 69102 (1).svg";
 
-export default Hero
+import React from "react";
+import Marquee from "react-fast-marquee";
+import { twMerge } from "tailwind-merge";
+import Button from "@/components/Button";
+
+const Hero = () => {
+  return (
+    <div
+      style={{
+        background:
+          "linear-gradient(270deg, rgba(186, 215, 201, 0.90) 0.38%, rgba(254, 243, 227, 0.90) 49.19%, rgba(211, 214, 253, 0.90) 99.99%)",
+      }}
+      className="wrapper py-8 flex flex-col gap-12 sm:gap-16 xl:gap-24 items-center justify-center"
+    >
+      <div className="flex flex-col gap-14 lg:gap-8 max-w-[550px] lg:max-w-none mx-auto sm:gap-24 lg:justify-between lg:flex-row w-full pt-12 xl:gap-24  lg:pt-24 xl:max-w-7xl">
+        <div className="flex flex-col lg:mt-auto gap-3 sm:gap-6 items-center lg:items-start justify-center lg:justify-start max-w-[800px]">
+          {/* Heading */}
+          <h1 className="heading1 text-primary-500 text-center lg:text-left">
+            Empower Your Team
+            <br className="hidden lg:block" /> With Google Workspace
+          </h1>
+          <ul className="grid grid-cols-1 xs:grid-cols-2 gap-x-6 gap-y-1 font-merriweather py-2 list-disc list-inside text-[17px] font-700 max-lg:text-[17px] max-md:text-[14px] text-[#151D8C]">
+            {[
+              "Custom Business Email",
+              "30 GB of Cloud Storage",
+              "High Standard Security.",
+              "100 Meet Participants",
+            ].map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+
+          <div className="flex flex-col gap-1 items-center lg:items-start justify-center text-primary-200 font-merriweather text-sm sm:text-base font-700">
+            <span>
+              Starts at{" "}
+              <span className="font-source-sans-pro text-[28px] md:text-[38px] font-900 text-[#01F]">
+                ₹136/user/mo
+              </span>
+            </span>
+            <span>For Additional Discount</span>
+          </div>
+
+          <Button
+            variant="cta"
+            className="cta flex items-center justify-center"
+          >
+            Request A Call Back
+          </Button>
+        </div>
+
+        {/* video */}
+        <Image
+          src={hero}
+          alt="hero"
+          className=" max-md:w-[350px] w-[500px] max-2xl:w-[400px] m-auto"
+        />
+      </div>
+
+      {/* clients */}
+      <div className="flex flex-col gap-5 sm:gap-7 w-full max-width">
+        <h2 className="text-text-700 text-base-bold text-center max-md:text-[13px]">
+          12,000+ global businesses trust us to transform & grow digitally
+        </h2>
+        <Marquee
+          pauseOnHover={true}
+          className="flex items-center justify-center"
+        >
+          {[
+            IMAGES.img1,
+            IMAGES.img2,
+            IMAGES.img3,
+            IMAGES.img4,
+            IMAGES.img5,
+            IMAGES.img6,
+            IMAGES.img7,
+            IMAGES.img8,
+          ].map((img, index) => (
+            <Image
+              key={index}
+              src={img}
+              alt="logo"
+              className={twMerge(
+                "object-contain object-center max-h-[60px] max-w-[60px]",
+                index !== 0 ? "ml-14" : ""
+              )}
+              height={100}
+              width={100}
+              quality={100}
+            />
+          ))}
+        </Marquee>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;

@@ -1,9 +1,9 @@
-import Testmonials from "./_components/Testmonials";
 import Gateway from "./_components/Gateway";
 import Hero from "./_components/Hero";
 import BuildYourBusiness from "./_components/BuildYourBusiness";
-import BusniessHire from "./_components/BusniessHire";
+import BusinessHire from "./_components/BusinessHire";
 import StartNow from "./_components/StartNow";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   return (
@@ -11,9 +11,9 @@ export default function Home() {
       <Hero />
       <BuildYourBusiness />
       <Gateway />
-      <Testmonials  />
-      <BusniessHire/>
-      <StartNow/>
+      <Testimonials />
+      <BusinessHire />
+      <StartNow />
     </>
   );
 }
