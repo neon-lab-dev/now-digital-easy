@@ -27,18 +27,14 @@ const Collaboration = () => {
         </div>
       </div>
       {/* //todo */}
-      <div className="flex justify-center max-lg:flex-col pt-8  font-source-sans-pro">
-        <div className="bg-[#000AFF] w-[800px] max-lg:w-full">
-          <div className="flex justify-center pt-[150px] max-md:px-4 max-lg:pt-[20px] font-900 items-center text-white">
-            <span className="w-[400px] max-lg:w-full text-[44px] leading-[66px] max-lg:leading-[40px] max-lg:text-[40px] max-lg:text-center max-md:text-[28px] max-md:leading-[28px]">
-              Want to know about Google Workspace Services At Your Fingertips.
-            </span>
+      <div className="flex justify-center max-xl:flex-col pt-8  font-source-sans-pro">
+        <div className="bg-[#000AFF] flex items-center justify-center flex-col max-lg:w-full px-5 py-4 gap-8 md:px-7 md:py-12 xl:py-24 xl:px-12">
+          <div className="xl:w-[300px] 2xl:w-[400px] font-900 text-white max-lg:w-full max-w-[850px] text-[38px] 2xl:text-[44px] max-lg:text-[40px] max-xl:text-center max-md:text-[28px] leading-tight">
+            Want to know about Google Workspace Services At Your Fingertips.
           </div>
-          <div className="ml-[90px] max-lg:ml-0 pt-[10px] flex max-lg:justify-center max-lg:mb-[70px] max-md:mb-8 max-md:mt-[20px] font-600">
-            <button className="text-white  hover:bg-white hover:text-[#000659] border-2 text-[15px] px-6 max-lg:py-2  py-4 rounded-[50px]">
-              Contact Us
-            </button>
-          </div>
+          <button className="text-white  hover:bg-white hover:text-[#000659] border-2 text-[15px] px-6 max-lg:py-2  py-4 xl:self-start rounded-[50px]">
+            Contact Us
+          </button>
         </div>
         <div>
           <Image src={col} alt={""} className="w-[1280px]" />

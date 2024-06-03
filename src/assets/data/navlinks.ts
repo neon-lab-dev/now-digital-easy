@@ -31,33 +31,33 @@ export const PRODUCT_DROPDOWN_DATA = {
     {
       img: IMAGES.IoxHost,
       title: "Vision Now",
-      description: "Purchase & manage your own domain.",
+      description: "Powerful Customer management tools" ,
       href: "#",
     },
     {
       img: IMAGES.OpenStack,
-      title: "Hosting",
-      description: "Obtain & oversee your hosting solution",
+      title: "Chat Now",
+      description: "Connect and Engage with real-time chat support",
       href: "#",
     },
     {
       img: IMAGES.IoxHost,
-      title: "Google Workspace",
-      description: "Acquire & efficiently manage your workspace.",
+      title: "Spot Now",
+      description: "Employee tracking tool for efficient workforce",
       href: "#",
     },
     {
       img: IMAGES.IoxHost,
-      title: "NDE Mail",
-      description: "Connect & optimize your email communication.",
+      title: "Peoples Now",
+      description: "Manage your employees details",
       href: "#",
     },
   ],
   grow: [
     {
       img: IMAGES.IoxHost,
-      title: "Mails Now",
-      description: "Purchase & manage your own domain.",
+      title: "Marketing Planner",
+      description: "Connect & optimize your email communication.",
       href: "#",
     },
     {
@@ -74,8 +74,8 @@ export const PRODUCT_DROPDOWN_DATA = {
     },
     {
       img: IMAGES.IoxHost,
-      title: "Marketing Planner",
-      description: "Connect & optimize your email communication.",
+      title: "Mails Now",
+      description: "Purchase & manage your own domain.",
       href: "#",
     },
   ],

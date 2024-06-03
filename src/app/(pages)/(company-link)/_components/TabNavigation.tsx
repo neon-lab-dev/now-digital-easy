@@ -7,8 +7,8 @@ import Image from "next/image";
 const TabNavigation = () => {
   const pathname = usePathname();
   return (
-    <div className="h-fit md:w-[200px] md:min-w-[200px] lg:min-w-[275px] overflow-hidden">
-      <div className="flex gap-3 overflow-x-auto md:flex-col md:w-[200px] lg:w-[275px]">
+    <div className="h-fit md:w-[200px] md:min-w-[200px] lg:min-w-[275px]">
+      <div className="flex gap-3 flex-col w-full md:w-[200px] lg:w-[275px]">
         {[
           {
             label: "About Us",
@@ -51,10 +51,7 @@ const TabNavigation = () => {
               alt="arrow"
               height={24}
               width={24}
-              className={twMerge(
-                pathname === tab.href ? "invert-0" : "invert",
-                "hidden md:block"
-              )}
+              className={twMerge(pathname === tab.href ? "invert-0" : "invert")}
             />
           </Link>
         ))}
