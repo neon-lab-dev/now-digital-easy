@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+
 const RefundPolicy = () => {
   return (
     <div className="flex flex-col gap-4 md:gap-6 xl:gap-9">
@@ -39,8 +41,8 @@ const RefundPolicy = () => {
       ].map((item, i) => (
         <div key={i} className="">
           <li>
-            <span className="font-900 text-primary-500 text-xl ">
-              {item.title}:{'  '}
+            <span className="font-900 text-primary-500 text-xl">
+              {item.title}:
             </span>
             <p className="text-base font-400 inline">{item.content}</p>
           </li>
@@ -57,7 +59,7 @@ const RefundPolicy = () => {
       <div>
         <span className="font-900 text-primary-500 text-xl md:text-2xl xl:text-3xl">
           Ready to unlock a new level of efficiency?
-        </span>{' '}
+        </span>
         <p className="text-base font-400 inline">
           Sign up for your free 15-day trial today and experience the Now
           Digital Easy difference!
