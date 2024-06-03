@@ -40,8 +40,8 @@ const AboutUs = () => {
           title: "Our Team",
           content: `At Now Digital Easy, we believe in working hard and partying even harder! We are a team of over 50+ developers, marketers, strategists and creatives. The collective team experience, brainstorming, and hard work allows us to find novel solutions for everything!`,
         },
-      ].map((item) => (
-        <div className="">
+      ].map((item, i) => (
+        <div key={i} className="">
           <span className="font-900 text-primary-500 text-xl ">
             {item.title}:{"  "}
           </span>
