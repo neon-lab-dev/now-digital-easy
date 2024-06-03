@@ -3,7 +3,7 @@ const AboutUs = () => {
     <div className="flex flex-col gap-4 md:gap-6 xl:gap-9">
       <div className="flex flex-col gap-3">
         <span className="font-900 text-primary-500 text-xl md:text-2xl xl:text-3xl">
-          We're serious about changing the way business work
+          We&apos;re serious about changing the way business work
         </span>
         <p className="text-base md:text-lg font-400">
           We give businesses a helping hand, so they can get more done with less
@@ -18,7 +18,7 @@ const AboutUs = () => {
           Now Digital Easy is the daughter company of Iaaxin Tech Labs, a
           leading software development company that believes that digital
           transformation should be easy and trouble-free.
-          <br /> We're making digital transformation wonderfully easy and want a
+          <br /> We&apos;re making digital transformation wonderfully easy and want a
           world with millions of organizations enjoying the benefits of going
           digital first.
         </p>
