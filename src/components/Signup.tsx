@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import { useForm } from "react-hook-form";
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 interface SignupProps {
   handleSignIn: () => void;
@@ -9,17 +15,13 @@ interface SignupProps {
 }
 
 const Signup: React.FC<SignupProps> = ({ handleSignIn, handleSignUp }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
-  const handleSubmit = async () => {
+  const onSubmit = async (data: FormData) => {
     try {
       const response = await axios.post(
         "https://liveserver.nowdigitaleasy.com:5000/client/signin",
-        {
-          email,
-          password,
-        }
+        data
       );
       console.log("Login successful:", response.data);
       Cookies.set("token", response.data.token, { expires: 7 });
@@ -50,11 +52,13 @@ const Signup: React.FC<SignupProps> = ({ handleSignIn, handleSignUp }) => {
           </label>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register("email", { required: true })}
             placeholder="email address"
             className="border-[1px] p-3 rounded-lg mt-2"
           />
+          {errors.email && (
+            <span className="text-red-500">Email is required</span>
+          )}
           <label
             htmlFor="forpassword"
             className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]"
@@ -63,16 +67,18 @@ const Signup: React.FC<SignupProps> = ({ handleSignIn, handleSignUp }) => {
           </label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register("password", { required: true })}
             placeholder="Password"
             className="border-[1px] p-3 rounded-lg mt-2"
           />
+          {errors.password && (
+            <span className="text-red-500">Password is required</span>
+          )}
         </div>
       </div>
       <div className="flex justify-center">
         <button
-          onClick={handleSubmit}
+          onClick={handleSubmit(onSubmit)}
           className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
         >
           Sign Up
