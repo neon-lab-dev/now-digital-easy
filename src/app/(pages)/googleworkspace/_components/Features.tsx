@@ -12,7 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import {
   handleAddToCart,
   handleCheckDomainAvailability,
-} from "@/Services/google-workspace";
+} from "@/services/google-workspace";
 import { toast } from "react-toastify";
 import DomainCheckout from "./DomainCheckout";
 
