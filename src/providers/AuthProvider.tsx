@@ -31,7 +31,7 @@ const AuthProvider = ({
     dispatch(setIsLoggedIn(true));
   }, [data, isError, isLoading]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Loading className="h-screen" />;
   return <div>{children}</div>;
 };
 

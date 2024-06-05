@@ -40,6 +40,7 @@ const CartSummary = () => {
               product={item.product}
               price={item.domainprice}
               domain={item.domainName}
+              _id={item._id}
             />
           ))}
 
