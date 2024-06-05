@@ -10,14 +10,21 @@ import x from "@/assets/icons/x.svg";
 import { NAV_LINKS } from "@/assets/data/navlinks";
 import { twMerge } from "tailwind-merge";
 import Button from "./Button";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  setActiveAuthTab,
+  setIsSidebarOpen,
+} from "@/store/slices/sidebarSlice";
 
 type ActiveDropdown = "Products" | "Resources" | "More" | null;
 
 const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState<ActiveDropdown>(null);
+  const dispatch = useAppDispatch();
   const router = useRouter();
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { isLoggedIn, user } = useAppSelector((state) => state.user);
 
   // close on click outside
   useEffect(() => {
@@ -98,24 +105,43 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex gap-4 h-full bg-white items-center bg-opacity-50 pr-4 lg:pr-14">
-          <Button
-            variant="primary"
-            className="hidden sm:flex h-[34px] items-center justify-center"
-          >
-            Log In
-          </Button>
+          {isLoggedIn ? (
+            // show user name
+            <div className="hidden sm:flex items-center gap-2 bg-gray-300 px-2 py-2 rounded-md">
+              <span>
+                {user?.first_name} {user?.last_name}
+              </span>
+            </div>
+          ) : (
+            <>
+              <Button
+                onClick={() => {
+                  dispatch(setIsSidebarOpen(true));
+                  dispatch(setActiveAuthTab("login"));
+                }}
+                variant="primary"
+                className="hidden sm:flex h-[34px] items-center justify-center"
+              >
+                Log In
+              </Button>
 
-          <Button
-            className="hidden sm:flex items-center justify-center h-[34px]"
-            variant="secondary"
-          >
-            Sign Up
-          </Button>
+              <Button
+                onClick={() => {
+                  dispatch(setIsSidebarOpen(true));
+                  dispatch(setActiveAuthTab("signup"));
+                }}
+                className="hidden sm:flex items-center justify-center h-[34px]"
+                variant="secondary"
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
 
           <Sidebar />
 
           <button
-            onClick={() => setIsSidebarOpen(true)}
+            onClick={() => setIsMobileNavOpen(true)}
             className="text-button px-3 h-full lg:hidden min-w-[50px]"
           >
             <Image src={ICONS.menu} alt={""} height={26} width={26} />
@@ -125,9 +151,9 @@ const Navbar = () => {
       </nav>
 
       {/* overlay */}
-      {isSidebarOpen && (
+      {isMobileNavOpen && (
         <div
-          onClick={() => setIsSidebarOpen(false)}
+          onClick={() => setIsMobileNavOpen(false)}
           className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
         />
       )}
@@ -135,11 +161,11 @@ const Navbar = () => {
       <aside
         className={twMerge(
           "bg-white w-[250px] h-screen transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-20 px-6 gap-3 overflow-x-hidden overflow-y-auto",
-          isSidebarOpen ? "translate-x-0" : "translate-x-full "
+          isMobileNavOpen ? "translate-x-0" : "translate-x-full "
         )}
       >
         <button
-          onClick={() => setIsSidebarOpen(false)}
+          onClick={() => setIsMobileNavOpen(false)}
           className="absolute top-4 right-4"
         >
           <Image src={x} alt="close" height={24} width={24} />
@@ -185,7 +211,7 @@ const Navbar = () => {
                           //  @ts-ignore
                           item.dropdowns[key].map((item, i) => (
                             <Link
-                              onClick={() => setIsSidebarOpen(false)}
+                              onClick={() => setIsMobileNavOpen(false)}
                               href={item.href}
                               key={i}
                               className="text-sm font-400 text-dark-400 flex gap-4"

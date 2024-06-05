@@ -1,208 +1,106 @@
-import React from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { useForm } from 'react-hook-form';
+import React from "react";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ILoginCredentials, handleLoginService } from "@/services/auth";
+import { useAppDispatch } from "@/hooks/redux";
+import {
+  setActiveAuthTab,
+  setIsSidebarOpen,
+} from "@/store/slices/sidebarSlice";
 
-interface FormData {
-  companyName: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  address: string;
-  city: string;
-  pincode: string;
-  state: string;
-  country: string;
-  phone_number: string;
-  gstin: string;
-}
+const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILoginCredentials>();
+  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: handleLoginService,
+    onSuccess: (data) => {
+      Cookies.set("token", data.data.jwtToken);
+      toast.success(data.message);
+      dispatch(setActiveAuthTab(null));
+      dispatch(setIsSidebarOpen(false));
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+    },
+    onError: (error: string) => {
+      toast.error(error);
+    },
+  });
 
-interface SignupProps {
-  handleSignIn: () => void;
-  handleSignUp: () => void;
-}
-
-const Login: React.FC<SignupProps> = ({ handleSignUp, handleSignIn }) => {
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm<FormData>();
-
-  const onSubmit = async (data: FormData) => {
-    try {
-      const response = await axios.post('https://liveserver.nowdigitaleasy.com:5000/client/signup', data);
-      console.log('Signup successful:', response.data);
-      toast.success('Signup successful');
-      handleSignIn();
-    } catch (error: any) {
-      console.error('Signup failed:', error);
-
-      // Check if error.response exists and contains a data object
-      if (error.response && error.response.data) {
-        // Use the error message from the response data if available
-        const errorMessage = error.response.data.message || 'Signup failed. Please try again.';
-        toast.error(errorMessage); // Display error toast with custom error message
-      } else {
-        // Otherwise, display a generic error message
-        toast.error('Signup failed. Please try again.');
-      }
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setValue(name as keyof FormData, value);
+  const onSubmit = (data: ILoginCredentials) => {
+    mutate(data);
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex justify-center">
-          <div className="w-[406px] pt-2 flex flex-col">
-            <span className="font-source-sans-pro font-700 text-[17px]">New User?</span>
-            <span className="font-source-sans-pro font-400 text-[13px]">Create an account in 10 seconds</span>
-            <div className="grid grid-cols-2 gap-2 pt-3 pb-3">
-              <div>
-                <label htmlFor="firstName" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">First Name</label>
-                <input
-                  type="text"
-                  {...register("first_name", { required: true })}
-                  placeholder="First Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
-                  onChange={handleChange}
-                />
-                {errors.first_name && <span className="text-red-500 text-[10px]">First Name is required</span>}
-              </div>
-              <div>
-                <label htmlFor="lastName" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">Last Name</label>
-                <input
-                  type="text"
-                  {...register("last_name", { required: true })}
-                  placeholder="Last Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
-                  onChange={handleChange}
-                />
-                {errors.last_name && <span className="text-red-500 text-[10px]">Last Name is required</span>}
-              </div>
-              <div>
-                <label htmlFor="email" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">Email</label>
-                <input
-                  type="email"
-                  {...register("email", { required: true })}
-                  placeholder="Email address"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
-                  onChange={handleChange}
-                />
-                {errors.email && <span className="text-red-500 text-[10px]">Email is required</span>}
-              </div>
-              <div>
-                <label htmlFor="phoneNumber" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">Phone Number</label>
-                <input
-                  type="tel"
-                  {...register("phone_number", { required: true })}
-                  placeholder="Phone Number"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
-                  onChange={handleChange}
-                />
-                {errors.phone_number && <span className="text-red-500 text-[10px]">Phone Number is required</span>}
-              </div>
-              <div>
-                <label htmlFor="password" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">Password</label>
-                <input
-                  type="password"
-                  {...register("password", { required: true })}
-                  placeholder="Password"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
-                  onChange={handleChange}
-                />
-                {errors.password && <span className="text-red-500 text-[10px]">Password is required</span>}
-              </div>
-              <div>
-                <label htmlFor="companyName" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">Company Name</label>
-                <input
-                  type="text"
-                  {...register("companyName", { required: true })}
-                  placeholder="Company Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
-                  onChange={handleChange}
-                />
-                {errors.companyName && <span className="text-red-500 text-[10px]">Company Name is required</span>}
-              </div>
-              <div>
-                <label htmlFor="address" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">Address</label>
-                <input
-                  type="text"
-                  {...register("address", { required: true })}
-                  placeholder="Address"
-                  className="border-[1px] p-3 rounded-lg mt-2 w-[196px]  text-[12px] "
-                  onChange={handleChange}
-                />
-                {errors.address && <span className="text-red-500 text-[10px]">Address is required</span>}
-              </div>
-              <div>
-                <label htmlFor="city" className="font-source-sans-pro  font-400 text-[13px] pt-4 text-[#313131]">City</label>
-                <input
-                  type="text"
-                  {...register("city", { required: true })}
-                  placeholder="City"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
-                  onChange={handleChange}
-                />
-                {errors.city && <span className="text-red-500 text-[10px]">City is required</span>}
-              </div>
-              <div>
-                <label htmlFor="pincode" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">Pin Code</label>
-                <input
-                  type="text"
-                  {...register("pincode", { required: true })}
-                  placeholder="Pin Code"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
-                  onChange={handleChange}
-                />
-                {errors.pincode && <span className="text-red-500 text-[10px]">Pin Code is required</span>}
-              </div>
-              <div>
-                <label htmlFor="state" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">State</label>
-                <input
-                  type="text"
-                  {...register("state", { required: true })}
-                  placeholder="State"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
-                  onChange={handleChange}
-                />
-                {errors.state && <span className="text-red-500 text-[10px]">State is required</span>}
-              </div>
-              <div>
-                <label htmlFor="country" className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]">Country</label>
-                <input
-                  type="text"
-                  {...register("country", { required: true })}
-                  placeholder="Country"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
-                  onChange={handleChange}
-                />
-                {errors.country && <span className="text-red-500 text-[10px]">Country is required</span>}
-              </div>
-              <div>
-                <label htmlFor="gstin" className="text-[13px] pt-4 text-[#313131]">GSTIN</label>
-                <input
-                  type="text"
-                  {...register("gstin", { required: true })}
-                  placeholder="GSTIN"
-                  className="border-[1px] p-3 rounded-lg mt-2 w-[196px] text-[12px]"
-                  onChange={handleChange}
-                />
-                {errors.gstin && <span className="text-red-500 text-[10px]">GSTIN is required</span>}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <button type="submit" className="font-source-sans-pro text-[17px] font-700 text-white px-10  bg-[#0011FF]  h-[40px] w-[215px] rounded-[4px]">
-            Create Account
-          </button>
-        </div>
-      </form>
+    <div className="">
       <div className="flex justify-center">
-        <span className="font-source-sans-pro font-400 text-[17px]">Already have an account?<span onClick={handleSignUp} className="underline font-source-sans-pro font-400  text-[#0011FF]"> Sign in</span></span>
+        <div className="w-[299px] py-10 flex flex-col">
+          <span className="font-source-sans-pro font-700 text-[17px]">
+            New User?
+          </span>
+          <span className="font-source-sans-pro font-400 text-[13px]">
+            Please sign up with your credentials below to continue.
+          </span>
+          <label
+            htmlFor="forEmail"
+            className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            {...register("email", { required: true })}
+            placeholder="email address"
+            className="border-[1px] p-3 rounded-lg mt-2"
+          />
+          {errors.email && (
+            <span className="text-red-500">Email is required</span>
+          )}
+          <label
+            htmlFor="password"
+            className="font-source-sans-pro font-400 text-[15px] pt-4 text-[#313131]"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            {...register("password", { required: true })}
+            placeholder="Password"
+            className="border-[1px] p-3 rounded-lg mt-2"
+          />
+          {errors.password && (
+            <span className="text-red-500">Password is required</span>
+          )}
+        </div>
+      </div>
+      <div className="flex justify-center">
+        <button
+          disabled={isPending}
+          onClick={handleSubmit(onSubmit)}
+          className="font-source-sans-pro text-[17px] disabled:opacity-75 font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
+        >
+          {isPending ? "Loading..." : "Sign Up"}
+        </button>
+      </div>
+      <div className="flex justify-center pt-2">
+        <span className="font-source-sans-pro font-400 text-[15px]">
+          Already a member?{" "}
+          <span
+            onClick={() => {
+              dispatch(setActiveAuthTab("signup"));
+            }}
+            className="underline font-source-sans-pro font-400 text-[#0011FF] cursor-pointer"
+          >
+            Sign in
+          </span>
+        </span>
       </div>
     </div>
   );

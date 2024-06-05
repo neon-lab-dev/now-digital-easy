@@ -1,25 +1,98 @@
-interface LoginCredentials {
-  username: string;
+import axios from "axios";
+import { API_URL } from ".";
+import { IUser } from "@/types/user.types";
+import Cookies from "js-cookie";
+export interface ILoginCredentials {
+  email: string;
   password: string;
 }
 
-export const login = async (credentials: LoginCredentials): Promise<any> => {
-    try {
-      const response = await fetch('https://liveserver.nowdigitaleasy.com:5000/client/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-  
-      return await response.json();
-    } catch (error: any) { // Specify the type of 'error' explicitly
-      throw new Error(error.message);
-    }
+export interface ILoginResponse {
+  message: string;
+  type: string;
+  data: {
+    jwtToken: string;
   };
-  
+  defaultWorkspace: string;
+  workspaces: Array<{ id: string; name: string }>;
+}
+
+export const handleLoginService = async (
+  credentials: ILoginCredentials
+): Promise<ILoginResponse> => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(API_URL.login, credentials)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error.response.data?.error?.message ?? "Login failed!");
+      });
+  });
+};
+
+export interface ISignupCredentials {
+  companyName: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  address: string;
+  city: string;
+  pincode: string;
+  state: string;
+  country: string;
+  phone_number: string;
+  gstin: string;
+}
+
+export interface ISignupResponse {
+  message: string;
+  type: string;
+  data: {
+    user_id: string;
+    jwtToken: string;
+    fullName: string;
+    email: string;
+    role: string;
+  };
+}
+export const handleSignupService = async (
+  credentials: ISignupCredentials
+): Promise<ISignupResponse> => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(API_URL.signup, credentials)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error.response.data?.error?.message ?? "Signup failed!");
+      });
+  });
+};
+
+export const handleGetUserDetailsService = async (
+  token: string = ""
+): Promise<IUser> => {
+  return new Promise((resolve, reject) => {
+    if (!token) {
+      reject("Token not found!");
+    }
+    axios
+      .get(API_URL.userDetails, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(
+          error.response?.data?.error?.message ?? "User details fetch failed!"
+        );
+      });
+  });
+};
