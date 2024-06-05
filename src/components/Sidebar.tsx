@@ -115,17 +115,11 @@ const Sidebar = () => {
             </button>
           </div>
         )}
-        {isSidebarOpen && !isSidebarActive ? (
+        {!isSidebarActive ? (
           <>{activeAuthTab === "signup" ? <Signup /> : <Login />}</>
         ) : (
           <div>
-            {currentStep === 0 && (
-              <CartSummary
-                handleContinueToCartAndNextStep={
-                  handleContinueToCartAndNextStep
-                }
-              />
-            )}
+            {currentStep === 0 && <CartSummary />}
             {currentStep === 1 && (showSignup ? <Signup /> : <Login />)}
             {currentStep === 2 && (
               <OrderSummary handlePlaceOrder={handlePlaceOrder} />
