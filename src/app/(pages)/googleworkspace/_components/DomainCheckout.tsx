@@ -5,7 +5,7 @@ import vector from "@/assets/images/Vector.svg";
 import React, { useState } from "react";
 import x from "@/assets/icons/x.svg";
 import { twMerge } from "tailwind-merge";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { handleCheckDomainAvailabilityService } from "@/services/google-workspace";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";

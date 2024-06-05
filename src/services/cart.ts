@@ -2,9 +2,7 @@ import axios from "axios";
 import { API_URL } from ".";
 import { ICartItemDomain } from "@/types/cart.types";
 
-export const handleGetAllCartItemsService = async (
-  token: string = ""
-): Promise<ICartItemDomain[]> => {
+export const handleGetAllCartItemsService = async (token: string = "") => {
   return new Promise((resolve, reject) => {
     // get from local storage
     if (!token) return resolve([]);
@@ -39,7 +37,7 @@ export const handleAddADomainToCartService = async ({
 }) => {
   return new Promise(async (resolve, reject) => {
     handleGetAllCartItemsService(token)
-      .then((cartItems) => {
+      .then((cartItems: any) => {
         let data = [dataToSend];
         if (cartItems.products.length > 0) {
           // @ts-ignore
