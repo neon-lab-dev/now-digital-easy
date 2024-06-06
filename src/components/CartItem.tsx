@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { handleUpdateCartService } from "@/services/cart";
 import { toast } from "react-toastify";
 import { BounceLoader } from "react-spinners";
+import { ICart } from "@/types/cart.types";
 
 const CartItem = ({
   product,
@@ -48,13 +49,13 @@ const CartItem = ({
     mutationFn: (id: string) => {
       console.log(id);
       const token = Cookies.get("token");
-      const cartItems = queryClient.getQueryData(["cart"]);
+      const cartItems = queryClient.getQueryData<ICart>(["cart"]);
       const newCartItems = cartItems?.products?.filter(
         (item: any) => item._id !== id
       );
       return handleUpdateCartService({
         token: token!,
-        data: newCartItems,
+        data: newCartItems!,
       });
     },
     onError: (error) => {
