@@ -6,7 +6,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.IoxHost,
       title: "Domain",
       description: "Purchase & manage your own domain.",
-      href: "#",
+      href: "/domain",
     },
     {
       img: IMAGES.OpenStack,
