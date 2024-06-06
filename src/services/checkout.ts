@@ -27,6 +27,7 @@ export const handleCheckoutService = async ({
             reject("Payment Cancelled");
           },
         };
+        // @ts-ignore
         const razor = new window.Razorpay(options);
         razor.open();
         resolve(res.data);
