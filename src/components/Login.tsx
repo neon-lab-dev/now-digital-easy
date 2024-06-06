@@ -28,6 +28,9 @@ const Login = () => {
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["cart"],
+      });
     },
     onError: (error: string) => {
       toast.error(error);

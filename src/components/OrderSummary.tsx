@@ -4,11 +4,9 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import google from "@/assets/images/image 110.svg";
 import vector1 from "@/assets/images/chevron-down.svg";
-import cloud from "@/assets/images/Upload to Cloud.png";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ICartItemDomain } from "@/types/cart.types";
+import { ICart, ICartItemDomain } from "@/types/cart.types";
 import { handleCheckoutService } from "@/services/checkout";
-import { toast } from "react-toastify";
 
 const OrderSummary = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -16,7 +14,7 @@ const OrderSummary = () => {
     setShowDetails(!showDetails);
   };
 
-  const { data } = useQuery({
+  const { data } = useQuery<ICart>({
     queryKey: ["cart"],
   });
 
@@ -41,7 +39,7 @@ const OrderSummary = () => {
           className="flex justify-between px-2 py-3 cursor-pointer "
         >
           <span className=" font-source-sans-pro font-600 text-[17px] px-2 ">
-            Order Summary (data?.products?.length)
+            Order Summary ({data?.products?.length})
           </span>
           <Image
             src={vector1}
@@ -123,7 +121,7 @@ const OrderSummary = () => {
             onClick={() => mutate()}
             className="font-source-sans-pro text-[17px] font-400  text-white px-10 py-1 bg-[#0011FF] rounded-xs h-[40px] w-[215px] rounded-[4px]"
           >
-            Pay ₹ {data?.Total}
+            {isPending ? "Loading..." : `Pay ₹ ${data?.Total}`}
           </button>
         </div>
       </div>

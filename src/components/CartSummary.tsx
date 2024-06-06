@@ -32,7 +32,8 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
     <div className="h-full w-full">
       {isLoading ? (
         <Loading className="h-[calc(100vh-60px)]" />
-      ) : data?.length === 0 ? (
+      ) : // @ts-ignore
+      data?.length === 0 ? (
         <div className="flex justify-center items-center h-[calc(100vh-60px)]">
           <div className="flex flex-col gap-2 items-center justify-center">
             <Image src={cartImage} alt="cart" width={20} height={20} />

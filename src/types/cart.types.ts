@@ -17,3 +17,20 @@ export interface ICartItemDomain {
 }
 
 export type ICartItem = ICartItemDomain;
+
+export type ICart = {
+  products: ICartItem[];
+  userId: string;
+  gst: {
+    cgst: {
+      Amt: number;
+      percentage: number;
+    };
+    sgst: {
+      Amt: number;
+      percentage: number;
+    };
+  };
+  subTotal: number;
+  Total: number;
+};

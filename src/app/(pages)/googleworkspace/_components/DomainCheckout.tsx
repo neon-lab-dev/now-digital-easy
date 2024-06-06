@@ -270,6 +270,7 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
                                               domain.price[0].productId,
                                             type: "new",
                                             year: domain.price[0].year,
+                                            // qty: 10,
                                           },
                                         });
                                       } else {

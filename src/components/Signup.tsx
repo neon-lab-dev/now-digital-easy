@@ -25,6 +25,8 @@ const Signup = () => {
     onSuccess: (data) => {
       Cookies.set("token", data.data.jwtToken);
       toast.success(data.message);
+      dispatch(setActiveAuthTab(null));
+      dispatch(setIsSidebarOpen(false));
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });

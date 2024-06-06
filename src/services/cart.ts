@@ -1,13 +1,15 @@
 import axios from "axios";
 import { API_URL } from ".";
-import { ICartItemDomain } from "@/types/cart.types";
+import { ICart, ICartItemDomain } from "@/types/cart.types";
 import { toast } from "react-toastify";
 
-export const handleGetAllCartItemsService = async (token: string = "") => {
+export const handleGetAllCartItemsService = async (
+  token: string = ""
+): Promise<ICart> => {
   return new Promise((resolve, reject) => {
     // get from local storage
     if (!token) {
-      return resolve([]);
+      return resolve([] as any);
     }
     axios
       .get(API_URL.cart, {
