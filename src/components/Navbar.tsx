@@ -107,10 +107,8 @@ const Navbar = () => {
         <div className="flex gap-4 h-full bg-white items-center bg-opacity-50 pr-4 lg:pr-14">
           {isLoggedIn ? (
             // show user name
-            <div className="hidden sm:flex items-center gap-2 bg-gray-300 px-2 py-2 rounded-md">
-              <span>
-                {user?.first_name} {user?.last_name}
-              </span>
+            <div className="hidden sm:flex gap-2 bg-gray-300 text-lg font-600 px-2 py-2 rounded-full aspect-square h-9 w-9 items-center justify-center">
+              <span>{user?.first_name[0]}</span>
             </div>
           ) : (
             <>

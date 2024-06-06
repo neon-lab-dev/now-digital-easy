@@ -40,6 +40,10 @@ export default function RootLayout({
               </div>
             </AuthProvider>
           </body>
+          <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            async
+          ></script>
         </html>
       </ReduxProvider>
     </ReactQueryClientProvider>

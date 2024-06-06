@@ -5,8 +5,10 @@ import { handleGetAllCartItemsService } from "@/services/cart";
 import Cookies from "js-cookie";
 import { ICartItemDomain } from "@/types/cart.types";
 import Loading from "./Loading";
+import cartImage from "@/assets/icons/cart.svg";
+import Image from "next/image";
 
-const CartSummary = () => {
+const CartSummary = ({ onClick }: { onClick: () => void }) => {
   const [showCoupon, setShowCoupon] = useState(false);
 
   const handClickCoupon = () => {
@@ -21,11 +23,24 @@ const CartSummary = () => {
     },
   });
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   if (isError) return <div>Something went wrong</div>;
   return (
     <div className="h-full w-full">
       {isLoading ? (
         <Loading className="h-[calc(100vh-60px)]" />
+      ) : data?.length === 0 ? (
+        <div className="flex justify-center items-center h-[calc(100vh-60px)]">
+          <div className="flex flex-col gap-2 items-center justify-center">
+            <Image src={cartImage} alt="cart" width={20} height={20} />
+            <span className="font-source-sans-pro text-sm text-[#000000]">
+              Your cart is empty
+            </span>
+          </div>
+        </div>
       ) : (
         <>
           <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
@@ -81,7 +96,10 @@ const CartSummary = () => {
           </div>
           <hr />
           <div className="flex justify-center p-4">
-            <button className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]">
+            <button
+              onClick={onClick}
+              className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
+            >
               Continue to Cart
             </button>
           </div>

@@ -9,4 +9,6 @@ export const API_URL = {
 
   checkDomainAvailability:
     BASE_URL + "/product/domain_availability?country_code=IN",
+
+  payment: BASE_URL + "/payment/makepayment",
 };

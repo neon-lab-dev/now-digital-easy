@@ -43,10 +43,10 @@ const Login = () => {
       <div className="flex justify-center">
         <div className="w-[299px] py-10 flex flex-col">
           <span className="font-source-sans-pro font-700 text-[17px]">
-            New User?
+            Existing User?
           </span>
           <span className="font-source-sans-pro font-400 text-[13px]">
-            Please sign up with your credentials below to continue.
+            Please sign in with your credentials below to continue.
           </span>
           <label
             htmlFor="forEmail"
@@ -91,14 +91,14 @@ const Login = () => {
       </div>
       <div className="flex justify-center pt-2">
         <span className="font-source-sans-pro font-400 text-[15px]">
-          Already a member?{" "}
+          New to Digital Easy?{" "}
           <span
             onClick={() => {
               dispatch(setActiveAuthTab("signup"));
             }}
             className="underline font-source-sans-pro font-400 text-[#0011FF] cursor-pointer"
           >
-            Sign in
+            Sign up here
           </span>
         </span>
       </div>

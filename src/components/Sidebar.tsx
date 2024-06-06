@@ -21,39 +21,8 @@ const Sidebar = () => {
     (state) => state.sidebar
   );
   const dispatch = useAppDispatch();
-  const [showSignup, setShowSignup] = useState(true);
-  const [currentStep, setCurrentStep] = useState(0);
-
-  const handleContinueToCartAndNextStep = () => {
-    setCurrentStep((prev) => prev + 1);
-  };
-
-  const handlePlaceOrder = () => {
-    setCurrentStep((prev) => prev + 1);
-  };
-  interface Step {
-    label: string;
-    step: number;
-  }
-
-  interface StepperProps {
-    steps: Step[];
-  }
-
-  const steps = [
-    {
-      label: "Summary",
-      step: 1,
-    },
-    {
-      label: "Login",
-      step: 2,
-    },
-    {
-      label: "Payment",
-      step: 3,
-    },
-  ];
+  const steps = ["Summary", "Payment"];
+  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent): void => {
@@ -103,7 +72,7 @@ const Sidebar = () => {
               )}
             />
             <div className={isSidebarActive ? "opacity-100" : "opacity-0"}>
-              <Stepper steps={steps} activeStep={1} currentStep={0} />
+              <Stepper steps={steps} activeStep={1} />
             </div>
             <button
               onClick={() => {
@@ -119,11 +88,14 @@ const Sidebar = () => {
           <>{activeAuthTab === "signup" ? <Signup /> : <Login />}</>
         ) : (
           <div>
-            {currentStep === 0 && <CartSummary />}
-            {currentStep === 1 && (showSignup ? <Signup /> : <Login />)}
-            {currentStep === 2 && (
-              <OrderSummary handlePlaceOrder={handlePlaceOrder} />
+            {activeStep === 0 && (
+              <CartSummary
+                onClick={() => {
+                  setActiveStep(1);
+                }}
+              />
             )}
+            {activeStep === 1 && <OrderSummary />}
           </div>
         )}
       </div>

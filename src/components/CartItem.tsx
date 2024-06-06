@@ -136,7 +136,7 @@ const CartItem = ({
         </span>
         <button disabled={isPending} onClick={() => mutate(_id)}>
           {isPending ? (
-            <BounceLoader color="#000" size={20} />
+            <BounceLoader color="#858383" size={20} />
           ) : (
             <Image src={trash} alt="" />
           )}

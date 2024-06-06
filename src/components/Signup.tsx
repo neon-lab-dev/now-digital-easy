@@ -262,7 +262,7 @@ const Signup = () => {
               <div>
                 <label
                   htmlFor="gstin"
-                  className="text-[13px] pt-4 text-[#313131]"
+                  className="text-[13px] pt-2 text-[#313131]"
                 >
                   GSTIN
                 </label>
@@ -270,7 +270,7 @@ const Signup = () => {
                   type="text"
                   {...register("gstin", { required: true })}
                   placeholder="GSTIN"
-                  className="border-[1px] p-3 rounded-lg mt-2 w-[196px] text-[12px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.gstin && (
                   <span className="text-red-500 text-[10px]">
@@ -291,12 +291,17 @@ const Signup = () => {
           </button>
         </div>
       </form>
-      <div className="flex justify-center">
-        <span className="font-source-sans-pro font-400 text-[17px]">
-          Already have an account?
-          <span className="underline font-source-sans-pro font-400  text-[#0011FF]">
+      <div className="flex justify-center mt-4">
+        <span className="font-source-sans-pro font-400 text-xs">
+          Already have an account?{"  "}
+          <button
+            onClick={() => {
+              dispatch(setActiveAuthTab("login"));
+            }}
+            className="underline font-source-sans-pro font-400  text-[#0011FF]"
+          >
             Sign in
-          </span>
+          </button>
         </span>
       </div>
     </div>

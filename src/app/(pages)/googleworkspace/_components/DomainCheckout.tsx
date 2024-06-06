@@ -244,8 +244,8 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
                   max-h-[400px] overflow-y-auto"
                       >
                         {domainAvailabilityData
-                          .filter((d) => d.status === "available")
-                          .map((domain, index) => (
+                          .filter((d: any) => d.status === "available")
+                          .map((domain: any, index: any) => (
                             <div key={index}>
                               <div className="flex justify-between items-center gap-10 my-4">
                                 <li className="">{domain.domain}</li>
@@ -272,6 +272,10 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
                                             year: domain.price[0].year,
                                           },
                                         });
+                                      } else {
+                                        toast.error(
+                                          "Please login to add to cart!"
+                                        );
                                       }
                                     }}
                                     className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md"
