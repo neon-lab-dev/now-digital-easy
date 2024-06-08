@@ -39,14 +39,14 @@ const PowerYourField = () => {
   return (
     <div className="w-full bg-[#EEFDF6] bg-opacity-50">
       <div className="flex flex-col wrapper max-width items-center justify-center gap-6 py-12">
-        <h1 className="text-center font-source-sans-pro font-900 text-primary-500 text-[54px] tracking-[-2px] leading-[110%] max-w-[750px]">
+        <h1 className="text-center font-source-sans-pro font-900 text-primary-500 text-[25px] md:text-[36px] txl:ext-[54px] tracking-[-2px] leading-[110%]">
           Power your Field Service Team and Deliver Better Results
         </h1>
-        <p className="font-merriweather text-primary-500 text-center max-w-[700px]">
+        <p className="font-merriweather text-primary-500 text-sm md:text-base text-center max-w-[700px]">
           SpotNow is your key to seamless, agile, and data-driven workforce
           management.
         </p>
-        <div className="grid grid-cols-3 gap-12 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-9 xl:gap-12 mt-6">
           {SERVICE_CARDS.map((card, index) => (
             <ServiceCard key={index} {...card} />
           ))}

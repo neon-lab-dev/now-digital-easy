@@ -27,7 +27,7 @@ const FAQs = ({ style }: { style?: React.CSSProperties }) => {
           </span>
         </div>
         <div className="flex justify-center pt-[30px] md:pt-[50px] p-3 w-full">
-          <div className="flex flex-col gap-8 w-full">
+          <div className="flex flex-col items-center justify-center gap-8 w-full">
             {FAQS.map((faq) => (
               <div
                 key={faq.id}

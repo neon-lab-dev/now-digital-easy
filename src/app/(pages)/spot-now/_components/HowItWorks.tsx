@@ -28,10 +28,10 @@ const HowItWorks = () => {
       }}
     >
       <div className="flex flex-col items-center justify-center wrapper max-width py-12 gap-12">
-        <h2 className="text-center font-source-sans-pro font-900 text-primary-500 text-[54px] tracking-[-2px] leading-[110%] ">
+        <h2 className="text-primary-500 font-900 font-source-sans-pro text-[36px]  md:text-[42px] xl:text-[61px] tracking-[-2px] leading-[110%] text-center max-w-5xl">
           How It Works
         </h2>
-        <div className="flex gap-9 justify-between w-full">
+        <div className="flex gap-9 flex-col lg:flex-row justify-between w-full">
           <div className="flex flex-col gap-7">
             {STEPS.map((step, index) => (
               <div key={index} className="flex flex-col">
@@ -50,7 +50,7 @@ const HowItWorks = () => {
             alt="howItWorks"
             width={632}
             height={324}
-            className="rounded-[30px] border-[#0DB262] border-8"
+            className="rounded-[30px] border-[#0DB262] border-[6px] md:border-8 m-auto"
           />
         </div>
       </div>

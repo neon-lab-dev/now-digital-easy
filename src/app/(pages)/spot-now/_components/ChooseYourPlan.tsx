@@ -15,13 +15,13 @@ const ChooseYourPlan = () => {
   return (
     <div className="w-full bg-[#CDE4F2] mb-12">
       <div className="flex flex-col wrapper max-width items-center justify-center gap-6 py-12">
-        <h1 className="text-center font-source-sans-pro font-900 text-primary-500 text-[54px] tracking-[-2px] leading-[110%] max-w-[750px]">
+        <h1 className="text-center font-source-sans-pro font-900 text-primary-500 text-[36px]  md:text-[42px] xl:text-[61px] tracking-[-2px] leading-[110%] max-w-[750px]">
           Choose Your Plan
         </h1>
-        <p className="font-merriweather text-primary-500 text-center max-w-[700px]">
+        <p className="font-merriweather text-primary-500 text-sm md:text-base text-center max-w-[700px]">
           Businesses just love working with us!
         </p>
-        <div className="flex gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full sm:w-auto">
           {PLANS.map((plan, index) => (
             <div
               key={index}
@@ -29,7 +29,7 @@ const ChooseYourPlan = () => {
                 background:
                   "linear-gradient(249deg, #80B9EE 2.96%, #4BF297 99.04%)",
               }}
-              className="flex flex-col text-center gap-4 p-7 items-center justify-center w-[490px] rounded-xl"
+              className="flex w-full flex-col text-center gap-4 p-7 items-center justify-center lg:w-[400px] xl:w-[490px] rounded-xl"
             >
               <h3 className="text-primary-500 font-900 text-[32px] tracking-[-1px] leading-[140%] ">
                 {plan.label}
@@ -47,7 +47,9 @@ const ChooseYourPlan = () => {
               >
                 Choose Your Plan
               </Button>
-              <button className="underline font-700 text-primary-500 font-merriweather">Contact Sales</button>
+              <button className="underline font-700 text-primary-500 font-merriweather">
+                Contact Sales
+              </button>
             </div>
           ))}
         </div>

@@ -14,7 +14,7 @@ const ServiceCard = ({ icon, label, desc }: Props) => {
       style={{
         boxShadow: "4px 4px 20px 0px rgba(0, 0, 0, 0.25)",
       }}
-      className="flex flex-col items-center justify-center px-5 py-6 bg-[#FDFEFF] rounded-xl gap-2"
+      className="flex flex-col sm:max-w-[320px] items-center justify-center px-5 py-6 bg-[#FDFEFF] rounded-xl gap-2"
     >
       <div className="flex flex-col items-center justify-center relative">
         <Image src={blob} alt="blob" height={60} width={60} />
