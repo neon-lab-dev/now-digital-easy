@@ -12,7 +12,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.OpenStack,
       title: "Hosting",
       description: "Obtain & oversee your hosting solution",
-      href: "#",
+      href: "/hosting",
     },
     {
       img: IMAGES.IoxHost,

@@ -33,6 +33,10 @@ import IoxHost from "@/assets/images/IoxHost.png";
 import OpenStack from "@/assets/images/New OpenStack Logo.png";
 import menuCardImg from "@/assets/images/menuCardImg.png";
 import menu from "@/assets/images/menu.svg"
+import checkmark from "@/assets/icons/Checkmark.svg"
+import like from "@/assets/icons/Like.svg"
+import check from "@/assets/icons/check.svg"
+
 
 
 //links
@@ -70,7 +74,10 @@ const ICONS = {
   cart,
   arrowRight2,
   upArrow,
-  menu
+  menu,
+  checkmark,
+  like,
+  check
 };
 
 export { IMAGES, ICONS };
