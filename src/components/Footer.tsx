@@ -97,7 +97,7 @@ const FOOTER_LINKS = [
       },
       {
         label: 'Blog',
-        href: '#',
+        href: '/blog',
       },
       {
         label: 'Live Chat',
