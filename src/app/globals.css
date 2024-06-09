@@ -221,3 +221,40 @@
   font-size: 16px;
   color: rgba(0, 6, 89, 1);
 }
+
+.blog_tab_cont {
+  width: 1280px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.bloc_tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+      gap: 20px
+}
+
+.bloc_tabs .blog_tab {
+  width: max-content;
+  border: 1px solid;
+  border-radius: 45px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+
+.blog_tab.active-blog_tab {
+  background: rgba(201, 205, 255, 1);
+  border: 0;
+  color: rgba(0, 17, 255, 1);
+}
+
+.content_blog_tabs .content_blog {
+    display: none;
+}
+
+.content_blog_tabs .content_blog.content_blog-active{
+  display: block;
+}
