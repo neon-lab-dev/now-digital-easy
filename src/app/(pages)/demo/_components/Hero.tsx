@@ -1,11 +1,11 @@
-import React from 'react';
-import Form from './Form';
+import React from "react";
+import Form from "./Form";
 
 const Hero = () => {
   return (
-    <div className=" wrapper border flex flex-row pt-[54px] md:pt-[81px] flex-wrap justify-center w-full gap-[80px] h-full">
+    <div className="wrapper absolute top-[71px] flex flex-row flex-wrap justify-center w-full gap-[80px] h-full">
       {/* Heading */}
-      <h1 className="max-w-[444px] heading1 text-primary-500 text-center lg:text-left lg:pt-[52px] md:pb-[72px]">
+      <h1 className="2xl:max-w-[444px] heading1 mt-[50px] text-primary-500 text-center lg:text-left">
         Book a demo to explore NDE
       </h1>
       <Form />

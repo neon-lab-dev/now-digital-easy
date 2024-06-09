@@ -1,22 +1,23 @@
-'use client';
-import React, { useState } from 'react';
-import { IDemoCredentials } from '@/services/demo';
-// import { useForm } from 'react-hook-form';
+"use client";
+import React, { useState } from "react";
+import { IDemoCredentials } from "@/services/demo";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const Form = () => {
   const isPending = false; // !Demo variable, this isPending will come from useMutation
 
-  const lableStyle = 'font-merriweather text-[15px]';
+  const labelStyle = "font-merriweather text-[15px]";
   const inputStyle =
-    'border-[1px] p-2 mt-2 text-[15px] border-[rgba(0,0,0,0.6)] rounded-[12px] h-[50px] focus:border-[#0011FF] focus:outline-none focus:ring-2 focus:ring-[#0011FF] font-merriweather';
-  const inputFieldStyle = 'flex flex-col mb-[20px]';
+    "border-[1px] p-2 mt-2 text-[15px] border-[rgba(0,0,0,0.6)] rounded-[12px] h-[50px] focus:border-[#0011FF] focus:outline-none focus:ring-2 focus:ring-[#0011FF] font-merriweather";
+  const inputFieldStyle = "flex flex-col mb-[20px]";
 
-  const onSubmit = (data: IDemoCredentials) => {};
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IDemoCredentials>();
 
-  const countryCodes = [
-    { code: 'IN', dialCode: '+91' },
-    { code: 'USA', dialCode: '+1' },
-  ];
+  const countryCodes = [{ code: "IN", dialCode: "+91" }];
 
   const [selectedCountry, setSelectedCountry] = useState(countryCodes[0]);
 
@@ -25,6 +26,10 @@ const Form = () => {
       (country) => country.code === e?.target?.value
     );
     setSelectedCountry(country || countryCodes[0]);
+  };
+
+  const onSubmit: SubmitHandler<IDemoCredentials> = (data) => {
+    console.log(data);
   };
 
   return (
@@ -37,17 +42,16 @@ const Form = () => {
 
       {/* FORM */}
       <div>
-        {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* FIRST NAME */}
           <div className={inputFieldStyle}>
-            <label htmlFor="firstName" className={lableStyle}>
+            <label htmlFor="firstName" className={labelStyle}>
               First Name<span>*</span>
             </label>
             <input
               id="firstName"
               type="text"
-              // {...(register('first_name'), { required: true })}
+              {...(register("first_name"), { required: true })}
               placeholder=""
               className={inputStyle}
             />
@@ -55,13 +59,13 @@ const Form = () => {
 
           {/* WORK EMAIL */}
           <div className={inputFieldStyle}>
-            <label htmlFor="workEmail" className={lableStyle}>
+            <label htmlFor="workEmail" className={labelStyle}>
               Work Email<span>*</span>
             </label>
             <input
               id="workEmail"
               type="email"
-              // {...(register('work_email'), { required: true })}
+              {...(register("work_email"), { required: true })}
               placeholder="Enter your business email"
               className={inputStyle}
             />
@@ -69,13 +73,13 @@ const Form = () => {
 
           {/* COMPANY NAME */}
           <div className={inputFieldStyle}>
-            <label htmlFor="companyName" className={lableStyle}>
+            <label htmlFor="companyName" className={labelStyle}>
               Company Name<span>*</span>
             </label>
             <input
               id="companyName"
               type="text"
-              // {...(register('company_name'), { required: true })}
+              {...(register("company_name"), { required: true })}
               placeholder=""
               className={inputStyle}
             />
@@ -83,7 +87,7 @@ const Form = () => {
 
           {/* PHONE NUMBER */}
           <div className={inputFieldStyle}>
-            <label htmlFor="phoneNo" className={lableStyle}>
+            <label htmlFor="phoneNo" className={labelStyle}>
               Phone Number<span>*</span>
             </label>
             <div className="flex gap-[12px]">
@@ -93,10 +97,11 @@ const Form = () => {
                   value={selectedCountry.code}
                   onChange={handleCountryChange}
                   style={{
-                    WebkitAppearance: 'none',
-                    MozAppearance: 'none',
-                    appearance: 'none',
-                  }}>
+                    WebkitAppearance: "none",
+                    MozAppearance: "none",
+                    appearance: "none",
+                  }}
+                >
                   {countryCodes.map((country) => (
                     <option key={country.code} value={country.code}>
                       {country.code}
@@ -110,12 +115,14 @@ const Form = () => {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg">
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
-                      d="M19 9l-7 7-7-7"></path>
+                      d="M19 9l-7 7-7-7"
+                    ></path>
                   </svg>
                 </div>
               </div>
@@ -128,7 +135,7 @@ const Form = () => {
                   <input
                     id="phoneNo"
                     type="number"
-                    // {...(register('phone_number'), { required: true })}
+                    {...(register("phone_number"), { required: true })}
                     placeholder=""
                     className={`${inputStyle} font-merriweather col-span-3 w-full`}
                     style={{
@@ -142,13 +149,13 @@ const Form = () => {
 
           {/* HEAR ABOUT US */}
           <div className={inputFieldStyle}>
-            <label htmlFor="hearAboutUs" className={lableStyle}>
+            <label htmlFor="hearAboutUs" className={labelStyle}>
               Optional - How did you hear about us? 
             </label>
             <input
               id="hearAboutUs"
               type="text"
-              // {...(register('hear_about_us'))}
+              {...register("hear_about_us")}
               placeholder=""
               className={inputStyle}
             />
@@ -159,8 +166,9 @@ const Form = () => {
             <button
               disabled={isPending}
               type="submit"
-              className="font-source-sans-pro text-[17px] font-700 text-white px-[32px] disabled:opacity-75  bg-[#0011FF]  h-[52px] rounded-[50px]">
-              {isPending ? 'Loading...' : 'Request Demo'}
+              className="font-source-sans-pro text-[17px] font-700 text-white px-[32px] disabled:opacity-75  bg-[#0011FF]  h-[52px] rounded-[50px]"
+            >
+              {isPending ? "Loading..." : "Request Demo"}
             </button>
           </div>
         </form>
