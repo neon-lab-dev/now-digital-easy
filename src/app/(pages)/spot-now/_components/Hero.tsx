@@ -25,7 +25,7 @@ const Hero = () => {
             </Button>
             <Button
               variant="primary"
-              className="rounded border-[#00C358] min-h-[50px]"
+              className="rounded border-[#00C358] min-h-[50px] font-merriweather font-700"
             >
               View Demo
             </Button>
