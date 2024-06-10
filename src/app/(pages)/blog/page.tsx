@@ -1,4 +1,5 @@
 "use client";
+import BlogPost from "@/components/BlogPost";
 import React, { useState } from "react";
 
 const Blog = () => {
@@ -63,11 +64,12 @@ const Blog = () => {
                   : "content_blog"
               }
             >
-              <h2>Content 1</h2>
-              <p>
+              {/* <h2>Content 1</h2> */}
+              {/* <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit,
                 quidem?
-              </p>
+              </p> */}
+              <BlogPost />
             </div>
 
             <div
