@@ -28,7 +28,7 @@ const Hero = () => {
     <div className="bg-gradient-domain pt-[156px] pb-[58px] font-source-sans-pro flex flex-col gap-[156px] wrapper">
       <div className="max-width">
 
-      <div className="font-900 text-[16px] md:text-[33px] xl:text-[46px] 2xl:text-[56px] leading-[30px] md:leading-[46px] xl:leading-[67px] text-primary-500 text-center flex gap-[5px] justify-center">
+      <div className="font-900 text-[16px] md:text-[33px] xl:text-[46px] 2xl:text-[56px] leading-[30px] md:leading-[46px] xl:leading-[67px] text-primary-500 text-center flex gap-[5px] justify-center w-full xl:w-[1000px]">
         <span>Expand your horizons with .</span>
         <TextTransition
           direction="down"
