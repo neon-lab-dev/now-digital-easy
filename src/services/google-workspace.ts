@@ -1,21 +1,20 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-export const handleCheckDomainAvailability = async (
+import { API_URL } from ".";
+
+export const handleCheckDomainAvailabilityService = async (
   domain: string
 ): Promise<any> => {
   return new Promise((resolve, reject) => {
     axios
-      .post(
-        "https://liveserver.nowdigitaleasy.com:5000/product/domain_availability?country_code=IN",
-        {
-          domain,
-        }
-      )
+      .post(API_URL.checkDomainAvailability, {
+        domain,
+      })
       .then((response) => {
-        resolve(response.data);
+        resolve(response.data?.response ?? []);
       })
       .catch((error) => {
-        reject(error);
+        reject(error.response?.data?.error ?? "Something went wrong");
       });
   });
 };

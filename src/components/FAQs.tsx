@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import arrow from "@/assets/images/Vector 35.svg";
 import { FAQS } from "@/assets/data/faq";
 
-const FAQs = () => {
+const FAQs = ({ style }: { style?: React.CSSProperties }) => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   const toggleDropdown = (faqId: number) => {
@@ -12,7 +12,7 @@ const FAQs = () => {
   };
 
   return (
-    <div className="bg-background-FAQ ">
+    <div style={style} className="bg-background-FAQ ">
       <div className="py-[80px] wrapper max-width">
         <div className="flex justify-center ">
           <span className="text-[60px] max-lg:text-[34px] max-md:text-center max-md:text-[28px] tracking-tighter text-[#000659] font-source-sans-pro font-900">
@@ -27,7 +27,7 @@ const FAQs = () => {
           </span>
         </div>
         <div className="flex justify-center pt-[30px] md:pt-[50px] p-3 w-full">
-          <div className="flex flex-col gap-8 w-full">
+          <div className="flex flex-col items-center justify-center gap-8 w-full">
             {FAQS.map((faq) => (
               <div
                 key={faq.id}
