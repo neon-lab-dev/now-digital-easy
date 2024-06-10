@@ -44,7 +44,7 @@ const plans = () => {
                 <div className=' flex justify-center'>
                     <div className='grid grid-cols-2 max-lg:grid-cols-1 gap-2'>
                         {features.map((feature, index) => (
-                            <div key={index} className='flex items-start gap-4 px-4 py-6 w-[600px] max-lg:w-full'>
+                            <div key={index} className='flex items-start gap-4 px-4 py-6 w-[550px] max-lg:w-full'>
                                 <Image src={ICONS.like} alt='Feature icon' />
                                 <div className='flex flex-col gap-4'>
                                     <span className='font-900 font-source-sans-pro text-2xl tracking-tighter max-lg:text-lg'>{feature.title}</span>
