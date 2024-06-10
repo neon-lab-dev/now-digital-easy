@@ -12,7 +12,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.OpenStack,
       title: "Hosting",
       description: "Obtain & oversee your hosting solution",
-      href: "#",
+      href: "/hosting",
     },
     {
       img: IMAGES.IoxHost,
@@ -82,21 +82,21 @@ export const PRODUCT_DROPDOWN_DATA = {
 };
 export const NAV_LINKS = [
   {
-    name: "Products",
+    name: 'Products',
     dropdowns: PRODUCT_DROPDOWN_DATA,
   },
   {
-    name: "Resources",
+    name: 'Resources',
   },
   {
-    name: "Pricing",
-    href: "#",
+    name: 'Pricing',
+    href: '#',
   },
   {
-    name: "Demo",
-    href: "#",
+    name: 'Demo',
+    href: '/demo',
   },
   {
-    name: "More",
+    name: 'More',
   },
 ];
