@@ -31,7 +31,7 @@ export const PRODUCT_DROPDOWN_DATA = {
     {
       img: IMAGES.IoxHost,
       title: "Vision Now",
-      description: "Powerful Customer management tools" ,
+      description: "Powerful Customer management tools",
       href: "#",
     },
     {
@@ -44,7 +44,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.IoxHost,
       title: "Spot Now",
       description: "Employee tracking tool for efficient workforce",
-      href: "#",
+      href: "/spot-now",
     },
     {
       img: IMAGES.IoxHost,
