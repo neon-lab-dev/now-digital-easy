@@ -89,7 +89,7 @@ const Login = () => {
           onClick={handleSubmit(onSubmit)}
           className="font-source-sans-pro text-[17px] disabled:opacity-75 font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
         >
-          {isPending ? "Loading..." : "Sign Up"}
+          {isPending ? "Loading..." : "Sign In"}
         </button>
       </div>
       <div className="flex justify-center pt-2">
