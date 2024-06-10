@@ -3,7 +3,7 @@ import React from 'react';
 const Features = () => {
   return (
     <div className="container">
-      <h1 className="title">Why Choose NDE's Vision Now?</h1>
+      <h1 className="title">Why Choose NDE&apos;s Vision Now?</h1>
       <div className="features">
         <div className="feature">
           <h2>Multiple pipelines</h2>
