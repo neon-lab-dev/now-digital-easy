@@ -1,148 +1,14 @@
-//@ts-nocheck
-
 "use client";
 
 import Image from "next/image";
 import { SERVICES_PLAN_DATA } from "@/assets/data/servicesPlanData";
 import Button from "@/components/Button";
-import { twJoin, twMerge } from "tailwind-merge";
-import { Fragment, SetStateAction, useState } from "react";
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
-import {
-  handleAddToCart,
-  handleCheckDomainAvailability,
-} from "@/Services/google-workspace";
-import { toast } from "react-toastify";
+import { twMerge } from "tailwind-merge";
+import { Fragment, useState } from "react";
 import DomainCheckout from "./DomainCheckout";
 
 const Features = () => {
-  const [selectedDomain, setSelectedDomain] = useState<string>(""); // State to manage selected domain
-  const [open, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Monthly");
   const [isOpen, setIsOpen] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(true);
-  const [showAvailability, setShowAvailability] = useState(false);
-  const [chosenOption, setChosenOption] = useState("register"); // State to manage selected radio button
-  const [inputValue, setInputValue] = useState(""); // State to manage the input value
-  const [errorMessage, setErrorMessage] = useState(""); // State to manage error message
-  const [errorMessage1, setErrorMessage1] = useState(""); // State to manage error message
-  const [similarDomains, setSimilarDomains] = useState<string[]>([]);
-
-  const handleRadioChange = (option: SetStateAction<string>) => {
-    setChosenOption(option); // Set the selected radio button
-    setErrorMessage(""); // Reset error message when radio button changes
-    setErrorMessage1("");
-  };
-
-  const handleInputChange = (event: {
-    target: { value: SetStateAction<string> };
-  }) => {
-    setInputValue(event.target.value); // Update input value
-    setErrorMessage(""); // Reset error message when input changes
-  };
-
-  const handleAssignDomain = async () => {
-    try {
-      const response = await axios.get(
-        `https://liveserver.nowdigitaleasy.com:5000/product/domain_availability`,
-        {
-          params: {
-            country_code: "IN",
-            domain: inputValue,
-          },
-        }
-      );
-      const data = response.data;
-      if (data.available) {
-        // Domain is available
-        setErrorMessage(""); // Clear any previous error messages
-        // Proceed with other actions if needed
-      } else {
-        // Domain is not available
-        setErrorMessage(
-          "Domain is already taken. Please choose a different one."
-        );
-        // You can also access similar domains from data.similar_domains if needed
-        // setSimilarDomains(data.similar_domains);
-      }
-    } catch (error) {
-      console.error("Error checking domain availability:", error);
-      // Handle error appropriately
-    }
-  };
-
-  //
-  const { mutate, isPending } = useMutation({
-    mutationFn: handleCheckDomainAvailability,
-    onSuccess: (data) => {
-      console.log("Domain availability data:", data);
-      const res = data.response;
-      setSimilarDomains(res);
-      setErrorMessage1(
-        res.find((domain: any) => domain.domain === inputValue).status ===
-          "available"
-          ? "Domain is available. Proceed to checkout."
-          : "Domain is already taken. Please choose a different one."
-      );
-    },
-    onError: (error) => {
-      console.error("Error checking domain availability:", error);
-      // Handle error appropriately
-    },
-    onSettled: () => {
-      setSelectedDomain("");
-    },
-  });
-
-  const handleCheckAvailability = () => {
-    mutate(inputValue);
-  };
-
-  const handleBuyNow = () => {
-    setShowCheckout(false); // Hide checkout component
-    setShowAvailability(true); // Show availability message
-    // Additional logic for processing purchase or showing availability message
-  };
-
-  const handleOptionSelect = (option: SetStateAction<string>) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-  };
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // mutate add to cart
-  const { mutate: addToCartMutation, isPending: isAddToCartPending } =
-    useMutation({
-      mutationFn: handleAddToCart,
-      onSuccess: (data) => {
-        toast.success("Domain added to cart");
-      },
-      onError: (error) => {
-        console.error("Error adding domain to cart:", error);
-        toast.error("Error adding domain to cart. Please try again.");
-      },
-    });
-
-  const addToCart = (domain: string) => {
-    // Add domain to cart
-    setSelectedDomain(domain.domain);
-    addToCartMutation([
-      {
-        EppCode: "",
-        domainName: domain.domain,
-        year: 1,
-        type: "new",
-        productId: domain.price[0].productId,
-        product: "domain",
-      },
-    ]);
-    console.log("Domain added to cart:", domain);
-  };
-
   return (
     <div className="wrapper max-width">
       <div className="flex justify-center pt-[120px]">
@@ -168,7 +34,7 @@ const Features = () => {
               {
                 title: "Business Starter",
                 price: "₹125/mo",
-                action: () => setOpen(true),
+                action: () => setIsOpen(true),
               },
               {
                 title: "Business Standard",
@@ -237,32 +103,7 @@ const Features = () => {
           </div>
         </div>
       </div>
-      {open && (
-        <>
-          <DomainCheckout
-            addToCart={addToCart}
-            chosenOption={chosenOption}
-            handleAssignDomain={handleAssignDomain}
-            handleBuyNow={handleBuyNow}
-            handleCheckAvailability={handleCheckAvailability}
-            handleInputChange={handleInputChange}
-            handleOptionSelect={handleOptionSelect}
-            handleRadioChange={handleRadioChange}
-            inputValue={inputValue}
-            isOpen={isOpen}
-            isPending={isPending}
-            isAddToCartPending={isAddToCartPending}
-            selectedDomain={selectedDomain}
-            selectedOption={selectedOption}
-            showAvailability={showAvailability}
-            showCheckout={showCheckout}
-            similarDomains={similarDomains}
-            toggleDropdown={toggleDropdown}
-            errorMessage={errorMessage}
-            errorMessage1={errorMessage1}
-          />
-        </>
-      )}
+      <DomainCheckout isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };

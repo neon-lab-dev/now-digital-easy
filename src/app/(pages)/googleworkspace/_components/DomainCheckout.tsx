@@ -2,55 +2,70 @@
 
 import Image from "next/image";
 import vector from "@/assets/images/Vector.svg";
+import React, { useState } from "react";
+import x from "@/assets/icons/x.svg";
+import { twMerge } from "tailwind-merge";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { handleCheckDomainAvailabilityService } from "@/services/google-workspace";
+import { BeatLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import { handleAddADomainToCartService } from "@/services/cart";
 
-interface Props {
-  showCheckout: boolean;
-  showAvailability: boolean;
-  toggleDropdown: () => void;
-  handleOptionSelect: (option: string) => void;
-  selectedOption: string;
-  handleBuyNow: () => void;
-  chosenOption: string;
-  handleRadioChange: (option: string) => void;
-  inputValue: string;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCheckAvailability: () => void;
-  handleAssignDomain: () => void;
-  errorMessage: string;
-  errorMessage1: string;
-  isPending: boolean;
-  similarDomains: any[];
-  isAddToCartPending: boolean;
-  addToCart: (domain: any) => void;
-  selectedDomain: string;
+const OPTIONS = ["Monthly", "Annually"];
+type Props = {
   isOpen: boolean;
-}
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [chosenOption, setChosenOption] = useState(OPTIONS[0]);
+  const [isBuyNowClicked, setIsBuyNowClicked] = useState(false);
+  const [radioInputValue, setRadioInputValue] = useState("register");
+  const [inputValue, setInputValue] = useState("");
+  const [domainThatIsAddingToCart, setDomainThatIsAddingToCart] = useState("");
+  const queryClient = useQueryClient();
 
-const DomainCheckout = ({
-  showCheckout,
-  showAvailability,
-  toggleDropdown,
-  handleOptionSelect,
-  selectedOption,
-  handleBuyNow,
-  chosenOption,
-  handleRadioChange,
-  inputValue,
-  handleInputChange,
-  handleCheckAvailability,
-  handleAssignDomain,
-  errorMessage,
-  errorMessage1,
-  isPending,
-  similarDomains,
-  isAddToCartPending,
-  addToCart,
-  selectedDomain,
-  isOpen,
-}: Props) => {
+  const {
+    mutate: handleCheckAvailability,
+    isPending: isCheckAvailabilityPending,
+    data: domainAvailabilityData,
+    isSuccess: isCheckAvailabilitySuccess,
+  } = useMutation({
+    mutationFn: handleCheckDomainAvailabilityService,
+    onError: (error: string) => {
+      toast.error(error);
+    },
+  });
+
+  const { mutate: handleAddToCart, isPending: isAddToCartPending } =
+    useMutation({
+      mutationFn: handleAddADomainToCartService,
+      onError: (error: string) => {
+        toast.error(error);
+      },
+      onSuccess: () => {
+        toast.success("Domain added to cart");
+        queryClient.invalidateQueries({
+          queryKey: ["cart"],
+        });
+      },
+    });
+
   return (
-    <div className="bg-gradient-checkout w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-[300px] z-50">
-      {showCheckout && (
+    <div
+      style={{
+        scale: isOpen ? 1 : 0,
+      }}
+      className="bg-gradient-checkout transition-all w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+    >
+      <button
+        onClick={() => setIsOpen(false)}
+        className="absolute -top-4 -right-4 bg-gray-400 rounded-full p-1"
+      >
+        <Image src={x} alt="" className="h-6 w-6" />
+      </button>
+      {!isBuyNowClicked ? (
         <div className="flex justify-between items-center px-6  py-6">
           <div className="flex flex-col gap-2">
             <span className="text-[17px] text-[#000659] leading-[15px]">
@@ -63,9 +78,10 @@ const DomainCheckout = ({
               No of Accounts
             </label>
             <input
-              type="text"
+              type="number"
+              defaultValue={1}
+              min={1}
               className="placeholder:text-center text-center text-[#646464] bg-transparent placeholder:text-[#646464] border border-[#646464] p-1 w-[100px] rounded-lg"
-              value="5"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -77,30 +93,36 @@ const DomainCheckout = ({
           <div className="flex flex-col h-[100px] pt-5 gap-1">
             <span className="text-[17px] text-[#000659]">Duration</span>
             <div className="flex flex-col">
-              <div
-                onClick={toggleDropdown}
-                className="flex justify-between  border-[#00000026] border  bg-transparent  rounded-lg  w-[130px] h-[28px] p-1 "
+              <button
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                className="flex justify-between  items-center border-[#00000026] border  bg-transparent  rounded-lg  w-[130px] h-[28px] p-1 px-2"
               >
                 <span className="font-source-sans-pro text-[12px] font-700 text-[#646464]">
-                  {selectedOption}
+                  {chosenOption}
                 </span>
-                <Image src={vector} alt="" />
-              </div>
-              {isOpen && (
-                <div className="flex flex-col justify-center border border-black px-1 bg-transparent cursor-pointer">
-                  <span
-                    onClick={() => handleOptionSelect("Monthly")}
-                    className="text-[12px]"
-                  >
-                    Monthly
-                  </span>
-                  <hr />
-                  <span
-                    onClick={() => handleOptionSelect("Annually")}
-                    className="text-[12px]"
-                  >
-                    Annually
-                  </span>
+                <Image
+                  src={vector}
+                  alt=""
+                  className={twMerge(
+                    "h-2.5 w-2.5 transition-transform",
+                    isDropdownOpen && "rotate-180"
+                  )}
+                />
+              </button>
+              {isDropdownOpen && (
+                <div className="flex flex-col justify-center border border-black rounded-md bg-gray-100/60 px-1 cursor-pointer">
+                  {OPTIONS.map((option, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setChosenOption(option);
+                        setIsDropdownOpen(false);
+                      }}
+                      className="text-[12px] font-source-sans-pro font-700 text-[#646464] py-1"
+                    >
+                      {option}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>
@@ -109,142 +131,181 @@ const DomainCheckout = ({
             <span className="text-[17px] text-[#000659] leading-[15px]">
               Total
             </span>
-            <span className="text-[24px]">Rs.999.00</span>
+            <span className="text-[24px] font-600">Rs.999.00</span>
           </div>
           <button
-            onClick={handleBuyNow}
+            onClick={() => setIsBuyNowClicked(true)}
             className="px-8 py-4 rounded-xl bg-[#0009FF] text-white"
           >
             Buy Now
           </button>
         </div>
-      )}
-      {showAvailability && (
+      ) : (
         <div className="flex flex-col items-center py-6">
           <div className="flex justify-start items-start w-[900px]">
-            <div className="flex items-center ps-4 rounded">
-              <input
-                id="bordered-radio-register"
-                type="radio"
-                value="register"
-                name="bordered-radio"
-                checked={chosenOption === "register"} // Set checked based on chosenOption state
-                onChange={() => handleRadioChange("register")} // Call handleRadioChange function on change
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <label
-                htmlFor="bordered-radio-register"
-                className="w-full py-4 ms-2 font-medium text-black"
-              >
-                Register a New Domain
-              </label>
-            </div>
-            <div className="flex items-center ps-4 rounded">
-              <input
-                id="bordered-radio-existing"
-                type="radio"
-                value="existing"
-                name="bordered-radio"
-                checked={chosenOption === "existing"} // Set checked based on chosenOption state
-                onChange={() => handleRadioChange("existing")} // Call handleRadioChange function on change
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              />
-              <label
-                htmlFor="bordered-radio-existing"
-                className="w-full py-4 ms-2 text-gray-600"
-              >
-                I already have a Domain Name
-              </label>
-            </div>
+            {[
+              {
+                option: "Register a New Domain",
+                value: "register",
+              },
+              {
+                option: "I already have a Domain Name",
+                value: "existing",
+              },
+            ].map((option, index) => (
+              <div key={index} className="flex items-center ps-4 rounded">
+                <input
+                  id="bordered-radio-register"
+                  type="radio"
+                  value={option.value}
+                  name="bordered-radio"
+                  checked={radioInputValue === option.value}
+                  onChange={(e) => setRadioInputValue(e.target.value)}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+                <label
+                  htmlFor="bordered-radio-register"
+                  className="w-full py-4 ms-2 font-medium text-black"
+                >
+                  {option.option}
+                </label>
+              </div>
+            ))}
           </div>
-          <div className="flex justify-center">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (radioInputValue === "register") {
+                handleCheckAvailability(inputValue);
+              }
+            }}
+            className="flex justify-center"
+          >
             <input
               type="text"
               value={inputValue}
-              onChange={handleInputChange}
+              onChange={(e) => setInputValue(e.target.value)}
               autoFocus
               className="bg-transparent border border-black w-[700px] h-[50px] px-4 "
             />
-            {chosenOption === "register" ? (
+            {radioInputValue === "register" ? (
               <button
-                onClick={handleCheckAvailability}
-                className="px-4 py-2 h-[51px] bg-[#0009FF] text-white  shadow-black shadow-md"
+                disabled={isCheckAvailabilityPending || !inputValue}
+                className="px-4 py-2 h-[51px] bg-[#0009FF] disabled:opacity-90 text-white  shadow-black shadow-md"
               >
-                {isPending ? "Checking..." : "Check Availability"}
+                {isCheckAvailabilityPending ? (
+                  <BeatLoader color="#ffffff" size={12} />
+                ) : (
+                  "Check Availability"
+                )}
               </button>
             ) : (
               <button
-                onClick={handleAssignDomain}
+                // onClick={handleAssignDomain}
                 className="px-7 py-2 h-[51px] bg-[#0009FF] text-white shadow-black shadow-md"
               >
                 Assign Domain
               </button>
             )}
-          </div>
-          {errorMessage1 && (
-            <div className="w-full px-20">
-              <div></div>
-              {isPending ? (
-                <div className=" items-start mt-2 leading-10 px-4 mr-[270px]">
-                  {`Checking availability of ${inputValue}...`}
-                </div>
-              ) : (
-                similarDomains.length > 0 && (
-                  <div className="w-full">
-                    {similarDomains[0].status ==
-                      "product currently not available" && (
-                      <>
-                        <div className="flex mr-[600px] gap-10 my-4 mx-2 w-full">
-                          <span className="">{similarDomains[0]?.domain}</span>
-                          <div className="flex items-center gap-2">
-                            <span className=" text-red-500 rounded-[100%] text-[13px] ">
-                              X
-                            </span>
-                            <span className="text-red-500">Not Available</span>
-                          </div>
-                        </div>
-                        <hr className=" bg-[#64646480] h-[2px]" />
-                      </>
-                    )}
-                    <ul
-                      className="
-                  max-h-[400px] overflow-y-auto"
-                    >
-                      {similarDomains
-                        .filter((d) => d.status === "available")
-                        .map((domain, index) => (
-                          <div key={index}>
-                            <div className="flex justify-between items-center gap-10 my-4">
-                              <li className="">{domain.domain}</li>
-                              <div className="flex items-center gap-5">
-                                <span>{domain.price[0].year} year</span>
-                                <span>₹{domain.price[0].registerPrice}</span>
-                                <button
-                                  onClick={() => addToCart(domain)}
-                                  className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md"
-                                >
-                                  {isAddToCartPending &&
-                                  selectedDomain === domain.domain
-                                    ? "Adding ..."
-                                    : "Add to Cart"}
-                                </button>
-                                <hr className=" bg-[#64646480]  h-[2px]" />
-                              </div>
-                            </div>
-                            <hr className=" bg-[#64646480]  h-[2px]" />
-                          </div>
-                        ))}
-                    </ul>
+          </form>
+          {isCheckAvailabilitySuccess &&
+            radioInputValue === "register" &&
+            domainAvailabilityData && (
+              <div className="w-full px-20 mt-4">
+                <div></div>
+                {isCheckAvailabilityPending ? (
+                  <div className=" items-start mt-2 leading-10 px-4 mr-[270px]">
+                    {`Checking availability of ${inputValue}...`}
                   </div>
-                )
-              )}
-            </div>
-          )}
-          {errorMessage && (
+                ) : (
+                  domainAvailabilityData.length > 0 && (
+                    <div className="w-full">
+                      {domainAvailabilityData[0].status ==
+                        "product currently not available" && (
+                        <>
+                          <div className="flex mr-[600px] gap-10 my-4 mx-2 w-full">
+                            <span className="">
+                              {domainAvailabilityData[0]?.domain}
+                            </span>
+                            <div className="flex items-center gap-2">
+                              <span className=" text-red-500 rounded-[100%] text-[13px] ">
+                                X
+                              </span>
+                              <span className="text-red-500">
+                                Not Available
+                              </span>
+                            </div>
+                          </div>
+                          <hr className=" bg-[#64646480] h-[2px]" />
+                        </>
+                      )}
+                      <ul
+                        className="
+                  max-h-[400px] overflow-y-auto"
+                      >
+                        {domainAvailabilityData
+                          .filter((d: any) => d.status === "available")
+                          .map((domain: any, index: any) => (
+                            <div key={index}>
+                              <div className="flex justify-between items-center gap-10 my-4">
+                                <li className="">{domain.domain}</li>
+                                <div className="flex items-center gap-5">
+                                  <span>{domain.price[0].year} year</span>
+                                  <span>₹{domain.price[0].registerPrice}</span>
+                                  <button
+                                    onClick={() => {
+                                      const token = Cookies.get("token");
+                                      console.log(domain);
+                                      setDomainThatIsAddingToCart(
+                                        domain.domain
+                                      );
+                                      if (token) {
+                                        handleAddToCart({
+                                          token,
+                                          data: {
+                                            domainName: domain.domain,
+                                            EppCode: "",
+                                            product: "domain",
+                                            productId:
+                                              domain.price[0].productId,
+                                            type: "new",
+                                            year: domain.price[0].year,
+                                            // qty: 10,
+                                          },
+                                        });
+                                      } else {
+                                        toast.error(
+                                          "Please login to add to cart!"
+                                        );
+                                      }
+                                    }}
+                                    className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md"
+                                  >
+                                    {isAddToCartPending &&
+                                    domain.domain ===
+                                      domainThatIsAddingToCart ? (
+                                      <BeatLoader color="#ffffff" size={7} />
+                                    ) : (
+                                      "Add to Cart"
+                                    )}
+                                  </button>
+                                  <hr className=" bg-[#64646480]  h-[2px]" />
+                                </div>
+                              </div>
+                              <hr className=" bg-[#64646480]  h-[2px]" />
+                            </div>
+                          ))}
+                      </ul>
+                    </div>
+                  )
+                )}
+              </div>
+            )}
+          {/* {errorMessage && (
             <div className="text-red-500 bg-[#e4c2c2] items-start mt-2 leading-10 px-4 mr-[270px]">
               {`It seems that the domain ${inputValue} is already in use of Google Workspace.`}
             </div>
-          )}
+          )}  */}
         </div>
       )}
     </div>
