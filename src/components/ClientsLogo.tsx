@@ -9,7 +9,11 @@ const ClientsLogo = () => {
       <h2 className="text-text-700 text-base-bold text-center max-md:text-[13px]">
         12,000+ global businesses trust us to transform & grow digitally
       </h2>
-      <Marquee pauseOnHover={true} className="flex items-center justify-center">
+      <Marquee
+        autoFill
+        pauseOnHover={true}
+        className="flex items-center justify-center"
+      >
         {[
           IMAGES.img1,
           IMAGES.img2,
@@ -25,8 +29,7 @@ const ClientsLogo = () => {
             src={img}
             alt="logo"
             className={twMerge(
-              "object-contain object-center max-h-[60px] max-w-[60px]",
-              index !== 0 ? "ml-14" : ""
+              "object-contain object-center max-h-[60px] max-w-[60px] ml-14"
             )}
             height={100}
             width={100}
