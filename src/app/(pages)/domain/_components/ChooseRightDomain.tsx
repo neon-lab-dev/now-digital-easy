@@ -37,8 +37,8 @@ const ChooseRightDomain = () => {
     },
   ];
   return (
-    <div>
-      <div className="bg-gradient-right-domain py-10 px-4 md:px-[18px] xl:px-[64px] mt-[56px]">
+    <div className="bg-gradient-right-domain">
+      <div className="wrapper max-width py-10  mt-[56px]">
         <h1 className="heading1 text-dark-500 font-source-sans-pro text-center tracking-2">
           How do you choose the right domain name?
         </h1>

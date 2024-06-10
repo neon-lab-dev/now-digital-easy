@@ -25,15 +25,15 @@ const WhyChoose = () => {
     },
   ];
   return (
-    <div className="max-width mt-20">
+    <div className="wrapper max-width mt-20">
       <h1 className="heading1 text-dark-500 font-source-sans-pro text-center">
         WHY CHOOSE Now Digital Easy
       </h1>
-      <p className="text-[14px] md:text-base font-merriweather text-base font-400 text-dark-500 leading-none md:leading-[27px] text-center mt-6">
+      <p className="text-[14px] md:text-base font-merriweather text-base font-400 text-dark-500 leading-none md:leading-[27px] text-center mt-2 md:mt-[9px] xl:mt-6">
         The total package for starting your website.
       </p>
 
-      <div className="px-0 md:px-6 lg:px-0 flex justify-center mt-10">
+      <div className="flex justify-center mt-[45px] md:mt-[57px] xl:mt-[49px]">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
         {whyChooseList.map((list, index) => (
           <div key={index} className="max-w-[330px] flex gap-5">

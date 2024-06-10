@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import searchIcon from "../../../../../src/assets/icons/search.svg";
 import Image from "next/image";
@@ -26,8 +25,8 @@ const Hero = () => {
   };
 
   return (
-    <div className="bg-gradient-domain pt-[156px] pb-[58px] font-source-sans-pro flex flex-col gap-[156px]">
-      <div className="px-4 md:px-[18px] xl:px-[200px]">
+    <div className="bg-gradient-domain pt-[156px] pb-[58px] font-source-sans-pro flex flex-col gap-[156px] wrapper">
+      <div className="max-width">
 
       <div className="font-900 text-[16px] md:text-[33px] xl:text-[46px] 2xl:text-[56px] leading-[30px] md:leading-[46px] xl:leading-[67px] text-primary-500 text-center flex gap-[5px] justify-center">
         <span>Expand your horizons with .</span>
