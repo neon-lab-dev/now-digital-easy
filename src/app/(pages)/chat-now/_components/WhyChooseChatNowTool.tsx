@@ -21,7 +21,7 @@ const WhyChooseChatNowTool = () => {
     <div className="flex flex-col xl:flex-row items-center justify-center gap-9 xl:gap-20 wrapper max-width py-14">
       <div className="flex flex-col gap-4 text-center xl:text-left xl:max-w-[540px]">
         <h2 className="font-900 text-2xl md:text-[36px] text-primary-500 leading-[110%]">
-          Why You Choose NDE's ChatNow tool?
+          Why You Choose NDE&apos;s ChatNow tool?
         </h2>
         <p className="text-xs md:text-base leading-[165%] font-merriweather">
           Offer top-notch cobrowsing directly from your app with one-click

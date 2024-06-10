@@ -18,7 +18,7 @@ const Hero = () => {
             <p className="font-merriweather text-xs ms:text-base text-primary-500 text-center max-w-3xl xl:text-left">
               Enhance your communication with prospects and customers at every
               stage of their customer journey—from the time they land on your
-              website to the customer support phase—with Zoho SalesIQ's live
+              website to the customer support phase—with Zoho SalesIQ&apos;s live
               chat software.
             </p>
             <Button variant="cta" className="rounded">
