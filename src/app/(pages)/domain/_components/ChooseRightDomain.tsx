@@ -38,12 +38,12 @@ const ChooseRightDomain = () => {
   ];
   return (
     <div>
-      <div className="bg-gradient-right-domain py-10 px-[64px] mt-[56px]">
+      <div className="bg-gradient-right-domain py-10 px-4 md:px-[18px] xl:px-[64px] mt-[56px]">
         <h1 className="heading1 text-dark-500 font-source-sans-pro text-center tracking-2">
           How do you choose the right domain name?
         </h1>
 
-        <div className="flex justify-end mt-[60px]">
+        <div className="flex justify-start lg:justify-end mt-[250px] md:mt-[271px] lg:mt-[60px]">
           <div className="flex flex-col gap-[30px] justify-end">
             {details1.map((detail, index) => (
               <div key={index} className=" max-w-[490px] flex flex-col gap-4">
@@ -58,7 +58,7 @@ const ChooseRightDomain = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-[30px] mt-10">
+        <div className="flex flex-col gap-[30px] mt-[306px] md:mt-[319px] lg:mt-10">
           {details2.map((detail, index) => (
             <div key={index} className=" max-w-[490px] flex flex-col gap-4">
               <h1 className="text-2xl font-900 leading-[26px] text-dark-500 font-source-sans-pro tracking-1">

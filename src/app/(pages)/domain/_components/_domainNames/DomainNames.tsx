@@ -53,13 +53,13 @@ const DomainNames = () => {
         <h1 className="heading1 text-primary-500 font-source-sans-pro text-center tracking-2">
           Build your brand with the perfect domain name
         </h1>
-        <p className="font-merriweather text-[15px] font-700 text-dark-500 leading-6 text-center">
+        <p className="font-merriweather text-[14px] md:text-[15px] mt-8 md:mt-[19px] xl:mt-4 font-700 text-dark-500 leading-6 text-center">
           With more than 300 domain extensions, you'll find the one that fits
           just right. 
         </p>
       </div>
 
-      <div className="flex gap-5 flex-wrap justify-center">
+      <div className="flex gap-5 flex-wrap justify-center mt-[72px] md:mt-[65px]">
         {domainNames.map((data, index) => (
           <DomainNameCard key={index} data={data} />
         ))}

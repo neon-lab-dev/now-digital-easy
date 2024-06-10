@@ -29,11 +29,12 @@ const WhyChoose = () => {
       <h1 className="heading1 text-dark-500 font-source-sans-pro text-center">
         WHY CHOOSE Now Digital Easy
       </h1>
-      <p className="font-merriweather text-base font-400 text-dark-500 leading-[27px] text-center mt-6">
+      <p className="text-[14px] md:text-base font-merriweather text-base font-400 text-dark-500 leading-none md:leading-[27px] text-center mt-6">
         The total package for starting your website.
       </p>
 
-      <div className="flex justify-center flex-wrap gap-10 mt-10">
+      <div className="px-0 md:px-6 lg:px-0 flex justify-center mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
         {whyChooseList.map((list, index) => (
           <div key={index} className="max-w-[330px] flex gap-5">
             <Image src={like} alt="like-icon" className="w-8 h-8" />
@@ -50,6 +51,7 @@ const WhyChoose = () => {
             </div>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );

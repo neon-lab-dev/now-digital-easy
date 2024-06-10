@@ -27,29 +27,22 @@ const Hero = () => {
 
   return (
     <div className="bg-gradient-domain pt-[156px] pb-[58px] font-source-sans-pro flex flex-col gap-[156px]">
-      <div className="px-[200px]">
-        {/* <div className='animation-container'> */}
-        <h1 className="heading1 text-primary-500 text-center animation-container flex gap-[5px]">
-          Expand your horizons with .
-          {/* <div className="slider">
-                <h1 className="text-primary-400 line">travel</h1>
-                <h1 className="text-primary-400 line">tech</h1>
-                <h1 className="text-primary-400 line">education</h1>
-                <h1 className="text-primary-400 line">fun</h1>
-                <h1 className="text-primary-400 line">online</h1>
-            </div> */}
-          <TextTransition
-            direction="down"
-            springConfig={presets.gentle}
-            delay={0}
-            style={{ color: getTextColor(TEXTS[index % TEXTS.length]) }}
-          >
-            {TEXTS[index % TEXTS.length]}
-          </TextTransition>
-        </h1>
-        {/* </div> */}
+      <div className="px-4 md:px-[18px] xl:px-[200px]">
 
-        <h2 className="subheading3 text-primary-500 text-center mt-6">
+      <div className="font-900 text-[16px] md:text-[33px] xl:text-[46px] 2xl:text-[56px] leading-[30px] md:leading-[46px] xl:leading-[67px] text-primary-500 text-center flex gap-[5px] justify-center">
+        <span>Expand your horizons with .</span>
+        <TextTransition
+          direction="down"
+          springConfig={presets.gentle}
+          delay={0}
+          style={{ color: getTextColor(TEXTS[index % TEXTS.length]) }}
+        >
+          {TEXTS[index % TEXTS.length]}
+        </TextTransition>
+      </div>
+        
+
+        <h2 className="text-[15px] sm:text-base xl:text-[24px] font-900 leading-[17px] tracking-1 text-primary-500 text-center mt-[18px] md:mt-6">
           Get started with the perfect domain.
         </h2>
 
@@ -74,11 +67,11 @@ const Hero = () => {
         </div>
 
         <div className="flex items-center justify-between mt-[14px]">
-          <h3 className="text-primary-500 font-merriweather font-700 leading-[21.45px] underline">
+          <h3 className="text-primary-500 text-[9px] md:text-[13px] font-merriweather font-700 leading-[21.45px] underline">
             Transfer a domain you already own
           </h3>
 
-          <h2 className="subheading3 text-primary-500 text-center -tracking-1">
+          <h2 className=" text-primary-500 text-center text-[9px] md:text-[18px] lg:text-2xl tracking-[0px] md:-tracking-1 font-900">
             .COM <span className="font-400">only ₹1080.99</span> .NET{" "}
             <span className="font-400">only ₹999.99</span>
           </h2>
