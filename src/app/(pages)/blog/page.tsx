@@ -1,13 +1,40 @@
 "use client";
+import BlogPagination from "@/components/BlogPagination";
 import BlogPost from "@/components/BlogPost";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const Blog = () => {
+
+const Blog: React.FC = () => {
   const [toggleState, setToggleState] = useState(1);
 
   const toggleTab = (index: number) => {
     setToggleState(index);
   };
+
+
+
+  let [blogCount , setBlogCount] = useState<JSX.Element[]>([]);
+  
+  useEffect(()=>{
+    let blogCount: JSX.Element[] = []; 
+    for(let i = 0 ; i < 30 ; i++ ){
+      blogCount = [...blogCount , <BlogPost key={i} /> ]
+      }
+      setBlogCount(blogCount)
+      
+      console.log('This is blog :- ',blogCount )
+  },[])
+
+
+  const [currentPage , setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(9);
+
+  const indexOfLastRecord = currentPage*recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
+  const currentRecord = blogCount.slice(indexOfFirstRecord,indexOfLastRecord);
+
+  const nPages = Math.ceil(blogCount.length / recordsPerPage)
 
   return (
     <>
@@ -69,7 +96,23 @@ const Blog = () => {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit,
                 quidem?
               </p> */}
-              <BlogPost />
+              {/* <BlogPost /> */}
+           <div className="blog_post_container">
+
+          
+              {
+                currentRecord.map((item,index)=>(
+                  <div className="blog_post" key={index}>
+                    {item}
+                    </div>
+                ))
+              }
+
+               </div>
+               <div className="blog_main_pagination">
+              <BlogPagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+
+               </div>
             </div>
 
             <div
