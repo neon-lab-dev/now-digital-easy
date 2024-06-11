@@ -12,11 +12,11 @@ const BlogPost = () => {
           </div>
           <div className="blogPostContent">
             <div className="blogPostContentHeading">
-              <h2>The dos and don'ts of internal communication.</h2>
+              <h2>The dos and dont's of internal communication.</h2>
             </div>
             <div className="blogPostContenttext">
               <p>
-                Effective internal communication is key to any organization’s
+                Effective internal communication is key to any organization's
                 success. It brings employees together, boosts collaboration, and
                 keeps morale high. To achieve this, follow these essential
                 practices.
