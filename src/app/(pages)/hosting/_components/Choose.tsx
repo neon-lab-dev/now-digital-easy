@@ -27,10 +27,10 @@ const Choose = () => {
     ];
     return (
         <>
-            <div className=' flex justify-center pt-8 s '>
+            <div className=' flex justify-center pt-8 '>
                 <span className=' text-5xl font-source-sans-pro font-900 text-primary-500 tracking-tighter pb-6 max-md:text-xl'>Why Choose NDE Hosting</span>
             </div>
-            <div className='flex justify-center flex-wrap max-lg:gap-8 pt-8 gap-1'>
+            <div className='flex justify-center flex-wrap max-lg:gap-8 pt-8 gap-1 pb-[80px]'>
                 {features.map((feature, index) => (
                     <div key={index} className='flex flex-col w-[310px] h-[430px] shadow-xl border border-b-[8px] border-b-primary-500 rounded-xl border-t-none'>
                         <div className='flex justify-center'>

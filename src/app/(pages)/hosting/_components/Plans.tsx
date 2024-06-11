@@ -31,10 +31,6 @@ const features: Feature[] = [
 const plans = () => {
     return (
         <>
-            {/* <div className='h-[80px]' style={{
-                background: "linear-gradient(0deg, rgba(215, 214, 250, 0.05) 0%, #FFFFFF 102.63%)"
-            }}>
-            </div> */}
             <div className='py-16' style={{
                 background: "linear-gradient(109.2deg, rgba(242, 200, 220, 0.5) 2.06%, rgba(215, 214, 250, 0.5) 110.59%)"
             }}>

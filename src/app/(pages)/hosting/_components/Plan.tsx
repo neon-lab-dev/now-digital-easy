@@ -1,3 +1,4 @@
+// Plan.tsx
 import { ICONS } from '@/assets';
 import Image from 'next/image';
 import React from 'react';
@@ -48,9 +49,9 @@ const features = [
     'Standard Dashboard'
 ];
 
-const Plan: React.FC = () => {
+const Plan: React.FC<{ backgroundStyle: React.CSSProperties }> = ({ backgroundStyle }) => {
     return (
-        <div className='bg-[#F6E6F0] py-16'>
+        <div className=' py-16' style={backgroundStyle}>
             <div className='flex justify-center pt-8'>
                 <span className='heading4 font-source-sans-pro font-900 text-primary-500 pb-6 max-lg:text-3xl max-md:text-xl'>Choose a Right Plan for Your Website</span>
             </div>

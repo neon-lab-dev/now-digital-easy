@@ -50,7 +50,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.IoxHost,
       title: "Peoples Now",
       description: "Manage your employees details",
-      href: "#",
+      href: "/crm",
     },
   ],
   grow: [
