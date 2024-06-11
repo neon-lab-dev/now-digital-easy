@@ -94,7 +94,7 @@
 }
 
 .heading2 {
-  @apply text-heading2 font-900 tracking-2 font-merriweather;
+  @apply text-heading2 font-900 tracking-2 ;
 }
 
 .heading4 {
@@ -156,6 +156,9 @@
 .shadow-right {
   box-shadow: 5px 0px 5px -3px rgba(0, 0, 0, 0.75); /* Adjust the values as per your requirement */
 }
+.card-shadow {
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
+}
 
 .wrapper {
   @apply px-[20px] md:px-[40px] lg:px-[72px];
@@ -172,6 +175,7 @@
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
 
 .blog_first_container {
   background: linear-gradient(
@@ -373,3 +377,17 @@
 
 
 }
+
+/* Hide number input arrows */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+

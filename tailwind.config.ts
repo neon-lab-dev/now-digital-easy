@@ -74,6 +74,15 @@ const config: Config = {
           "linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 4.5%, #F5F5F5 93.5%, #FFFFFF 100%)",
         "gradient-gif":
           "radial-gradient(50% 65.66% at 50% 48.3%, #E5E7FF 0%, #FFFFFF 100%)" /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
+
+          "gradient-domain":
+          "linear-gradient(90deg, #D3D7FE 0%, #FBC2EB 100%)",
+          "gradient-right-domain":
+          "linear-gradient(110deg, #FBFBFB 4.11%, #D3D7FE 100%)",
+
+        "gradient-Hosing":
+          "linear-gradient(180deg, #D3D7FE 0%, #FBC2D0 101.92%)"
+
       }),
       fontFamily: {
         merriweather: ["Merriweather", "serif"],
