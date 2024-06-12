@@ -39,7 +39,6 @@ const Discover = () => {
         <div className="mt-6 max-md:mt-2 flex justify-center">
           <div className="flex justify-center text-center  font-merriweather w-[1155px] max-lg:w-[720px]  max-md:w-[375px] text-[15px] max-md:text-[14px] font-700">
             <p>
-              {" "}
               Embrace the future of simplicity, convenience, and efficiency.
               Explore why this transformative approach is reshaping how we live,
               work, and thrive in the digital age. Discover the key reasons why

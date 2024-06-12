@@ -1,3 +1,4 @@
+import axios from "axios";
 import { API_URL } from ".";
 import { axiosInstance } from "./axios";
 
@@ -11,7 +12,7 @@ export type ICurrency = {
 };
 export const handleGetAllCurrenciesService = async (): Promise<ICurrency[]> => {
   return new Promise((resolve, reject) => {
-    axiosInstance
+    axios
       .get(API_URL.currencies)
       .then((response) => {
         resolve(response.data?.data ?? []);

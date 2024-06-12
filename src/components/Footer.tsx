@@ -21,6 +21,9 @@ import {
   getCurrencyFromLocalStorage,
   setCurrencyToLocalStorage,
 } from "@/helpers/currencies";
+import { useDispatch } from "react-redux";
+import { setCurrency } from "@/store/slices/userSlice";
+import { useAppSelector } from "@/hooks/redux";
 
 const FOOTER_LINKS = [
   {
@@ -123,8 +126,9 @@ const FOOTER_LINKS = [
 
 const Footer = () => {
   const [activeLink, setActiveLink] = useState<number | null>(null);
-  const [selectedCurrency, setSelectedCurrency] = useState<ICurrency>();
-  const { isLoading, isError, data } = useQuery({
+  const dispatch = useDispatch();
+  const { currency } = useAppSelector((state) => state.user);
+  const { isLoading, data } = useQuery({
     queryKey: ["currencies"],
     queryFn: handleGetAllCurrenciesService,
     staleTime: Infinity,
@@ -135,9 +139,9 @@ const Footer = () => {
     if (data) {
       const currency = getCurrencyFromLocalStorage();
       if (currency && data.find((c) => c.code === currency.code)) {
-        setSelectedCurrency(currency);
+        dispatch(setCurrency(currency));
       } else {
-        setSelectedCurrency(data[0]);
+        dispatch(setCurrency(data[0]));
       }
     }
   }, [data]);
@@ -223,18 +227,20 @@ const Footer = () => {
             <select
               onChange={(e) => {
                 const currency = data?.find((c) => c.code === e.target.value);
-                setSelectedCurrency(currency);
-                setCurrencyToLocalStorage(currency!);
+                dispatch(setCurrency(currency!));
+                window.location.reload();
               }}
               className="p-1 rounded-lg bg-transparent outline-none"
-              value={selectedCurrency?.code}
+              value={currency?.code}
             >
               {isLoading
                 ? "Loading..."
-                : data?.map((currency) => (
+                : data?.map((currency, i) => (
                     // options to select currency
 
-                    <option value={currency.code}>{currency.code}</option>
+                    <option key={i} value={currency.code}>
+                      {currency.code}
+                    </option>
                   ))}
             </select>
           </div>

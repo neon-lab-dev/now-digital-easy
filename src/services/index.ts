@@ -7,11 +7,11 @@ export const API_URL = {
 
   cart: BASE_URL + "/cart",
 
-  checkDomainAvailability:
-    BASE_URL + "/product/domain_availability?country_code=IN",
+  checkDomainAvailability: BASE_URL + "/product/domain_availability",
 
   payment: BASE_URL + "/payment/makepayment",
   demo: BASE_URL + "",
 
   currencies: BASE_URL + "/currencies",
+  gsuite: BASE_URL + "/product/gsuite", // country_code=
 };

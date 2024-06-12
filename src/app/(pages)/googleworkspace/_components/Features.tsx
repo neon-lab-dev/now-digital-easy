@@ -6,9 +6,31 @@ import Button from "@/components/Button";
 import { twMerge } from "tailwind-merge";
 import { Fragment, useState } from "react";
 import DomainCheckout from "./DomainCheckout";
+import { useQuery } from "@tanstack/react-query";
+import { handleGetGSuiteDetailsServices } from "@/services/gsuite";
+import {
+  getCurrencyFromLocalStorage,
+  getSelectedCurrencySymbol,
+} from "@/helpers/currencies";
+import Loading from "@/components/Loading";
+import { useAppSelector } from "@/hooks/redux";
 
 const Features = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { currency } = useAppSelector((state) => state.user);
+  const [isOpen, setIsOpen] = useState({
+    open: false,
+    selectedServiceNameFromBackend: "",
+    title: "",
+  });
+
+  const { data, isLoading } = useQuery({
+    queryFn: () => {
+      return handleGetGSuiteDetailsServices(currency?.countryCode!);
+    },
+    queryKey: ["gsuite"],
+  });
+
+  if (isLoading) return <Loading className="h-52 w-full" />;
   return (
     <div className="wrapper max-width">
       <div className="flex justify-center pt-[120px]">
@@ -33,42 +55,56 @@ const Features = () => {
             {[
               {
                 title: "Business Starter",
-                price: "₹125/mo",
-                action: () => setIsOpen(true),
+                serviceNameFromBackend: "Google Workspace Business Starter",
               },
               {
                 title: "Business Standard",
-                price: "₹672/mo",
+                serviceNameFromBackend: "Google Workspace Business Standard",
               },
               {
                 title: "Business Plus",
-                price: "₹1299/mo",
+                serviceNameFromBackend: "Google Workspace Business Plus",
               },
-            ].map((service, index) => (
-              <div
-                onClick={service.action}
-                key={index}
-                className={twMerge(
-                  "flex flex-col items-center border-b md:min-w-[152px] border-b-[#AAD0FF] py-6 px-3 gap-1.5 justify-evenly font-900 text-center",
-                  index === 2 && "rounded-tr-lg",
-                  index !== 1 && " bg-[#F2F3FF]"
-                )}
-              >
-                <div className="flex justify-center flex-col gap-1.5">
-                  <span className="">{service.title}</span>
-                  <span className="text-[18px] text-[#0437CD]">
-                    {service.price}
-                  </span>
-                </div>
-
-                <Button
-                  variant="cta"
-                  className="w-fit rounded-lg text-sm px-3 py-2.5"
+            ].map((service, index) => {
+              const selectedService = data?.find(
+                (d) =>
+                  d.name.toLowerCase() ===
+                  service.serviceNameFromBackend.toLowerCase()
+              );
+              return (
+                <div
+                  key={index}
+                  className={twMerge(
+                    "flex flex-col items-center border-b md:min-w-[152px] border-b-[#AAD0FF] py-6 px-3 gap-1.5 justify-evenly font-900 text-center",
+                    index === 2 && "rounded-tr-lg",
+                    index !== 1 && " bg-[#F2F3FF]"
+                  )}
                 >
-                  Add To Cart
-                </Button>
-              </div>
-            ))}
+                  <div className="flex justify-center flex-col gap-1.5">
+                    <span className="">{service.title}</span>
+                    <span className="text-[18px] text-[#0437CD]">
+                      {getSelectedCurrencySymbol(currency?.code!)}
+                      {selectedService?.price[0].offerPrice}
+                    </span>
+                  </div>
+
+                  <Button
+                    onClick={() =>
+                      setIsOpen({
+                        open: true,
+                        selectedServiceNameFromBackend:
+                          service.serviceNameFromBackend,
+                        title: service.title,
+                      })
+                    }
+                    variant="cta"
+                    className="w-fit rounded-lg text-sm px-3 py-2.5"
+                  >
+                    Add To Cart
+                  </Button>
+                </div>
+              );
+            })}
 
             {/* details */}
             {SERVICES_PLAN_DATA.map((service, index) => (
@@ -103,7 +139,17 @@ const Features = () => {
           </div>
         </div>
       </div>
-      <DomainCheckout isOpen={isOpen} setIsOpen={setIsOpen} />
+      <DomainCheckout
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        selectedService={
+          data?.find(
+            (d) =>
+              d.name.toLowerCase() ===
+              isOpen.selectedServiceNameFromBackend.toLowerCase()
+          )!
+        }
+      />
     </div>
   );
 };

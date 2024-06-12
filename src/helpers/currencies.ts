@@ -12,3 +12,16 @@ export const getCurrencyFromLocalStorage = (): ICurrency | null => {
     return null;
   }
 };
+
+export const getSelectedCurrencySymbol = (code: string) => {
+  switch (code) {
+    case "USD":
+      return "$";
+    case "INR":
+      return "₹";
+    case "SGD":
+      return "S$";
+    default:
+      return code;
+  }
+};

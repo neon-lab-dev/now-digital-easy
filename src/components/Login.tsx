@@ -4,11 +4,12 @@ import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ILoginCredentials, handleLoginService } from "@/services/auth";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
+import { handleUpdateCartService } from "@/services/cart";
 
 const Login = () => {
   const {
@@ -17,6 +18,7 @@ const Login = () => {
     formState: { errors },
   } = useForm<ILoginCredentials>();
   const dispatch = useAppDispatch();
+  const { cartItems } = useAppSelector((state) => state.cart);
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: handleLoginService,
@@ -25,12 +27,23 @@ const Login = () => {
       toast.success(data.message);
       dispatch(setActiveAuthTab(null));
       dispatch(setIsSidebarOpen(false));
-      queryClient.invalidateQueries({
-        queryKey: ["user"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["cart"],
-      });
+      queryClient
+        .invalidateQueries({
+          queryKey: ["user"],
+        })
+        .then(() => {
+          if (cartItems.length === 0) {
+            queryClient.invalidateQueries({
+              queryKey: ["cart"],
+            });
+          } else {
+            handleUpdateCartService({ data: cartItems }).then(() => {
+              queryClient.invalidateQueries({
+                queryKey: ["cart"],
+              });
+            });
+          }
+        });
     },
     onError: (error: string) => {
       toast.error(error);
