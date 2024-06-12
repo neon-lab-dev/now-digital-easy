@@ -18,7 +18,7 @@ const ChooseNDE: React.FC = () => {
 
 const FeatureCard: React.FC<{ bgColor: string; title: string; description: string }> = ({ bgColor, title, description }) => {
   return (
-    <div className={`w-[517px] bg-[${bgColor}] p-4`}>
+    <div className={`w-[517px] p-4`} style={{"background":bgColor}}>
       <span className='text-base-bold'>{title}</span>
       <p className='w-[300px] text-xs'>{description}</p>
     </div>
