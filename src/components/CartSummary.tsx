@@ -152,7 +152,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
           <div className="flex justify-center p-4">
             <button
               onClick={onClick}
-              className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
+              className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] rounded-[4px]"
             >
               Continue to Cart
             </button>

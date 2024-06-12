@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from ".";
-
+import Cookies from "js-cookie";
 export const handleCheckoutService = async ({
   token = "",
 }: {
@@ -28,7 +28,12 @@ export const handleCheckoutService = async ({
           },
         };
         // @ts-ignore
-        const razor = new window.Razorpay(options);
+        const razor = new window.Razorpay({
+          ...options,
+          callback_url: `https://app.nowdigitaleasy.com/token-auth/${Cookies.get(
+            "token"
+          )}`,
+        });
         razor.open();
         resolve(res.data);
       })
