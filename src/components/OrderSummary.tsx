@@ -5,8 +5,10 @@ import Image from "next/image";
 import google from "@/assets/images/image 110.svg";
 import vector1 from "@/assets/images/chevron-down.svg";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ICart, ICartItemDomain } from "@/types/cart.types";
+import { ICart } from "@/types/cart.types";
 import { handleCheckoutService } from "@/services/checkout";
+import { getSelectedCurrencySymbol } from "@/helpers/currencies";
+import { useAppSelector } from "@/hooks/redux";
 
 const OrderSummary = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -31,6 +33,8 @@ const OrderSummary = () => {
     },
   });
 
+  const { currency } = useAppSelector((state) => state.user);
+
   return (
     <div className="">
       <div>
@@ -52,7 +56,7 @@ const OrderSummary = () => {
         <hr />
         {showDetails && (
           <div className="order-details">
-            {data?.products?.map((item: ICartItemDomain, i) => (
+            {data?.products?.map((item, i) => (
               <div
                 key={i}
                 className="flex p-4 gap-8 justify-between items-start hover:bg-[#e1e1e180]"
@@ -71,7 +75,7 @@ const OrderSummary = () => {
                 </div>
                 <div className="flex justify-between items-center gap-2 ml-[23px]">
                   <span className="font-source-sans-pro text-[12px] font-700 text-[#000000]">
-                    ₹{item.domainprice}
+                    ₹{item.offerPrice}
                   </span>
                 </div>
               </div>
@@ -104,15 +108,22 @@ const OrderSummary = () => {
             <span>Tax</span>
           </div>
           <div className="flex flex-col gap-3 font-source-sans-pro text-[15px] font-700 text-[#000000] text-end ">
-            <span>₹ {data?.subTotal}</span>
-            <span>₹ {Number(data?.Total) - Number(data?.subTotal)}</span>
+            <span>
+              {getSelectedCurrencySymbol(currency?.code!)} {data?.subTotal}
+            </span>
+            <span>
+              {getSelectedCurrencySymbol(currency?.code!)}{" "}
+              {Number(data?.Total) - Number(data?.subTotal)}
+            </span>
           </div>
         </div>
         <hr />
         <div className="flex justify-end">
           <div className="flex gap-12 font-source-sans-pro text-[17px] font-900 text-[#000000] text-start py-4 px-3">
             <span>Total</span>
-            <span>₹ {data?.Total}</span>
+            <span>
+              {getSelectedCurrencySymbol(currency?.code!)} {data?.Total}
+            </span>
           </div>
         </div>
         <hr />
@@ -121,7 +132,11 @@ const OrderSummary = () => {
             onClick={() => mutate()}
             className="font-source-sans-pro text-[17px] font-400  text-white px-10 py-1 bg-[#0011FF] rounded-xs h-[40px] w-[215px] rounded-[4px]"
           >
-            {isPending ? "Loading..." : `Pay ₹ ${data?.Total}`}
+            {isPending
+              ? "Loading..."
+              : `Pay ${getSelectedCurrencySymbol(currency?.code!)} ${
+                  data?.Total
+                }`}
           </button>
         </div>
       </div>
