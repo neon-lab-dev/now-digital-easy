@@ -1,4 +1,3 @@
-// Plan.tsx
 import { ICONS } from '@/assets';
 import Image from 'next/image';
 import React from 'react';
@@ -49,11 +48,20 @@ const features = [
     'Standard Dashboard'
 ];
 
-const Plan: React.FC<{ backgroundStyle: React.CSSProperties }> = ({ backgroundStyle }) => {
+const Plan = ({
+    bgColor = '#F6E6F0',
+    desc
+}:{
+    bgColor?: string;
+    desc? : string;
+}) => {
     return (
-        <div className=' py-16' style={backgroundStyle}>
-            <div className='flex justify-center pt-8'>
+        <div
+        style={{ backgroundColor: bgColor }}
+        className={`py-16`}>
+            <div className='flex justify-center items-center text-center flex-col gap-3 pt-8'>
                 <span className='heading4 font-source-sans-pro font-900 text-primary-500 pb-6 max-lg:text-3xl max-md:text-xl'>Choose a Right Plan for Your Website</span>
+                <p className="text-sm font-merriweather leading-[165%] md:text-base max-w-[700px]">{desc}</p>
             </div>
             <div className='flex justify-center items-center pt-8 gap-10 flex-wrap'>
                 <PlanCard planName='Free' price='0' billingInfo='/Single user' />

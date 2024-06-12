@@ -13,7 +13,10 @@ const page = () => {
         <Featrues/>
         <Reason/>
         <Choose/>
-        <Plan backgroundStyle={ {background: "#FFEF9A"}}/>
+        <Plan
+        bgColor="#FFEF9A"
+        desc="Bigin's promise to you is simple: No forced multi-year contracts, no hidden charges. You don't need to enter your credit card information to get started. Cancel anytime!"
+      />
         <FAQs style={{"background": "linear-gradient(237.45deg, #FFEF9C 1.14%, #D4DBFC 98.67%)"}}/>
     </div>
   )
