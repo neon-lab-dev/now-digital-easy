@@ -40,6 +40,7 @@ import check from "@/assets/icons/check.svg"
 import connect from "@/assets/icons/Connect.svg"
 import test from "@/assets/icons/Test.svg"
 import supply from "@/assets/icons/Supply chain.svg"
+import mailnow from "@/assets/icons/Rectangle 46377.svg"
 
 
 
@@ -67,6 +68,7 @@ const IMAGES = {
   IoxHost,
   OpenStack,
   menuCardImg,
+  mailnow
 };
 
 const ICONS = {

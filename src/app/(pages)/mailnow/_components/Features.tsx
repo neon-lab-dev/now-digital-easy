@@ -21,7 +21,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ icon, text }) => (
 
 const FeatureGroup: React.FC<FeatureGroupProps> = ({ title, items }) => (
   <div className='flex-col gap-3 flex'>
-    <span className='text-primary-400 text-20px font-source-sans-pro'>{title}</span>
+    <span className='text-[#AA39FF] text-20px font-source-sans-pro font-700'>{title}</span>
     {items.map(({ icon, text }, index) => (
       <FeatureItem key={index} icon={icon} text={text} />
     ))}
@@ -31,41 +31,28 @@ const FeatureGroup: React.FC<FeatureGroupProps> = ({ title, items }) => (
 const Features: React.FC = () => {
   const featureGroups: FeatureGroupProps[] = [
     {
-      title: 'Pipeline Management',
+      title: 'Cold Email Automation',
       items: [
-        { icon: ICONS.pipeline, text: 'Team Pipelines' },
-        { icon: ICONS.connect, text: 'Connected Pipelines' },
-        { icon: ICONS.test, text: 'Task Management' },
-        { icon: ICONS.supply, text: 'Products' },
-      ],
-    },
-    {
-      title: 'Customer Management',
-      items: [
-        { icon: ICONS.pipeline, text: 'Team Pipelines' },
-        { icon: ICONS.connect, text: 'Connected Pipelines' },
-      ],
-    },
-    {
-      title: 'Multichannel Communication',
-      items: [
-        { icon: ICONS.test, text: 'Task Management' },
-        { icon: ICONS.supply, text: 'Products' },
-      ],
-    },
-    {
-      title: 'Automation',
-      items: [
-        { icon: ICONS.connect, text: 'Connected Pipelines' },
+        { icon: ICONS.pipeline, text: 'Automated follow-ups' },
+        { icon: ICONS.connect, text: ' best copy win with A-Z' },
         { icon: ICONS.test, text: 'Task Management' },
       ],
     },
     {
-      title: 'Security',
+      title: 'Hyper-Personalization',
       items: [
-        { icon: ICONS.pipeline, text: 'Team Pipelines' },
-        { icon: ICONS.supply, text: 'Products' },
-        { icon: ICONS.connect, text: 'Connected Pipelines' },
+        { icon: ICONS.pipeline, text: 'Personalize at scale' },
+        { icon: ICONS.connect, text: 'Create unique messages' },
+        { icon: ICONS.connect, text: 'Write spam-free cold emails' },
+      ],
+    },
+    {
+      title: 'Deliverability Suite',
+      items: [
+        { icon: ICONS.test, text: 'Unlimited email accounts' },
+        { icon: ICONS.supply, text: 'Unlimited Email Warm-up' },
+        { icon: ICONS.supply, text: 'Send more emails daily' },
+
       ],
     },
   ];
@@ -82,8 +69,8 @@ const Features: React.FC = () => {
           ))}
         </div>
         <div style={{
-          "background": "linear-gradient(112.9deg, #D3D6FD 0%, #FFEF99 100%)"
-        }} className='w-full h-[700px] max-lg:h-[500px] max-md:h-[300px]'>
+        "background": "linear-gradient(122.07deg, #F4F3F3 0.93%, #E2C1FC 100%)"
+        }} className='w-full h-[450px] max-lg:h-[500px] max-md:h-[300px]'>
         </div>
       </div>
     </div>
