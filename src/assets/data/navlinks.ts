@@ -6,7 +6,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.IoxHost,
       title: "Domain",
       description: "Purchase & manage your own domain.",
-      href: "#",
+      href: "/domain",
     },
     {
       img: IMAGES.OpenStack,
@@ -38,7 +38,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.OpenStack,
       title: "Chat Now",
       description: "Connect and Engage with real-time chat support",
-      href: "#",
+      href: "/chat-now",
     },
     {
       img: IMAGES.IoxHost,
