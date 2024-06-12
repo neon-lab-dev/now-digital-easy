@@ -9,7 +9,7 @@ const Hero = () => {
             <div className="flex items-center max-width pt-[100px] px-14 max-lg:flex-col max-lg:text-center pb-[50px] gap-10">
                 <div className="w-[640px] max-lg:w-full flex flex-col gap-6 max-lg:gap-4">
                     <span className=" heading2 font-source-sans-pro text-primary-500 leading-[60px] max-lg:text-5xl max-md:text-2xl">Land in the Inbox. Not the Spam Folder.</span>
-                    <span className=" font-merriweather text-md pr-[200px] max-lg:pr-0 max-md:text-[12px]">Mailivery's email warmup tool improves your email reputation by having real conversations in your inbox, helping you to beat SPAM algorithms.</span>
+                    <span className=" font-merriweather text-md pr-[200px] max-lg:pr-0 max-md:text-[12px]">Mailivery&apos;s email warmup tool improves your email reputation by having real conversations in your inbox, helping you to beat SPAM algorithms.</span>
                     <div className="flex max-lg:justify-center gap-10">
                         <button className=" bg-primary-300 font-merriweather text-md w-[200px] font-bold text-white p-2 rounded-[4px]">Get Started Now</button>
                         <button className="  border-[2px] border-[#AA39FF]  font-merriweather text-md w-[200px] font-bold  p-2 rounded-[4px]">View Demo</button>
