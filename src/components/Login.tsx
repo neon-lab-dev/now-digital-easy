@@ -9,7 +9,7 @@ import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
-import { handleUpdateCartService } from "@/services/cart";
+import { handleSyncCartItems, handleUpdateCartService } from "@/services/cart";
 
 const Login = () => {
   const {
@@ -37,7 +37,10 @@ const Login = () => {
               queryKey: ["cart"],
             });
           } else {
-            handleUpdateCartService({ data: cartItems }).then(() => {
+            handleSyncCartItems({
+              data: cartItems,
+              token: data.data.jwtToken,
+            }).then(() => {
               queryClient.invalidateQueries({
                 queryKey: ["cart"],
               });
