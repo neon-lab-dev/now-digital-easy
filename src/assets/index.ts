@@ -40,6 +40,8 @@ import menu from "@/assets/images/menu.svg"
 import checkmark from "@/assets/icons/Checkmark.svg"
 import like from "@/assets/icons/Like.svg"
 import check from "@/assets/icons/check.svg"
+import mailnow from "@/assets/icons/Group 69700.svg"
+
 
 
 
@@ -65,6 +67,7 @@ const IMAGES = {
   IoxHost,
   OpenStack,
   menuCardImg,
+  mailnow
 };
 
 const ICONS = {
