@@ -9,6 +9,10 @@ import downArrow from "@/assets/icons/downArrow.svg";
 import cart from "@/assets/icons/cart.svg";
 import arrowRight2 from "@/assets/icons/arrow-right2.svg";
 import upArrow from "@/assets/icons/upArrow.svg";
+import pipeline from "@/assets/icons/Sales pipeline.svg"
+import connect from "@/assets/icons/Connect.svg"
+import test from "@/assets/icons/Test.svg"
+import supply from "@/assets/icons/Supply chain.svg"
 
 
 //images
@@ -77,7 +81,11 @@ const ICONS = {
   menu,
   checkmark,
   like,
-  check
+  check,
+  pipeline,
+  supply,
+  connect,
+  test
 };
 
 export { IMAGES, ICONS };
