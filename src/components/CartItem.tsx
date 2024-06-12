@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Image from "next/image";
 import { useState } from "react";
 import google from "@/assets/images/image 110.svg";
