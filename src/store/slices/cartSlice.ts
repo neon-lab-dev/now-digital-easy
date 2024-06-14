@@ -1,8 +1,9 @@
 import { getLocalStorage, setLocalStorage } from "@/helpers/localstorage";
+import { ICartItemDomain, ICartItemHosting } from "@/types/cart.types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export type ICartItemDomainLocal = {
-  product: string;
+export type IGSuitLocal = {
+  product: "gsuite";
   productId: string;
   domainName: string;
   period: string;
@@ -11,8 +12,10 @@ export type ICartItemDomainLocal = {
   name: string;
 };
 
+export type ICartLocal = IGSuitLocal | ICartItemDomain | ICartItemHosting
+
 const initialState = {
-  cartItems: getLocalStorage<ICartItemDomainLocal[]>("cartItems")! || [],
+  cartItems: getLocalStorage<IGSuitLocal[]>("cartItems")! || [],
 };
 
 const cartSlice = createSlice({
@@ -28,7 +31,7 @@ const cartSlice = createSlice({
         (item) => item.productId !== action.payload
       );
     },
-    addCartItem: (state, action: PayloadAction<ICartItemDomainLocal>) => {
+    addCartItem: (state, action: PayloadAction<IGSuitLocal>) => {
       const isItemExist = state.cartItems.find(
         (item) => item.productId === action.payload.productId
       );
@@ -50,10 +53,7 @@ const cartSlice = createSlice({
       setLocalStorage("cartItems", [...state.cartItems, action.payload]);
       state.cartItems = [...state.cartItems, action.payload];
     },
-    updateACartItem: (
-      state,
-      action: PayloadAction<Partial<ICartItemDomainLocal>>
-    ) => {
+    updateACartItem: (state, action: PayloadAction<Partial<IGSuitLocal>>) => {
       const data = state.cartItems.map((item) => {
         if (item.productId === action.payload.productId) {
           return { ...item, ...action.payload };

@@ -1,5 +1,5 @@
 export interface ICartItemGsuite {
-  productName: string;
+  productName: "gsuite";
   gsuitePrice: number;
   singleofferPrice: number;
   offerUser: number;
@@ -17,7 +17,24 @@ export interface ICartItemGsuite {
   service_type: string;
 }
 
-export type ICartItem = ICartItemGsuite;
+export interface ICartItemDomain {
+  productName: "domain";
+  domainName: string;
+  product: string;
+  productId: string;
+  type: string;
+  year: number;
+  EppCode: string;
+}
+
+export interface ICartItemHosting {
+  productName: "hosting";
+  productId: string;
+  domainName: string;
+  period: string;
+}
+
+export type ICartItem = ICartItemGsuite | ICartItemDomain | ICartItemHosting;
 
 export type ICart = {
   products: ICartItem[];

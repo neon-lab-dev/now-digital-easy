@@ -5,8 +5,13 @@ import x from "@/assets/icons/x.svg";
 import { DomainAvailabilityResponse } from "@/services/google-workspace";
 
 import { getSelectedCurrencySymbol } from "@/helpers/currencies";
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { addCartItem } from "@/store/slices/cartSlice";
+import { ICartItemDomain } from "@/types/cart.types";
+import { handleAddAItemToCartService } from "@/services/cart";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   isOpen: boolean;
@@ -80,11 +85,28 @@ const DomainCard = ({
   prices: DomainAvailabilityResponse["price"];
 }) => {
   const [selectedPricing, setSelectedPricing] = useState(prices[0]);
+  const { isLoggedIn } = useAppSelector((state) => state.user);
   const { currency } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     setSelectedPricing(prices[0]);
   }, [prices]);
+
+  const { mutate: handleAddToCart, isPending: isAddToCartPending } =
+    useMutation({
+      mutationFn: handleAddAItemToCartService,
+      onError: (error: string) => {
+        toast.error(error);
+      },
+      onSuccess: () => {
+        toast.success("Domain added to cart");
+        queryClient.invalidateQueries({
+          queryKey: ["cart"],
+        });
+      },
+    });
 
   return (
     <div>
@@ -112,8 +134,32 @@ const DomainCard = ({
             {selectedPricing.registerPrice}
           </span>
 
-          <button className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md">
-            Add to Cart
+          <button
+            onClick={() => {
+              const data = {
+                product: "domain",
+                productId: selectedPricing.productId,
+                domainName: domain,
+                type: "new",
+                year: selectedPricing.year,
+                EppCode: "",
+              } as const;
+
+              if (isLoggedIn) {
+                handleAddToCart(data);
+              } else {
+                dispatch(
+                  // @ts-ignore
+                  addCartItem({
+                    ...data,
+                  } as ICartItemDomain)
+                );
+                toast.success("Domain added to cart");
+              }
+            }}
+            className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md"
+          >
+            {isAddToCartPending ? "Adding ..." : "Add to cart"}
           </button>
           <hr className=" bg-[#64646480]  h-[2px]" />
         </div>

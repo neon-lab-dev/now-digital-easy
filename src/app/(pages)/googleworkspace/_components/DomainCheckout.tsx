@@ -242,7 +242,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                     period: selectedPricing?.period,
                     type: "new",
                     qty: selectedNumberOfAccounts,
-                  };
+                  } as const;
 
                   if (token) {
                     handleAddToCart(data);
@@ -319,7 +319,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                                         period: selectedPricing?.period,
                                         type: "new",
                                         qty: selectedNumberOfAccounts,
-                                      };
+                                      } as const;
 
                                       if (token) {
                                         setDomainThatIsAddingToCart(
