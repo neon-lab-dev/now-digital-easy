@@ -143,6 +143,7 @@ const DomainCard = ({
                 type: "new",
                 year: selectedPricing.year,
                 EppCode: "",
+                price: selectedPricing.registerPrice,
               } as const;
 
               if (isLoggedIn) {
