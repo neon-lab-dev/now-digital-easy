@@ -12,10 +12,10 @@ export type IGSuitLocal = {
   name: string;
 };
 
-export type ICartLocal = IGSuitLocal | ICartItemDomain | ICartItemHosting
+export type ICartLocal = IGSuitLocal | ICartItemDomain | ICartItemHosting;
 
 const initialState = {
-  cartItems: getLocalStorage<IGSuitLocal[]>("cartItems")! || [],
+  cartItems: getLocalStorage<ICartLocal[]>("cartItems")! || [],
 };
 
 const cartSlice = createSlice({
@@ -31,7 +31,7 @@ const cartSlice = createSlice({
         (item) => item.productId !== action.payload
       );
     },
-    addCartItem: (state, action: PayloadAction<IGSuitLocal>) => {
+    addCartItem: (state, action: PayloadAction<ICartLocal>) => {
       const isItemExist = state.cartItems.find(
         (item) => item.productId === action.payload.productId
       );
@@ -62,6 +62,7 @@ const cartSlice = createSlice({
         }
       });
       setLocalStorage("cartItems", data);
+      // @ts-ignore
       state.cartItems = data;
     },
   },
