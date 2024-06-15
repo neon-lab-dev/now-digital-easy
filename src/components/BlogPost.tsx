@@ -5,16 +5,16 @@ import Image from "next/image";
 const BlogPost = () => {
   return (
     <>
-      <div className="blogPost_cont">
-        <div className="blogPostBox">
+      <div className="blogPost_cont flex justify-center">
+        <div className="max-w-l min-h-452 border border-solid border-gray-300 p-4 shadow-sm rounded-xl">
           <div className="blogPostImage">
-            <Image src={blogImg} alt="blogImg" />
+            <Image className="rounded-lg w-full" src={blogImg} alt="blogImg" />
           </div>
           <div className="blogPostContent">
-            <div className="blogPostContentHeading">
+            <div className="text-2xl font-semibold leading-6 py-3">
               <h2>The dos and dont's of internal communication.</h2>
             </div>
-            <div className="blogPostContenttext">
+            <div className="text-base font-normal py-4">
               <p>
                 Effective internal communication is key to any organization's
                 success. It brings employees together, boosts collaboration, and
@@ -22,8 +22,10 @@ const BlogPost = () => {
                 practices.
               </p>
             </div>
-            <div className="blogPostBtn">
-              <button className="blg_btn">Read More</button>
+            <div className="py-4">
+              <button className="border border-solid border-black py-2 px-4 rounded-full text-blue-500 font-semibold">
+                Read More
+              </button>
             </div>
           </div>
         </div>

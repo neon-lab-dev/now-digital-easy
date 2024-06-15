@@ -3,7 +3,6 @@ import BlogPagination from "@/components/BlogPagination";
 import BlogPost from "@/components/BlogPost";
 import React, { useEffect, useState } from "react";
 
-
 const Blog: React.FC = () => {
   const [toggleState, setToggleState] = useState(1);
 
@@ -11,39 +10,36 @@ const Blog: React.FC = () => {
     setToggleState(index);
   };
 
+  let [blogCount, setBlogCount] = useState<JSX.Element[]>([]);
 
+  useEffect(() => {
+    let blogCount: JSX.Element[] = [];
+    for (let i = 0; i < 30; i++) {
+      blogCount = [...blogCount, <BlogPost key={i} />];
+    }
+    setBlogCount(blogCount);
 
-  let [blogCount , setBlogCount] = useState<JSX.Element[]>([]);
-  
-  useEffect(()=>{
-    let blogCount: JSX.Element[] = []; 
-    for(let i = 0 ; i < 30 ; i++ ){
-      blogCount = [...blogCount , <BlogPost key={i} /> ]
-      }
-      setBlogCount(blogCount)
-      
-      console.log('This is blog :- ',blogCount )
-  },[])
+    console.log("This is blog :- ", blogCount);
+  }, []);
 
-
-  const [currentPage , setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(9);
 
-  const indexOfLastRecord = currentPage*recordsPerPage;
+  const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
-  const currentRecord = blogCount.slice(indexOfFirstRecord,indexOfLastRecord);
+  const currentRecord = blogCount.slice(indexOfFirstRecord, indexOfLastRecord);
 
-  const nPages = Math.ceil(blogCount.length / recordsPerPage)
+  const nPages = Math.ceil(blogCount.length / recordsPerPage);
 
   return (
     <>
-      <div className="blog_first_container">
-        <div className="blog_content">
-          <div className="blog_heading">
+      <div className="bg-gradient-to-r from-purple-200 via-teal-300 to-pink-200 w-full h-96 relative">
+        <div className="max-w-470  text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="text-4xl font-extrabold text-blue-900 mb-5">
             <h2>Blog</h2>
           </div>
-          <div className="blog_desp">
+          <div className="text-base text-blue-900">
             <p>
               Discover expert tips and best practices on the SearchAds.com Blog
               for maximizing app visibility and driving growth. Join our
@@ -53,12 +49,18 @@ const Blog: React.FC = () => {
         </div>
       </div>
 
-      <div className="blog_tab_cont">
+      <div className="max-w-screen-xl mx-auto w-full">
         <div className="tab_contianer">
-          <div className="bloc_tabs">
+          <div className="flex justify-center items-center text-center mx-auto gap-5 my-9">
             <div
               className={
-                toggleState === 1 ? "blog_tab active-blog_tab" : "blog_tab"
+                toggleState === 1
+                  ? `inline-block border border-solid border-black rounded-full px-4 py-1 cursor-pointer ${
+                      toggleState === 1
+                        ? "border-0 bg-blue-300 text-blue-700"
+                        : ""
+                    }`
+                  : "inline-block border border-solid border-black rounded-full px-4 py-1 cursor-pointer"
               }
               onClick={() => toggleTab(1)}
             >
@@ -67,7 +69,13 @@ const Blog: React.FC = () => {
 
             <div
               className={
-                toggleState === 2 ? "blog_tab active-blog_tab" : "blog_tab"
+                toggleState === 2
+                  ? `inline-block border border-solid border-black rounded-full px-4 py-1 cursor-pointer ${
+                      toggleState === 2
+                        ? "border-0 bg-blue-300 text-blue-700"
+                        : ""
+                    }`
+                  : "inline-block border border-solid border-black rounded-full px-4 py-1 cursor-pointer"
               }
               onClick={() => toggleTab(2)}
             >
@@ -76,7 +84,13 @@ const Blog: React.FC = () => {
 
             <div
               className={
-                toggleState === 3 ? "blog_tab active-blog_tab" : "blog_tab"
+                toggleState === 3
+                  ? `inline-block border border-solid border-black rounded-full px-4 py-1 cursor-pointer ${
+                      toggleState === 3
+                        ? "border-0 bg-blue-300 text-blue-700"
+                        : ""
+                    }`
+                  : "inline-block border border-solid border-black rounded-full px-4 py-1 cursor-pointer"
               }
               onClick={() => toggleTab(3)}
             >
@@ -84,44 +98,30 @@ const Blog: React.FC = () => {
             </div>
           </div>
           <div className="content_blog_tabs">
-            <div
-              className={
-                toggleState === 1
-                  ? "content_blog content_blog-active"
-                  : "content_blog"
-              }
-            >
+            <div className={toggleState === 1 ? "block" : "hidden"}>
               {/* <h2>Content 1</h2> */}
               {/* <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit,
                 quidem?
               </p> */}
               {/* <BlogPost /> */}
-           <div className="blog_post_container">
-
-          
-              {
-                currentRecord.map((item,index)=>(
+              <div className="grid grid-cols-3 justify-center gap-10">
+                {currentRecord.map((item, index) => (
                   <div className="blog_post" key={index}>
                     {item}
-                    </div>
-                ))
-              }
-
-               </div>
-               <div className="blog_main_pagination">
-              <BlogPagination nPages={nPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-
-               </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8">
+                <BlogPagination
+                  nPages={nPages}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              </div>
             </div>
 
-            <div
-              className={
-                toggleState === 2
-                  ? "content_blog content_blog-active"
-                  : "content_blog"
-              }
-            >
+            <div className={toggleState === 2 ? "block" : "hidden"}>
               <h2>Content 2</h2>
               <p>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint
@@ -133,13 +133,7 @@ const Blog: React.FC = () => {
               </p>
             </div>
 
-            <div
-              className={
-                toggleState === 3
-                  ? "content_blog content_blog-active"
-                  : "content_blog"
-              }
-            >
+            <div className={toggleState === 3 ? "block" : "hidden"}>
               <h2>Content 3</h2>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
