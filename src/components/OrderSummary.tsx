@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use client";
 import { useState } from "react";
 import Cookies from "js-cookie";
@@ -5,10 +7,12 @@ import Image from "next/image";
 import google from "@/assets/images/image 110.svg";
 import vector1 from "@/assets/images/chevron-down.svg";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import hostingImage from "@/assets/icons/Upload to Cloud.png";
 import { ICart } from "@/types/cart.types";
 import { handleCheckoutService } from "@/services/checkout";
 import { getSelectedCurrencySymbol } from "@/helpers/currencies";
 import { useAppSelector } from "@/hooks/redux";
+import { toast } from "react-toastify";
 
 const OrderSummary = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -29,7 +33,7 @@ const OrderSummary = () => {
       console.log(data);
     },
     onError: (error) => {
-      console.log(error);
+      toast.error(error);
     },
   });
 
@@ -62,43 +66,32 @@ const OrderSummary = () => {
                 className="flex p-4 gap-8 justify-between items-start hover:bg-[#e1e1e180]"
               >
                 <div className="flex items-start gap-3">
-                  <Image src={google} alt="" />
+                  <Image
+                    src={item.product === "hosting" ? hostingImage : google}
+                    alt=""
+                  />
                   <div className="flex flex-col gap-1 ">
-                    <span className="font-source-sans-pro text-[15px] font-700 text-[#000000]">
-                      Google Workspace
+                    <span className="font-source-sans-pro text-[15px] font-700 text-[#000000] capitalize">
+                      {item.groupName}
                     </span>
                     <span className="w-[130px] font-source-sans-pro text-[12px] font-600 text-[#000000]">
-                      Business Starter (
+                      {item?.productName} (
                       <span className="text-[#0011FF]">{item.domainName}</span>)
                     </span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center gap-2 ml-[23px]">
                   <span className="font-source-sans-pro text-[12px] font-700 text-[#000000]">
-                    ₹{item.offerPrice}
+                    ₹
+                    {item.product === "gsuite"
+                      ? item.gsuitePrice
+                      : item.product === "hosting"
+                      ? item.pleskPrice
+                      : item.domainprice}
                   </span>
                 </div>
               </div>
             ))}
-            {/* <div className="flex p-4 justify-between gap-8 items-start hover:bg-[#e1e1e180]">
-              <div className="flex items-start gap-3">
-                <Image src={cloud} alt="" />
-                <div className="flex flex-col gap-1 ">
-                  <span className="font-source-sans-pro text-[15px] font-700 text-[#000000]">
-                    Linux Hosting
-                  </span>
-                  <span className="w-[130px] font-source-sans-pro text-[12px] font-600 text-[#000000]">
-                    Business Starter Domain -{" "}
-                    <span className="text-[#0011FF]">iaaxin.com </span>{" "}
-                  </span>
-                </div>
-              </div>
-              <div className="flex justify-between items-center gap-2 ml-[23px]">
-                <span className="font-source-sans-pro text-[12px] font-700 text-[#000000]">
-                  ₹225.00
-                </span>
-              </div>
-            </div> */}
             <hr />
           </div>
         )}

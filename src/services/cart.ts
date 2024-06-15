@@ -1,13 +1,10 @@
 import axios from "axios";
 import { API_URL } from ".";
-import { ICart, ICartItem } from "@/types/cart.types";
-import { toast } from "react-toastify";
-import Cookies from "js-cookie";
+import { ICart } from "@/types/cart.types";
 import { axiosInstance } from "./axios";
-import { ICartItemDomainLocal } from "@/store/slices/cartSlice";
 
 export const handleGetAllCartItemsService = async (
-  currency_code: string = "IN"
+  currency_code: string = "INR"
 ): Promise<ICart> => {
   return new Promise((resolve, reject) => {
     axiosInstance
