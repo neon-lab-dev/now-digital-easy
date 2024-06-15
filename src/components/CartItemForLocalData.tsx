@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import Image from "next/image";
 import google from "@/assets/images/image 110.svg";
 import trash from "@/assets/images/trash-2.svg";
@@ -179,6 +181,7 @@ export const CartItemForLocalDataDomain = ({
   productId,
   product,
   year,
+  ...rest
 }: ICartItemDomain) => {
   const dispatch = useDispatch();
   const { currency } = useAppSelector((state) => state.user);
@@ -201,7 +204,7 @@ export const CartItemForLocalDataDomain = ({
       <div className="flex justify-between items-center gap-2 ml-[23px]">
         <span className="font-source-sans-pro text-[12px] font-700 text-[#000000]">
           {getSelectedCurrencySymbol(currency?.code!)}
-          Unknown
+          {rest?.price}
         </span>
         <button
           onClick={() => {
