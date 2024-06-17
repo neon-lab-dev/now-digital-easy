@@ -8,7 +8,7 @@ const Hero = () => {
     const sections = [
         {
             title: 'What is omnichannel customer engagement?',
-            content: `The term "omnichannel customer engagement" describes how different communication channels are strategically integrated to offer a unified and consistent customer experience across all touchpoints. Customer engagement through omnichannel is a two-way street. By using this method, customers receive a consistent experience, and businesses gain a comprehensive understanding of who their customers are.`,
+            content: `The term &apos;omnichannel customer engagement&apos; describes how different communication channels are strategically integrated to offer a unified and consistent customer experience across all touchpoints. Customer engagement through omnichannel is a two-way street. By using this method, customers receive a consistent experience, and businesses gain a comprehensive understanding of who their customers are.`,
         },
         {
             title: 'What makes omnichannel customer engagement necessary?',
@@ -35,7 +35,7 @@ const Hero = () => {
         },
         {
             title: 'Measuring the maze',
-            content: `Measuring the maze It might be difficult to assess an omnichannel strategy's effectiveness. Conventional metrics related to specific channels might not precisely depict the combined impact of the complete omnichannel encounter. Establishing thorough KPIs that record the client journey at every touchpoint is essential to successfully tracking results and refining your plan.`,
+            content: `Measuring the maze It might be difficult to assess an omnichannel strategy&apos;s effectiveness. Conventional metrics related to specific channels might not precisely depict the combined impact of the complete omnichannel encounter. Establishing thorough KPIs that record the client journey at every touchpoint is essential to successfully tracking results and refining your plan.`,
         },
         {
             title: 'Technological hurdles',
@@ -55,13 +55,13 @@ const Hero = () => {
                     <button className='bg-[#C9CDFF] text-primary-400 font-source-sans-pro font-semibold py-2 px-3 max-lg:py-1 rounded-3xl'>Design</button>
                 </div>
                 <div className='flex flex-col gap-3'>
-                    <p className=' font-merriweather'>
-                        Let's talk customer engagement—the holy grail of any business. Sephora is often considered the 'Sensei' of customer engagement, thanks to its highly personalized Beauty Insider program and its tech-driven approach to providing a seamless customer experience. However, delivering the greatest possible customer experience and engagement is complex and challenging. It requires hard and smart work. Simply providing good service and a cheerful smile isn't enough. Customers switch across channels—from browsing the website to chatting—and they expect a consistent experience no matter where they contact you. Putting in place an omnichannel customer interaction strategy is one way we can deliver a positive customer experience. In this article, we'll explore the concept of omnichannel customer engagement and effective strategies to amplify its impact.
+                    <p className='font-merriweather'>
+                        Let&apos;s talk customer engagement—the holy grail of any business. Sephora is often considered the &apos;Sensei&apos; of customer engagement, thanks to its highly personalized Beauty Insider program and its tech-driven approach to providing a seamless customer experience. However, delivering the greatest possible customer experience and engagement is complex and challenging. It requires hard and smart work. Simply providing good service and a cheerful smile isn&apos;t enough. Customers switch across channels—from browsing the website to chatting—and they expect a consistent experience no matter where they contact you. Putting in place an omnichannel customer interaction strategy is one way we can deliver a positive customer experience. In this article, we&apos;ll explore the concept of omnichannel customer engagement and effective strategies to amplify its impact.
                     </p>
                     {sections.map((section, index) => (
                         <div className='flex flex-col gap-4' key={index}>
                             <h2 className='text-4xl max-lg:text-3xl max-md:text-xl font-source-sans-pro font-900'>{section.title}</h2>
-                            <p className=' font-merriweather'>{section.content}</p>
+                            <p className='font-merriweather'>{section.content}</p>
                         </div>
                     ))}
                 </div>
