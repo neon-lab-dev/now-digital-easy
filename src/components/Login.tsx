@@ -27,25 +27,18 @@ const Login = () => {
       toast.success(data.message);
       dispatch(setActiveAuthTab(null));
       dispatch(setIsSidebarOpen(false));
-      queryClient
-        .invalidateQueries({
-          queryKey: ["user"],
-        })
+
+      handleSyncCartItems({
+        data: cartItems,
+        token: data.data.jwtToken,
+      })
         .then(() => {
-          if (cartItems.length === 0) {
-            queryClient.invalidateQueries({
-              queryKey: ["cart"],
-            });
-          } else {
-            handleSyncCartItems({
-              data: cartItems,
-              token: data.data.jwtToken,
-            }).then(() => {
-              queryClient.invalidateQueries({
-                queryKey: ["cart"],
-              });
-            });
-          }
+          queryClient.invalidateQueries({
+            queryKey: ["cart"],
+          });
+        })
+        .finally(() => {
+          window.location.reload();
         });
     },
     onError: (error: string) => {

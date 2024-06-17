@@ -14,4 +14,5 @@ export const API_URL = {
 
   currencies: BASE_URL + "/currencies",
   gsuite: BASE_URL + "/product/gsuite", // country_code=
+  hosting: BASE_URL + "/product/hosting", // country_code=
 };

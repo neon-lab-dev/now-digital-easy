@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import CartItem from "./CartItem";
 import { useQuery } from "@tanstack/react-query";
 import { handleGetAllCartItemsService } from "@/services/cart";
-import Cookies from "js-cookie";
 import Loading from "./Loading";
 import cartImage from "@/assets/icons/cart.svg";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import CartItemForLocalData from "./CartItemForLocalData";
+import {
+  CartItemForLocalDataDomain,
+  CartItemForLocalDataGSuite,
+  CartItemForLocalDataHosting,
+} from "./CartItemForLocalData";
 import { handleGetGSuiteDetailsServices } from "@/services/gsuite";
 import {
   setActiveAuthTab,
@@ -15,6 +18,17 @@ import {
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
 import { getSelectedCurrencySymbol } from "@/helpers/currencies";
+import { IGSuitLocal } from "@/store/slices/cartSlice";
+import {
+  IHostingProduct,
+  handleGetHostingDetailsServices,
+} from "@/services/hosting";
+import { ICartItemDomain } from "@/types/cart.types";
+import {
+  CartItemForRemoteDataDomain,
+  CartItemForRemoteDataGSuite,
+  CartItemForRemoteDataHosting,
+} from "./CartItemForRemoteData";
 
 const CartSummary = ({ onClick }: { onClick: () => void }) => {
   const [showCoupon, setShowCoupon] = useState(false);
@@ -36,16 +50,21 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
   const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  const { data: productsData, isLoading: isProductsLoading } = useQuery({
+  const { data: gsuiteData, isLoading: isGSuiteLoading } = useQuery({
     queryFn: () => {
-      return handleGetGSuiteDetailsServices(currency?.code!);
+      return handleGetGSuiteDetailsServices(currency?.countryCode!);
     },
     queryKey: ["gsuite"],
   });
 
+  const { data: hostingData, isLoading: isHostingLoading } = useQuery({
+    queryKey: ["hosting"],
+    queryFn: () => handleGetHostingDetailsServices(currency?.countryCode!),
+  });
+
   return (
     <div className="h-full w-full">
-      {isProductsLoading ? (
+      {isGSuiteLoading || isHostingLoading ? (
         <Loading className="h-[calc(100vh-60px)]" />
       ) : !isLoggedIn ? (
         cartItemsFromLocal?.length === 0 ? (
@@ -58,17 +77,43 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
               <span>Price</span>
             </div>
             <hr className="h-[1px]" />
-            {cartItemsFromLocal?.map((item) => (
-              <CartItemForLocalData
-                key={item.productId}
-                {...item}
-                productDetails={
-                  productsData?.find(
-                    (product) => product._id === item.productId
-                  )!
-                }
-              />
-            ))}
+            {cartItemsFromLocal?.map((item) => {
+              if ((item as IGSuitLocal).product === "gsuite") {
+                return (
+                  <CartItemForLocalDataGSuite
+                    key={item.productId}
+                    {...(item as IGSuitLocal)}
+                    productDetails={
+                      gsuiteData?.find(
+                        (product) => product._id === item.productId
+                      )!
+                    }
+                  />
+                );
+                // @ts-ignore
+              } else if ((item as IHostingProduct).product === "hosting") {
+                return (
+                  // @ts-ignore
+                  <CartItemForLocalDataHosting
+                    key={item.productId}
+                    // @ts-ignore
+                    {...(item as IHostingProduct)}
+                    productDetails={
+                      hostingData?.find(
+                        (product) => product._id === item.productId
+                      )!
+                    }
+                  />
+                );
+              } else if ((item as ICartItemDomain).product === "domain") {
+                return (
+                  <CartItemForLocalDataDomain
+                    key={item.productId}
+                    {...(item as ICartItemDomain)}
+                  />
+                );
+              }
+            })}
             <div className="flex justify-center p-4 mt-auto">
               <button
                 onClick={() => {
@@ -96,15 +141,37 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
             <span>Price</span>
           </div>
           <hr className="h-[1px]" />
-          {data?.products?.map((item) => (
-            <CartItem
-              key={item._id}
-              {...item}
-              productDetails={
-                productsData?.find((product) => product._id === item.productId)!
-              }
-            />
-          ))}
+          {data?.products?.map((item) => {
+            if (item.product === "gsuite") {
+              return (
+                <CartItemForRemoteDataGSuite
+                  key={item.productId}
+                  {...item}
+                  productDetails={
+                    gsuiteData?.find(
+                      (product) => product._id === item.productId
+                    )!
+                  }
+                />
+              );
+            } else if (item.product === "hosting") {
+              return (
+                <CartItemForRemoteDataHosting
+                  key={item.productId}
+                  {...item}
+                  productDetails={
+                    hostingData?.find(
+                      (product) => product._id === item.productId
+                    )!
+                  }
+                />
+              );
+            } else if (item.product === "domain") {
+              return (
+                <CartItemForRemoteDataDomain key={item.productId} {...item} />
+              );
+            }
+          })}
 
           <hr />
           <div className="flex justify-between items-start py-2 px-2">

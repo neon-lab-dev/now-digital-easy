@@ -3,7 +3,7 @@ import Hero from "./_components/Hero";
 import Features from "./_components/Features";
 import SectionAfterFeatures from "./_components/SectionAfterFeatures";
 import WhyChooseChatNowTool from "./_components/WhyChooseChatNowTool";
-import Plan from "../hosting/_components/Plan";
+import Plan from "../hosting/_components/ChooseARightPlan";
 
 const SpotNow = () => {
   return (

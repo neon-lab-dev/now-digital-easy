@@ -11,15 +11,11 @@ export const handleCheckoutService = async ({
       return reject("Token is required");
     }
     axios
-      .post(
-        API_URL.payment,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(API_URL.payment, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         const options = {
           ...res.data.options,
