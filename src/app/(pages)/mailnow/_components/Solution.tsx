@@ -34,9 +34,9 @@ const Choose = () => {
     return (
         <div className='bg-[#F4F3F3] my-10 wrapper '>
             <div className=' flex justify-center pt-16 max-width'>
-                <span className=' text-5xl max-lg:text-3xl font-source-sans-pro font-900 text-primary-500 tracking-tighter pb-6 max-md:text-base'>One-stop solution for cold email lead generation</span>
+                <span className=' text-5xl max-lg:text-3xl max-lg:text-center font-source-sans-pro font-900 text-primary-500 tracking-tighter pb-6 '>One-stop solution for cold email lead generation</span>
             </div>
-            <div className='flex justify-center flex-wrap max-lg:gap-8 pt-8 pb-8 gap-[40px] px-10 max-md:px-0  max-width'>
+            <div className='flex justify-center flex-wrap  pt-8 pb-8 gap-[40px]  px-10  max-md:px-0  max-width'>
                 {features.map((feature, index) => (
                     <div key={index} className='flex flex-col w-[350px] max-lg:w-[230px] max-md:w-[300px] rounded-xl'>
                         <div className='flex'>

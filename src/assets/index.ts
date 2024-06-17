@@ -42,6 +42,8 @@ import like from "@/assets/icons/Like.svg"
 import check from "@/assets/icons/check.svg"
 import mailnow from "@/assets/icons/Group 69700.svg"
 import blog from "@/assets/icons/omnichannel_customer_engagement_blog_banner 1.svg"
+import blog1 from "@/assets/images/image 2813.svg"
+
 
 
 
@@ -69,7 +71,8 @@ const IMAGES = {
   IoxHost,
   OpenStack,
   menuCardImg,
-  mailnow
+  mailnow,
+  blog1
 };
 
 const ICONS = {
