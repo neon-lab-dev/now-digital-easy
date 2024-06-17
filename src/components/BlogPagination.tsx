@@ -28,7 +28,7 @@ const BlogPagination: React.FC<BlogPaginationProps> = ({
   return (
     <>
       <nav>
-        <ul className="pagination flex justify-center items-center gap-8 mx-auto w-full text-2xl">
+        <ul className="pagination flex justify-center items-center gap-8 xsm:gap-4 mx-auto w-full text-2xl">
           <li className="page-item-text">
             {" "}
             {/* Previous page button */}

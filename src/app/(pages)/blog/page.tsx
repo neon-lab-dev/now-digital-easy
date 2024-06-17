@@ -35,7 +35,7 @@ const Blog: React.FC = () => {
   return (
     <>
       <div className="bg-gradient-to-r from-purple-200 via-teal-300 to-pink-200 w-full h-96 relative">
-        <div className="max-w-470  text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="max-w-470 text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="text-4xl font-extrabold text-blue-900 mb-5">
             <h2>Blog</h2>
           </div>
@@ -49,7 +49,7 @@ const Blog: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-screen-xl mx-auto w-full">
+      <div className="max-w-screen-xl mx-auto w-full xsm:px-4 xs:px-6 md:px-6 lg:px-8 ">
         <div className="tab_contianer">
           <div className="flex justify-center items-center text-center mx-auto gap-5 my-9">
             <div
@@ -105,7 +105,7 @@ const Blog: React.FC = () => {
                 quidem?
               </p> */}
               {/* <BlogPost /> */}
-              <div className="grid grid-cols-3 justify-center gap-10">
+              <div className=" grid grid-cols-3 justify-center gap-10 xsm:grid-cols-1 xs:grid-cols-1 xs:gap-4 sm:grid-cols-2 md:grid-cols-2 md:gap-5 lg:grid-cols-3  lg:gap-5">
                 {currentRecord.map((item, index) => (
                   <div className="blog_post" key={index}>
                     {item}
