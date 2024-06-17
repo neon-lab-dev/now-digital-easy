@@ -41,6 +41,8 @@ import checkmark from "@/assets/icons/Checkmark.svg"
 import like from "@/assets/icons/Like.svg"
 import check from "@/assets/icons/check.svg"
 import mailnow from "@/assets/icons/Group 69700.svg"
+import blog from "@/assets/icons/omnichannel_customer_engagement_blog_banner 1.svg"
+
 
 
 
@@ -88,7 +90,8 @@ const ICONS = {
   pipeline,
   supply,
   connect,
-  test
+  test,
+  blog
 };
 
 export { IMAGES, ICONS };
