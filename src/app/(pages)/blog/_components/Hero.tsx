@@ -1,7 +1,7 @@
-import React from 'react'
-import Popularpost from './Popularpost'
-import Image from 'next/image'
-import { ICONS } from '@/assets'
+import React from 'react';
+import Popularpost from './Popularpost';
+import Image from 'next/image';
+import { ICONS } from '@/assets';
 
 const Hero = () => {
     return (
@@ -9,20 +9,20 @@ const Hero = () => {
             <div className='flex flex-col'>
                 <div className='flex flex-col gap-4'>
                     <span className='text-4xl font-source-sans-pro font-900'>How to create an omnichannel customer engagement strategy</span>
-                    <Image src={ICONS.blog} alt={''} className='w-full' />
+                    <Image src={ICONS.blog} alt='' className='w-full' />
                 </div>
                 <div className='flex justify-between py-4 items-center'>
-                    <span className='underline font-bold'>Posted On March 29, 2024 </span>
-                    <button className='bg-[#C9CDFF] text-primary-400 font-source-sans-pro font-700  py-2 px-3 rounded-3xl'>Design</button>
+                    <span className='underline font-bold'>Posted On&nbsp;March 29, 2024&nbsp;</span>
+                    <button className='bg-[#C9CDFF] text-primary-400 font-source-sans-pro font-700 py-2 px-3 rounded-3xl'>Design</button>
                 </div>
                 <div className='flex flex-col gap-3'>
-                    <p>Let's talk customer engagement—the holy grail of any business. Sephora is often considered the 'Sensei' of customer engagement, thanks to its highly personalized Beauty Insider program and its tech-driven approach to providing a seamless customer experience.
-                        However, delivering the greatest possible customer experience and engagement is complex and challenging. It requires hard and smart work. Simply providing good service and a cheerful smile isn't enough. Customers switch across channels—from browsing the website to chatting—and they expect a consistent experience no matter where they contact you.
+                    <p>Let&apos;s talk customer engagement—the holy grail of any business. Sephora is often considered the &apos;Sensei&apos; of customer engagement, thanks to its highly personalized Beauty Insider program and its tech-driven approach to providing a seamless customer experience.
+                        However, delivering the greatest possible customer experience and engagement is complex and challenging. It requires hard and smart work. Simply providing good service and a cheerful smile isn&apos;t enough. Customers switch across channels—from browsing the website to chatting—and they expect a consistent experience no matter where they contact you.
                         Putting in place an omnichannel customer interaction strategy is one way we can deliver a positive customer experience.
-                        In this article, we'll explore the concept of omnichannel customer engagement and effective strategies to amplify its impact.
+                        In this article, we&apos;ll explore the concept of omnichannel customer engagement and effective strategies to amplify its impact.
                     </p>
-                    <span className=' font-source-sans-pro font-900 text-3xl'>What is omnichannel customer engagement?</span>
-                    <p>The term "omnichannel customer engagement" describes how different communication channels are strategically integrated to offer a unified and consistent customer experience across all touchpoints.
+                    <span className='font-source-sans-pro font-900 text-3xl'>What is omnichannel customer engagement?</span>
+                    <p>The term &quot;omnichannel customer engagement&quot; describes how different communication channels are strategically integrated to offer a unified and consistent customer experience across all touchpoints.
                     Customer engagement through omnichannel is a two-way street. By using this method, customers receive a consistent experience, and businesses gain a comprehensive understanding of who their customers are.</p>
                     <span className='font-source-sans-pro font-900 text-3xl'>What makes omnichannel customer engagement necessary?</span>
                     <p>Putting into practice a clear omnichannel strategy has several advantages, such as: Enhanced customer loyalty and satisfaction Improved brand perception Better sales and revenue</p>
@@ -36,13 +36,13 @@ const Hero = () => {
                     <p>Shifting to an omnichannel approach often necessitates a cultural shift within the organization. Employees accustomed to traditional, siloed workflows may resist the change, requiring training and support to adapt to the new collaborative environment.</p>
                     <span className='font-source-sans-pro font-900 text-3xl'>Measuring the maze</span>
                     <p>Measuring the maze
-                    It might be difficult to assess an omnichannel strategy's effectiveness. Conventional metrics related to specific channels might not precisely depict the combined impact of the complete omnichannel encounter. Establishing thorough KPIs that record the client journey at every touchpoint is essential to successfully tracking results and refining your plan.</p>
+                    It might be difficult to assess an omnichannel strategy&apos;s effectiveness. Conventional metrics related to specific channels might not precisely depict the combined impact of the complete omnichannel encounter. Establishing thorough KPIs that record the client journey at every touchpoint is essential to successfully tracking results and refining your plan.</p>
                     <span className='font-source-sans-pro font-900 text-3xl'>Technological hurdles</span>
                     <p>Technological hurdles
                     Implementing an omnichannel strategy often requires investing in new technologies to integrate various channels and systems. Choosing the right technology stack, ensuring data security, and maintaining system integrations can be complex and resource-intensive.</p>
                 </div>
                 <div className='mt-16'>
-                    <span className=' font-source-sans-pro font-900 text-[#5E18EB] text-2xl'>Recent Blog Posts</span>
+                    <span className='font-source-sans-pro font-900 text-[#5E18EB] text-2xl'>Recent Blog Posts</span>
                 </div>
                 <div>
                     Recent Blog post
@@ -52,7 +52,7 @@ const Hero = () => {
                 <Popularpost />
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Hero
+export default Hero;
