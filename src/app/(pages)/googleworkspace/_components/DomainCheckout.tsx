@@ -1,30 +1,51 @@
 "use client";
 
 import Image from "next/image";
-import vector from "@/assets/images/Vector.svg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import x from "@/assets/icons/x.svg";
-import { twMerge } from "tailwind-merge";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { handleCheckDomainAvailabilityService } from "@/services/google-workspace";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import { handleAddADomainToCartService } from "@/services/cart";
+import { handleAddAItemToCartService } from "@/services/cart";
+import { IGSuiteProduct } from "@/services/gsuite";
+import { getSelectedCurrencySymbol } from "@/helpers/currencies";
+import { getLocalStorage, setLocalStorage } from "@/helpers/localstorage";
+import { useDispatch } from "react-redux";
+import { addCartItem } from "@/store/slices/cartSlice";
+import { useAppSelector } from "@/hooks/redux";
 
-const OPTIONS = ["Monthly", "Annually"];
-type Props = {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+type IsOpen = {
+  open: boolean;
+  selectedServiceNameFromBackend: string;
+  title: string;
 };
-const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [chosenOption, setChosenOption] = useState(OPTIONS[0]);
+
+type Props = {
+  isOpen: IsOpen;
+  setIsOpen: React.Dispatch<React.SetStateAction<IsOpen>>;
+  selectedService: IGSuiteProduct;
+};
+const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
   const [isBuyNowClicked, setIsBuyNowClicked] = useState(false);
   const [radioInputValue, setRadioInputValue] = useState("register");
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
+  const [selectedNumberOfAccounts, setSelectedNumberOfAccounts] = useState(1);
   const [domainThatIsAddingToCart, setDomainThatIsAddingToCart] = useState("");
   const queryClient = useQueryClient();
+  const [selectedPricing, setSelectedPricing] = useState(
+    selectedService?.price[0]
+  );
+
+  useEffect(() => {
+    if (selectedService) {
+      setSelectedPricing(selectedService.price[0]);
+    }
+  }, [selectedService]);
+
+  const { currency } = useAppSelector((state) => state.user);
 
   const {
     mutate: handleCheckAvailability,
@@ -40,7 +61,7 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
 
   const { mutate: handleAddToCart, isPending: isAddToCartPending } =
     useMutation({
-      mutationFn: handleAddADomainToCartService,
+      mutationFn: handleAddAItemToCartService,
       onError: (error: string) => {
         toast.error(error);
       },
@@ -55,12 +76,12 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
   return (
     <div
       style={{
-        scale: isOpen ? 1 : 0,
+        scale: isOpen.open ? 1 : 0,
       }}
-      className="bg-gradient-checkout transition-all w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+      className="bg-gradient-checkout transition-all w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
     >
       <button
-        onClick={() => setIsOpen(false)}
+        onClick={() => setIsOpen((prev) => ({ ...prev, open: false }))}
         className="absolute -top-4 -right-4 bg-gray-400 rounded-full p-1"
       >
         <Image src={x} alt="" className="h-6 w-6" />
@@ -71,7 +92,7 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
             <span className="text-[17px] text-[#000659] leading-[15px]">
               Plan Name
             </span>
-            <span className="font-400 text-[15px]">Business Starter</span>
+            <span className="font-400 text-[15px]">{isOpen.title}</span>
           </div>
           <div className="flex flex-col ">
             <label htmlFor="" className="text-[17px] text-[#000659]">
@@ -79,8 +100,12 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
             </label>
             <input
               type="number"
-              defaultValue={1}
+              value={selectedNumberOfAccounts}
+              onChange={(e) => {
+                setSelectedNumberOfAccounts(Number(e.target.value));
+              }}
               min={1}
+              defaultValue={1}
               className="placeholder:text-center text-center text-[#646464] bg-transparent placeholder:text-[#646464] border border-[#646464] p-1 w-[100px] rounded-lg"
             />
           </div>
@@ -88,54 +113,50 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
             <span className="text-[17px] text-[#000659] leading-[15px]">
               Price
             </span>
-            <span>Rs.82.80/acc/mo</span>
+            <span>
+              {getSelectedCurrencySymbol(currency?.code!)}
+              {selectedPricing?.offerPrice ??
+                selectedService?.price[0].offerPrice}
+            </span>
           </div>
           <div className="flex flex-col h-[100px] pt-5 gap-1">
             <span className="text-[17px] text-[#000659]">Duration</span>
-            <div className="flex flex-col">
-              <button
-                onClick={() => setIsDropdownOpen((prev) => !prev)}
-                className="flex justify-between  items-center border-[#00000026] border  bg-transparent  rounded-lg  w-[130px] h-[28px] p-1 px-2"
-              >
-                <span className="font-source-sans-pro text-[12px] font-700 text-[#646464]">
-                  {chosenOption}
-                </span>
-                <Image
-                  src={vector}
-                  alt=""
-                  className={twMerge(
-                    "h-2.5 w-2.5 transition-transform",
-                    isDropdownOpen && "rotate-180"
-                  )}
-                />
-              </button>
-              {isDropdownOpen && (
-                <div className="flex flex-col justify-center border border-black rounded-md bg-gray-100/60 px-1 cursor-pointer">
-                  {OPTIONS.map((option, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setChosenOption(option);
-                        setIsDropdownOpen(false);
-                      }}
-                      className="text-[12px] font-source-sans-pro font-700 text-[#646464] py-1"
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <select
+              className="border border-[#646464] p-1 w-[100px] rounded-lg"
+              value={selectedPricing?.period}
+              onChange={(e) => {
+                const selectedPrice = selectedService?.price.find(
+                  (price) => price.period === e.target.value
+                );
+                setSelectedPricing(selectedPrice!);
+              }}
+            >
+              {selectedService?.price.map((price, index) => (
+                <option key={index} value={price.period}>
+                  {price.period}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex flex-col ">
             <span className="text-[17px] text-[#000659] leading-[15px]">
               Total
             </span>
-            <span className="text-[24px] font-600">Rs.999.00</span>
+            <span className="text-[24px] font-600">
+              {getSelectedCurrencySymbol(currency?.code!)}
+              {(
+                (selectedPricing?.offerPrice ??
+                  selectedService?.price[0].offerPrice) *
+                selectedNumberOfAccounts
+              ).toFixed(2)}
+            </span>
           </div>
           <button
-            onClick={() => setIsBuyNowClicked(true)}
-            className="px-8 py-4 rounded-xl bg-[#0009FF] text-white"
+            onClick={() => {
+              setIsBuyNowClicked(true);
+            }}
+            disabled={selectedNumberOfAccounts < 1}
+            className="px-8 py-4 rounded-xl bg-[#0009FF] text-white disabled:opacity-75"
           >
             Buy Now
           </button>
@@ -153,30 +174,34 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
                 value: "existing",
               },
             ].map((option, index) => (
-              <div key={index} className="flex items-center ps-4 rounded">
+              <label
+                htmlFor={option.value}
+                key={index}
+                className="flex items-center ps-4 rounded cursor-pointer"
+              >
                 <input
-                  id="bordered-radio-register"
+                  id={option.value}
                   type="radio"
                   value={option.value}
                   name="bordered-radio"
                   checked={radioInputValue === option.value}
                   onChange={(e) => setRadioInputValue(e.target.value)}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                 />
-                <label
-                  htmlFor="bordered-radio-register"
-                  className="w-full py-4 ms-2 font-medium text-black"
-                >
+                <span className="w-full py-4 ms-2 font-medium text-black">
                   {option.option}
-                </label>
-              </div>
+                </span>
+              </label>
             ))}
           </div>
           <form
             onSubmit={(e) => {
               e.preventDefault();
               if (radioInputValue === "register") {
-                handleCheckAvailability(inputValue);
+                handleCheckAvailability({
+                  country_code: currency?.countryCode!,
+                  domain: inputValue,
+                });
               }
             }}
             className="flex justify-center"
@@ -184,7 +209,14 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
             <input
               type="text"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => {
+                //accept only alphanumeric and hyphen and dot
+                const regex = /^[a-zA-Z0-9.-]*$/;
+                if (!regex.test(e.target.value)) {
+                  return;
+                }
+                setInputValue(e.target.value);
+              }}
               autoFocus
               className="bg-transparent border border-black w-[700px] h-[50px] px-4 "
             />
@@ -201,10 +233,32 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
               </button>
             ) : (
               <button
-                // onClick={handleAssignDomain}
-                className="px-7 py-2 h-[51px] bg-[#0009FF] text-white shadow-black shadow-md"
+                onClick={() => {
+                  const token = Cookies.get("token");
+                  const data = {
+                    product: "gsuite",
+                    productId: selectedService._id,
+                    domainName: inputValue,
+                    period: selectedPricing?.period,
+                    type: "new",
+                    qty: selectedNumberOfAccounts,
+                  } as const;
+
+                  if (token) {
+                    handleAddToCart(data);
+                  } else {
+                    dispatch(
+                      addCartItem({
+                        ...data,
+                        name: isOpen.title,
+                      })
+                    );
+                    toast.success("Domain added to cart");
+                  }
+                }}
+                className="px-7 py-2 h-[50px] bg-[#0009FF] text-white shadow-black shadow-md"
               >
-                Assign Domain
+                {isAddToCartPending ? "Loading..." : "Assign Domain"}
               </button>
             )}
           </form>
@@ -251,32 +305,36 @@ const DomainCheckout = ({ isOpen, setIsOpen }: Props) => {
                                 <li className="">{domain.domain}</li>
                                 <div className="flex items-center gap-5">
                                   <span>{domain.price[0].year} year</span>
-                                  <span>₹{domain.price[0].registerPrice}</span>
+                                  <span>
+                                    {getSelectedCurrencySymbol(currency?.code!)}
+                                    {domain.price[0].registerPrice}
+                                  </span>
                                   <button
                                     onClick={() => {
                                       const token = Cookies.get("token");
-                                      console.log(domain);
-                                      setDomainThatIsAddingToCart(
-                                        domain.domain
-                                      );
+                                      const data = {
+                                        product: "gsuite",
+                                        productId: selectedService._id,
+                                        domainName: domain.domain,
+                                        period: selectedPricing?.period,
+                                        type: "new",
+                                        qty: selectedNumberOfAccounts,
+                                      } as const;
+
                                       if (token) {
-                                        handleAddToCart({
-                                          token,
-                                          data: {
-                                            domainName: domain.domain,
-                                            EppCode: "",
-                                            product: "domain",
-                                            productId:
-                                              domain.price[0].productId,
-                                            type: "new",
-                                            year: domain.price[0].year,
-                                            // qty: 10,
-                                          },
-                                        });
-                                      } else {
-                                        toast.error(
-                                          "Please login to add to cart!"
+                                        setDomainThatIsAddingToCart(
+                                          domain.domain
                                         );
+                                        console.log(data);
+                                        handleAddToCart(data);
+                                      } else {
+                                        dispatch(
+                                          addCartItem({
+                                            ...data,
+                                            name: isOpen.title,
+                                          })
+                                        );
+                                        toast.success("Domain added to cart");
                                       }
                                     }}
                                     className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md"

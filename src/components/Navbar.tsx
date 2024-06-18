@@ -158,7 +158,7 @@ const Navbar = () => {
       {/* side navbar for mobile devices */}
       <aside
         className={twMerge(
-          "bg-white w-[250px] h-screen transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-20 px-6 gap-3 overflow-x-hidden overflow-y-auto",
+          "bg-white w-[250px] h-screen overflow-hidden transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-20 px-6 gap-",
           isMobileNavOpen ? "translate-x-0" : "translate-x-full "
         )}
       >
@@ -168,70 +168,72 @@ const Navbar = () => {
         >
           <Image src={x} alt="close" height={24} width={24} />
         </button>
-        {NAV_LINKS.map((item, i) => (
-          <div key={i} className="flex flex-col gap-1 w-full">
-            <button
-              onClick={
-                item.href
-                  ? () => router.push(item.href)
-                  : () =>
-                      setActiveDropdown((prev) =>
-                        prev === item.name
-                          ? null
-                          : (item.name as ActiveDropdown)
-                      )
-              }
-              key={i}
-              className="flex items-center justify-between gap-2 nav-link !font-500 hover:text-primary-400 transition duration-300 !text-xl w-full"
-            >
-              {item.name}
-              {!item.href && (
-                <Image
-                  src={ICONS.downArrow}
-                  alt="downArrow"
-                  className={activeDropdown === item.name ? "rotate-180" : ""}
-                  height={12}
-                  width={12}
-                />
-              )}
-            </button>
-            <hr />
-            {activeDropdown === item.name && (
-              <div className="flex flex-col gap-2">
-                {item.dropdowns &&
-                  Object.keys(item.dropdowns).map((key, i) => (
-                    <div key={i} className="flex flex-col gap-1 ml-2">
-                      <span className="text-lg">
-                        {key[0].toUpperCase() + key.slice(1).toLowerCase()}
-                      </span>
-                      <div className="flex flex-col items-start gap-2 ml-2">
-                        {
-                          //  @ts-ignore
-                          item.dropdowns[key].map((item, i) => (
-                            <Link
-                              onClick={() => setIsMobileNavOpen(false)}
-                              href={item.href}
-                              key={i}
-                              className="text-sm font-400 text-dark-400 flex gap-4"
-                            >
-                              <Image
-                                alt=""
-                                src={item.img}
-                                height={20}
-                                width={20}
-                                className="bg-primary-300 p-1 rounded-md"
-                              />
-                              <span>{item.title}</span>
-                            </Link>
-                          ))
-                        }
+        <div className="h-full w-full flex flex-col gap-3 overflow-x-hidden overflow-y-auto">
+          {NAV_LINKS.map((item, i) => (
+            <div key={i} className="flex flex-col gap-1 w-full">
+              <button
+                onClick={
+                  item.href
+                    ? () => router.push(item.href)
+                    : () =>
+                        setActiveDropdown((prev) =>
+                          prev === item.name
+                            ? null
+                            : (item.name as ActiveDropdown)
+                        )
+                }
+                key={i}
+                className="flex items-center justify-between gap-2 nav-link !font-500 hover:text-primary-400 transition duration-300 !text-xl w-full"
+              >
+                {item.name}
+                {!item.href && (
+                  <Image
+                    src={ICONS.downArrow}
+                    alt="downArrow"
+                    className={activeDropdown === item.name ? "rotate-180" : ""}
+                    height={12}
+                    width={12}
+                  />
+                )}
+              </button>
+              <hr />
+              {activeDropdown === item.name && (
+                <div className="flex flex-col gap-2">
+                  {item.dropdowns &&
+                    Object.keys(item.dropdowns).map((key, i) => (
+                      <div key={i} className="flex flex-col gap-1 ml-2">
+                        <span className="text-lg">
+                          {key[0].toUpperCase() + key.slice(1).toLowerCase()}
+                        </span>
+                        <div className="flex flex-col items-start gap-2 ml-2">
+                          {
+                            //  @ts-ignore
+                            item.dropdowns[key].map((item, i) => (
+                              <Link
+                                onClick={() => setIsMobileNavOpen(false)}
+                                href={item.href}
+                                key={i}
+                                className="text-sm font-400 text-dark-400 flex gap-4"
+                              >
+                                <Image
+                                  alt=""
+                                  src={item.img}
+                                  height={20}
+                                  width={20}
+                                  className="bg-primary-300 p-1 rounded-md"
+                                />
+                                <span>{item.title}</span>
+                              </Link>
+                            ))
+                          }
+                        </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
-            )}
-          </div>
-        ))}
+                    ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </aside>
     </>
   );

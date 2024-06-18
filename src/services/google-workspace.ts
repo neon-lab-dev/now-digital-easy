@@ -1,13 +1,28 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { API_URL } from ".";
 
-export const handleCheckDomainAvailabilityService = async (
-  domain: string
-): Promise<any> => {
+export type DomainAvailabilityResponse = {
+  domain: string;
+  status: string;
+  price: {
+    productId: string;
+    tld: string;
+    year: number;
+    registerPrice: number;
+    _id: string;
+  }[];
+};
+
+export const handleCheckDomainAvailabilityService = async ({
+  domain,
+  country_code = "IN",
+}: {
+  domain: string;
+  country_code: string;
+}): Promise<DomainAvailabilityResponse[]> => {
   return new Promise((resolve, reject) => {
     axios
-      .post(API_URL.checkDomainAvailability, {
+      .post(`${API_URL.checkDomainAvailability}?country_code=${country_code}`, {
         domain,
       })
       .then((response) => {
@@ -15,36 +30,6 @@ export const handleCheckDomainAvailabilityService = async (
       })
       .catch((error) => {
         reject(error.response?.data?.error ?? "Something went wrong");
-      });
-  });
-};
-
-export const handleAddToCart = async (
-  data: {
-    product: string;
-    productId: string;
-    domainName: string;
-    type: string;
-    year: number;
-    EppCode: string;
-  }[]
-): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    axios
-      .post(
-        "https://liveserver.nowdigitaleasy.com:5000/cart",
-        { data },
-        {
-          headers: {
-            Authorization: `Bearer ${Cookies.get("token")}`,
-          },
-        }
-      )
-      .then((response) => {
-        resolve(response.data);
-      })
-      .catch((error) => {
-        reject(error);
       });
   });
 };

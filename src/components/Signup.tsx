@@ -1,15 +1,15 @@
 import React from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { ISignupCredentials, handleSignupService } from "@/services/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
+import { handleSyncCartItems, handleUpdateCartService } from "@/services/cart";
 
 const Signup = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +19,7 @@ const Signup = () => {
     formState: { errors },
   } = useForm<ISignupCredentials>();
   const queryClient = useQueryClient();
+  const { cartItems } = useAppSelector((state) => state.cart);
 
   const { mutate, isPending } = useMutation({
     mutationFn: handleSignupService,
@@ -27,10 +28,20 @@ const Signup = () => {
       toast.success(data.message);
       dispatch(setActiveAuthTab(null));
       dispatch(setIsSidebarOpen(false));
-      queryClient.invalidateQueries({
-        queryKey: ["user"],
-      });
+      handleSyncCartItems({
+        data: cartItems,
+        token: data.data.jwtToken,
+      })
+        .then(() => {
+          queryClient.invalidateQueries({
+            queryKey: ["cart"],
+          });
+        })
+        .finally(() => {
+          window.location.reload();
+        });
     },
+
     onError: (error: string) => {
       toast.error(error);
     },

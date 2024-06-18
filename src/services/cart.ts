@@ -1,22 +1,14 @@
 import axios from "axios";
 import { API_URL } from ".";
-import { ICart, ICartItemDomain } from "@/types/cart.types";
-import { toast } from "react-toastify";
+import { ICart } from "@/types/cart.types";
+import { axiosInstance } from "./axios";
 
 export const handleGetAllCartItemsService = async (
-  token: string = ""
+  currency_code: string = "INR"
 ): Promise<ICart> => {
   return new Promise((resolve, reject) => {
-    // get from local storage
-    if (!token) {
-      return resolve([] as any);
-    }
-    axios
-      .get(API_URL.cart, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    axiosInstance
+      .get(`${API_URL.cart}?currency_code=${currency_code}`)
       .then((res) => {
         resolve(res.data);
       })
@@ -26,26 +18,9 @@ export const handleGetAllCartItemsService = async (
   });
 };
 
-export const handleAddADomainToCartService = async ({
-  token = "",
-  data: dataToSend,
-}: {
-  token: string;
-  data: {
-    product: string;
-    productId: string;
-    domainName: string;
-    type: string;
-    year: number;
-    EppCode: string;
-  };
-}) => {
+export const handleAddAItemToCartService = async (dataToSend: any) => {
   return new Promise(async (resolve, reject) => {
-    if (!token) {
-      toast.error("Please login to add to cart!");
-      return reject("Token is required");
-    }
-    handleGetAllCartItemsService(token)
+    handleGetAllCartItemsService()
       .then((cartItems: any) => {
         let data = [dataToSend];
         if (cartItems.length === 0) {
@@ -53,16 +28,8 @@ export const handleAddADomainToCartService = async ({
           // @ts-ignore
           data = [...(cartItems.products ?? []), ...data];
         }
-        axios
-          .post(
-            API_URL.cart,
-            { data },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
+        axiosInstance
+          .post(API_URL.cart, { data })
           .then((res) => {
             resolve(res.data);
           })
@@ -76,12 +43,25 @@ export const handleAddADomainToCartService = async ({
   });
 };
 
-export const handleUpdateCartService = async ({
-  token = "",
+export const handleUpdateCartService = async ({ data }: { data: any[] }) => {
+  return new Promise((resolve, reject) => {
+    axiosInstance
+      .post(API_URL.cart, { data })
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const handleSyncCartItems = async ({
+  token,
   data,
 }: {
   token: string;
-  data: ICartItemDomain[];
+  data: any[];
 }) => {
   return new Promise((resolve, reject) => {
     axios

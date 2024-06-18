@@ -1,22 +1,38 @@
-export interface ICartItemDomain {
-  productName: string;
-  domainprice: number;
+export interface ICartItemGsuite {
+  product: "gsuite";
+  gsuitePrice: number;
+  singleofferPrice: number;
+  offerUser: number;
+  offerPrice: number;
+  defaultUser: number;
   groupName: string;
   available: boolean;
   message: string;
-  productId: string;
-  EppCode: string;
   _id: string;
   domainName: string;
-  product: "domain";
-  date: string;
+  productId: string;
   period: string;
-  year: number;
   quantity: number;
   service_type: string;
 }
 
-export type ICartItem = ICartItemDomain;
+export interface ICartItemDomain {
+  product: "domain";
+  domainName: string;
+  productId: string;
+  type: string;
+  year: number;
+  EppCode: string;
+}
+
+export interface ICartItemHosting {
+  product: "hosting";
+  productId: string;
+  domainName: string;
+  period: string;
+}
+
+export type ICartItem = ICartItemGsuite | ICartItemDomain | ICartItemHosting;
 
 export type ICart = {
   products: ICartItem[];

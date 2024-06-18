@@ -2,14 +2,40 @@ import { useEffect, useState } from "react";
 import CartItem from "./CartItem";
 import { useQuery } from "@tanstack/react-query";
 import { handleGetAllCartItemsService } from "@/services/cart";
-import Cookies from "js-cookie";
-import { ICartItemDomain } from "@/types/cart.types";
 import Loading from "./Loading";
 import cartImage from "@/assets/icons/cart.svg";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  CartItemForLocalDataDomain,
+  CartItemForLocalDataGSuite,
+  CartItemForLocalDataHosting,
+} from "./CartItemForLocalData";
+import { handleGetGSuiteDetailsServices } from "@/services/gsuite";
+import {
+  setActiveAuthTab,
+  setIsSideBarActive,
+  setIsSidebarOpen,
+} from "@/store/slices/sidebarSlice";
+import { getSelectedCurrencySymbol } from "@/helpers/currencies";
+import { IGSuitLocal } from "@/store/slices/cartSlice";
+import {
+  IHostingProduct,
+  handleGetHostingDetailsServices,
+} from "@/services/hosting";
+import { ICartItemDomain } from "@/types/cart.types";
+import {
+  CartItemForRemoteDataDomain,
+  CartItemForRemoteDataGSuite,
+  CartItemForRemoteDataHosting,
+} from "./CartItemForRemoteData";
 
 const CartSummary = ({ onClick }: { onClick: () => void }) => {
   const [showCoupon, setShowCoupon] = useState(false);
+  const { cartItems: cartItemsFromLocal } = useAppSelector(
+    (state) => state.cart
+  );
+  const { isLoggedIn } = useAppSelector((state) => state.user);
 
   const handClickCoupon = () => {
     setShowCoupon(true);
@@ -17,31 +43,96 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
 
   const { isLoading, isError, data } = useQuery({
     queryKey: ["cart"],
-    queryFn: () => {
-      const token = Cookies.get("token");
-      return handleGetAllCartItemsService(token);
-    },
+    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    enabled: isLoggedIn,
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const { currency } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
-  if (isError) return <div>Something went wrong</div>;
+  const { data: gsuiteData, isLoading: isGSuiteLoading } = useQuery({
+    queryFn: () => {
+      return handleGetGSuiteDetailsServices(currency?.countryCode!);
+    },
+    queryKey: ["gsuite"],
+  });
+
+  const { data: hostingData, isLoading: isHostingLoading } = useQuery({
+    queryKey: ["hosting"],
+    queryFn: () => handleGetHostingDetailsServices(currency?.countryCode!),
+  });
+
   return (
     <div className="h-full w-full">
-      {isLoading ? (
+      {isGSuiteLoading || isHostingLoading ? (
+        <Loading className="h-[calc(100vh-60px)]" />
+      ) : !isLoggedIn ? (
+        cartItemsFromLocal?.length === 0 ? (
+          <EmptyCart />
+        ) : (
+          <>
+            <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
+              <span>Product</span>
+              <span>Duration</span>
+              <span>Price</span>
+            </div>
+            <hr className="h-[1px]" />
+            {cartItemsFromLocal?.map((item) => {
+              if ((item as IGSuitLocal).product === "gsuite") {
+                return (
+                  <CartItemForLocalDataGSuite
+                    key={item.productId}
+                    {...(item as IGSuitLocal)}
+                    productDetails={
+                      gsuiteData?.find(
+                        (product) => product._id === item.productId
+                      )!
+                    }
+                  />
+                );
+                // @ts-ignore
+              } else if ((item as IHostingProduct).product === "hosting") {
+                return (
+                  // @ts-ignore
+                  <CartItemForLocalDataHosting
+                    key={item.productId}
+                    // @ts-ignore
+                    {...(item as IHostingProduct)}
+                    productDetails={
+                      hostingData?.find(
+                        (product) => product._id === item.productId
+                      )!
+                    }
+                  />
+                );
+              } else if ((item as ICartItemDomain).product === "domain") {
+                return (
+                  <CartItemForLocalDataDomain
+                    key={item.productId}
+                    {...(item as ICartItemDomain)}
+                  />
+                );
+              }
+            })}
+            <div className="flex justify-center p-4 mt-auto">
+              <button
+                onClick={() => {
+                  dispatch(setIsSidebarOpen(true));
+                  dispatch(setIsSideBarActive(false));
+                  dispatch(setActiveAuthTab("login"));
+                }}
+                className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] rounded-[4px]"
+              >
+                Login to Continue
+              </button>
+            </div>
+          </>
+        )
+      ) : isLoading ? (
         <Loading className="h-[calc(100vh-60px)]" />
       ) : // @ts-ignore
       data?.length === 0 ? (
-        <div className="flex justify-center items-center h-[calc(100vh-60px)]">
-          <div className="flex flex-col gap-2 items-center justify-center">
-            <Image src={cartImage} alt="cart" width={20} height={20} />
-            <span className="font-source-sans-pro text-sm text-[#000000]">
-              Your cart is empty
-            </span>
-          </div>
-        </div>
+        <EmptyCart />
       ) : (
         <>
           <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
@@ -50,15 +141,37 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
             <span>Price</span>
           </div>
           <hr className="h-[1px]" />
-          {data?.products?.map((item: ICartItemDomain) => (
-            <CartItem
-              key={item._id}
-              product={item.product}
-              price={item.domainprice}
-              domain={item.domainName}
-              _id={item._id}
-            />
-          ))}
+          {data?.products?.map((item) => {
+            if (item.product === "gsuite") {
+              return (
+                <CartItemForRemoteDataGSuite
+                  key={item.productId}
+                  {...item}
+                  productDetails={
+                    gsuiteData?.find(
+                      (product) => product._id === item.productId
+                    )!
+                  }
+                />
+              );
+            } else if (item.product === "hosting") {
+              return (
+                <CartItemForRemoteDataHosting
+                  key={item.productId}
+                  {...item}
+                  productDetails={
+                    hostingData?.find(
+                      (product) => product._id === item.productId
+                    )!
+                  }
+                />
+              );
+            } else if (item.product === "domain") {
+              return (
+                <CartItemForRemoteDataDomain key={item.productId} {...item} />
+              );
+            }
+          })}
 
           <hr />
           <div className="flex justify-between items-start py-2 px-2">
@@ -84,22 +197,29 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
               <span>Tax</span>
             </div>
             <div className="flex flex-col gap-3 font-source-sans-pro text-[15px] font-700 text-[#000000] text-end">
-              <span>₹ {data?.subTotal}</span>
-              <span>₹ {Number(data?.Total) - Number(data?.subTotal)}</span>
+              <span>
+                {getSelectedCurrencySymbol(currency?.code!)} {data?.subTotal}
+              </span>
+              <span>
+                {getSelectedCurrencySymbol(currency?.code!)}{" "}
+                {Number(data?.Total) - Number(data?.subTotal)}
+              </span>
             </div>
           </div>
           <hr className="h-[1px]" />
           <div className="flex justify-end">
             <div className="flex gap-12 font-source-sans-pro text-[15px] font-900 text-[#000000] text-start py-4 px-3">
               <span>Total</span>
-              <span>₹ {data?.Total}</span>
+              <span>
+                {getSelectedCurrencySymbol(currency?.code!)} {data?.Total}
+              </span>
             </div>
           </div>
           <hr />
           <div className="flex justify-center p-4">
             <button
               onClick={onClick}
-              className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
+              className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] rounded-[4px]"
             >
               Continue to Cart
             </button>
@@ -111,3 +231,14 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
 };
 
 export default CartSummary;
+
+const EmptyCart = () => (
+  <div className="flex justify-center items-center h-[calc(100vh-60px)]">
+    <div className="flex flex-col gap-2 items-center justify-center">
+      <Image src={cartImage} alt="cart" width={20} height={20} />
+      <span className="font-source-sans-pro text-sm text-[#000000]">
+        Your cart is empty
+      </span>
+    </div>
+  </div>
+);

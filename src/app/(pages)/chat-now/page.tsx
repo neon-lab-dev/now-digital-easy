@@ -3,6 +3,7 @@ import Hero from "./_components/Hero";
 import Features from "./_components/Features";
 import SectionAfterFeatures from "./_components/SectionAfterFeatures";
 import WhyChooseChatNowTool from "./_components/WhyChooseChatNowTool";
+import Plan from "../hosting/_components/ChooseARightPlan";
 
 const SpotNow = () => {
   return (
@@ -11,6 +12,10 @@ const SpotNow = () => {
       <Features />
       <SectionAfterFeatures />
       {/*  reusable section to use from other page */}
+      <Plan
+        bgColor="#E5E7FF"
+        desc="Bigin's promise to you is simple: No forced multi-year contracts, no hidden charges. You don't need to enter your credit card information to get started. Cancel anytime!"
+      />
       <WhyChooseChatNowTool />
       <FAQs
         style={{

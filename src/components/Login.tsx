@@ -4,11 +4,12 @@ import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ILoginCredentials, handleLoginService } from "@/services/auth";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
+import { handleSyncCartItems, handleUpdateCartService } from "@/services/cart";
 
 const Login = () => {
   const {
@@ -17,6 +18,7 @@ const Login = () => {
     formState: { errors },
   } = useForm<ILoginCredentials>();
   const dispatch = useAppDispatch();
+  const { cartItems } = useAppSelector((state) => state.cart);
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: handleLoginService,
@@ -25,12 +27,19 @@ const Login = () => {
       toast.success(data.message);
       dispatch(setActiveAuthTab(null));
       dispatch(setIsSidebarOpen(false));
-      queryClient.invalidateQueries({
-        queryKey: ["user"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["cart"],
-      });
+
+      handleSyncCartItems({
+        data: cartItems,
+        token: data.data.jwtToken,
+      })
+        .then(() => {
+          queryClient.invalidateQueries({
+            queryKey: ["cart"],
+          });
+        })
+        .finally(() => {
+          window.location.reload();
+        });
     },
     onError: (error: string) => {
       toast.error(error);
@@ -89,7 +98,7 @@ const Login = () => {
           onClick={handleSubmit(onSubmit)}
           className="font-source-sans-pro text-[17px] disabled:opacity-75 font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
         >
-          {isPending ? "Loading..." : "Sign Up"}
+          {isPending ? "Loading..." : "Sign In"}
         </button>
       </div>
       <div className="flex justify-center pt-2">

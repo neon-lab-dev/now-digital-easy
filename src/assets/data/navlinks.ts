@@ -32,7 +32,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.IoxHost,
       title: "Vision Now",
       description: "Powerful Customer management tools",
-      href: "#",
+      href: "/vision-now",
     },
     {
       img: IMAGES.OpenStack,
@@ -76,7 +76,7 @@ export const PRODUCT_DROPDOWN_DATA = {
       img: IMAGES.IoxHost,
       title: "Mails Now",
       description: "Purchase & manage your own domain.",
-      href: "#",
+      href: "/mailnow",
     },
   ],
 };
