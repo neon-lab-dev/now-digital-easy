@@ -15,6 +15,7 @@ import { getLocalStorage, setLocalStorage } from "@/helpers/localstorage";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "@/store/slices/cartSlice";
 import { useAppSelector } from "@/hooks/redux";
+import { DOMAIN_REGEX } from "@/assets/constants/regex";
 
 type IsOpen = {
   open: boolean;
@@ -198,6 +199,10 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
             onSubmit={(e) => {
               e.preventDefault();
               if (radioInputValue === "register") {
+                if (DOMAIN_REGEX.test(inputValue) === false) {
+                  toast.error("Invalid domain name");
+                  return;
+                }
                 handleCheckAvailability({
                   country_code: currency?.countryCode!,
                   domain: inputValue,
@@ -210,11 +215,6 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
               type="text"
               value={inputValue}
               onChange={(e) => {
-                //accept only alphanumeric and hyphen and dot
-                const regex = /^[a-zA-Z0-9.-]*$/;
-                if (!regex.test(e.target.value)) {
-                  return;
-                }
                 setInputValue(e.target.value);
               }}
               autoFocus
@@ -234,6 +234,10 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
             ) : (
               <button
                 onClick={() => {
+                  if (DOMAIN_REGEX.test(inputValue) === false) {
+                    toast.error("Invalid domain name");
+                    return;
+                  }
                   const token = Cookies.get("token");
                   const data = {
                     product: "gsuite",

@@ -50,6 +50,20 @@ const DomainResults = ({ isOpen, setIsOpen, domains }: Props) => {
                 className="
                   max-h-[400px] overflow-y-auto"
               >
+                <div>
+                  <div className="flex justify-between items-center gap-10 my-4 text-xl font-600">
+                    <div className="flex gap-4 items-center">
+                      <span>Domain</span>
+                    </div>
+                    <div className="flex items-center gap-5">
+                      <div className="min-w-28 text-left">Year</div>
+                      <div className="min-w-24">Pricing</div>
+
+                      <div className="min-w-28"></div>
+                    </div>
+                  </div>
+                  <hr className=" bg-[#64646480]  h-[2px]" />
+                </div>
                 {domains.map((domain: any, index: any) => (
                   <DomainCard
                     key={index}
@@ -100,12 +114,8 @@ const DomainCard = ({
   });
 
   const isAddedToCart = isLoggedIn
-    ? data?.products.some(
-        (item: any) => item.product === "domain" && item.domainName === domain
-      )
-    : cartItems.some(
-        (item) => item.product === "domain" && item.domainName === domain
-      );
+    ? data?.products.some((item: any) => item.domainName === domain)
+    : cartItems.some((item) => item.domainName === domain);
 
   useEffect(() => {
     setSelectedPricing(prices[0]);
