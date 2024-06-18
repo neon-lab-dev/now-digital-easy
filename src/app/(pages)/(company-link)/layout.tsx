@@ -13,5 +13,4 @@ const CompanyLinksLayout = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
-
 export default CompanyLinksLayout;
