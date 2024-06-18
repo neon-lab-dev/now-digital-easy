@@ -114,7 +114,7 @@ const DomainCard = ({
   });
 
   const isAddedToCart = isLoggedIn
-    ? data?.products.some((item: any) => item.domainName === domain)
+    ? data?.products?.some((item: any) => item.domainName === domain)
     : cartItems.some((item) => item.domainName === domain);
 
   useEffect(() => {
@@ -197,6 +197,9 @@ const DomainCard = ({
                   } as ICartItemDomain)
                 );
                 toast.success("Domain added to cart");
+                dispatch(setIsSidebarOpen(!isSidebarOpen));
+                dispatch(setIsSideBarActive(true));
+                setIsOpen(false);
               }
             }}
             className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md disabled:opacity-50 min-w-28"

@@ -3,19 +3,30 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import x from "@/assets/icons/x.svg";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { handleCheckDomainAvailabilityService } from "@/services/google-workspace";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  DomainAvailabilityResponse,
+  handleCheckDomainAvailabilityService,
+} from "@/services/google-workspace";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import { handleAddAItemToCartService } from "@/services/cart";
+import {
+  handleAddAItemToCartService,
+  handleGetAllCartItemsService,
+} from "@/services/cart";
 import { IGSuiteProduct } from "@/services/gsuite";
 import { getSelectedCurrencySymbol } from "@/helpers/currencies";
 import { getLocalStorage, setLocalStorage } from "@/helpers/localstorage";
 import { useDispatch } from "react-redux";
 import { addCartItem } from "@/store/slices/cartSlice";
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { DOMAIN_REGEX } from "@/assets/constants/regex";
+import {
+  setIsSideBarActive,
+  setIsSidebarOpen,
+} from "@/store/slices/sidebarSlice";
+import { ICartItemDomain } from "@/types/cart.types";
 
 type IsOpen = {
   open: boolean;
@@ -34,7 +45,6 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const [selectedNumberOfAccounts, setSelectedNumberOfAccounts] = useState(1);
-  const [domainThatIsAddingToCart, setDomainThatIsAddingToCart] = useState("");
   const queryClient = useQueryClient();
   const [selectedPricing, setSelectedPricing] = useState(
     selectedService?.price[0]
@@ -199,10 +209,6 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
             onSubmit={(e) => {
               e.preventDefault();
               if (radioInputValue === "register") {
-                if (DOMAIN_REGEX.test(inputValue) === false) {
-                  toast.error("Invalid domain name");
-                  return;
-                }
                 handleCheckAvailability({
                   country_code: currency?.countryCode!,
                   domain: inputValue,
@@ -215,6 +221,11 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
               type="text"
               value={inputValue}
               onChange={(e) => {
+                //accept only alphanumeric and hyphen and dot
+                const regex = /^[a-zA-Z0-9.-]*$/;
+                if (!regex.test(e.target.value)) {
+                  return;
+                }
                 setInputValue(e.target.value);
               }}
               autoFocus
@@ -234,10 +245,6 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
             ) : (
               <button
                 onClick={() => {
-                  if (DOMAIN_REGEX.test(inputValue) === false) {
-                    toast.error("Invalid domain name");
-                    return;
-                  }
                   const token = Cookies.get("token");
                   const data = {
                     product: "gsuite",
@@ -262,7 +269,11 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                 }}
                 className="px-7 py-2 h-[50px] bg-[#0009FF] text-white shadow-black shadow-md"
               >
-                {isAddToCartPending ? "Loading..." : "Assign Domain"}
+                {isAddToCartPending ? (
+                  <BeatLoader color="#ffffff" size={12} />
+                ) : (
+                  "Add to cart"
+                )}
               </button>
             )}
           </form>
@@ -275,99 +286,47 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                   <div className=" items-start mt-2 leading-10 px-4 mr-[270px]">
                     {`Checking availability of ${inputValue}...`}
                   </div>
-                ) : (
-                  domainAvailabilityData.length > 0 && (
-                    <div className="w-full">
-                      {domainAvailabilityData[0].status ==
-                        "product currently not available" && (
-                        <>
-                          <div className="flex mr-[600px] gap-10 my-4 mx-2 w-full">
-                            <span className="">
-                              {domainAvailabilityData[0]?.domain}
-                            </span>
-                            <div className="flex items-center gap-2">
-                              <span className=" text-red-500 rounded-[100%] text-[13px] ">
-                                X
-                              </span>
-                              <span className="text-red-500">
-                                Not Available
-                              </span>
-                            </div>
+                ) : domainAvailabilityData.length > 0 ? (
+                  <div className="w-full">
+                    <ul className="  max-h-[400px] overflow-y-auto">
+                      <div>
+                        <div className="flex justify-between items-center gap-10 my-4 text-xl font-600">
+                          <div className="flex gap-4 items-center">
+                            <span>Domain</span>
                           </div>
-                          <hr className=" bg-[#64646480] h-[2px]" />
-                        </>
-                      )}
-                      <ul
-                        className="
-                  max-h-[400px] overflow-y-auto"
-                      >
-                        {domainAvailabilityData
-                          .filter((d: any) => d.status === "available")
-                          .map((domain: any, index: any) => (
-                            <div key={index}>
-                              <div className="flex justify-between items-center gap-10 my-4">
-                                <li className="">{domain.domain}</li>
-                                <div className="flex items-center gap-5">
-                                  <span>{domain.price[0].year} year</span>
-                                  <span>
-                                    {getSelectedCurrencySymbol(currency?.code!)}
-                                    {domain.price[0].registerPrice}
-                                  </span>
-                                  <button
-                                    onClick={() => {
-                                      const token = Cookies.get("token");
-                                      const data = {
-                                        product: "gsuite",
-                                        productId: selectedService._id,
-                                        domainName: domain.domain,
-                                        period: selectedPricing?.period,
-                                        type: "new",
-                                        qty: selectedNumberOfAccounts,
-                                      } as const;
+                          <div className="flex items-center gap-5">
+                            <div className="min-w-28 text-left">Year</div>
+                            <div className="min-w-24">Pricing</div>
 
-                                      if (token) {
-                                        setDomainThatIsAddingToCart(
-                                          domain.domain
-                                        );
-                                        console.log(data);
-                                        handleAddToCart(data);
-                                      } else {
-                                        dispatch(
-                                          addCartItem({
-                                            ...data,
-                                            name: isOpen.title,
-                                          })
-                                        );
-                                        toast.success("Domain added to cart");
-                                      }
-                                    }}
-                                    className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md"
-                                  >
-                                    {isAddToCartPending &&
-                                    domain.domain ===
-                                      domainThatIsAddingToCart ? (
-                                      <BeatLoader color="#ffffff" size={7} />
-                                    ) : (
-                                      "Add to Cart"
-                                    )}
-                                  </button>
-                                  <hr className=" bg-[#64646480]  h-[2px]" />
-                                </div>
-                              </div>
-                              <hr className=" bg-[#64646480]  h-[2px]" />
-                            </div>
-                          ))}
-                      </ul>
-                    </div>
-                  )
+                            <div className="min-w-28"></div>
+                          </div>
+                        </div>
+                        <hr className=" bg-[#64646480]  h-[2px]" />
+                      </div>
+                      {domainAvailabilityData.map((domain, i) => (
+                        <DomainCard
+                          domain={domain.domain}
+                          prices={domain.price}
+                          key={i}
+                          period={selectedPricing?.period!}
+                          productId={selectedService._id}
+                          status={domain.status}
+                          setIsOpen={(val) =>
+                            setIsOpen((prev) => ({ ...prev, open: val }))
+                          }
+                          qty={selectedNumberOfAccounts}
+                          name={isOpen.title}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <div className="flex justify-center items-center h-[200px]">
+                    <span>No domains found</span>
+                  </div>
                 )}
               </div>
             )}
-          {/* {errorMessage && (
-            <div className="text-red-500 bg-[#e4c2c2] items-start mt-2 leading-10 px-4 mr-[270px]">
-              {`It seems that the domain ${inputValue} is already in use of Google Workspace.`}
-            </div>
-          )}  */}
         </div>
       )}
     </div>
@@ -375,3 +334,142 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
 };
 
 export default DomainCheckout;
+
+const DomainCard = ({
+  domain,
+  prices = [],
+  status,
+  period,
+  productId,
+  setIsOpen,
+  qty,
+  name,
+}: {
+  domain: string;
+  prices?: DomainAvailabilityResponse["price"];
+  status: string;
+  setIsOpen: (val: boolean) => void;
+  period: string;
+  name: string;
+  productId: string;
+  qty: number;
+}) => {
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const [selectedPricing, setSelectedPricing] = useState(prices[0]);
+  const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
+  const { isLoggedIn } = useAppSelector((state) => state.user);
+  const { currency } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    enabled: isLoggedIn,
+  });
+
+  const isAddedToCart = isLoggedIn
+    ? data?.products?.some((item: any) => item.domainName === domain)
+    : cartItems.some((item) => item.domainName === domain);
+
+  useEffect(() => {
+    setSelectedPricing(prices[0]);
+  }, [prices]);
+
+  const { mutate: handleAddToCart, isPending: isAddToCartPending } =
+    useMutation({
+      mutationFn: handleAddAItemToCartService,
+      onError: (error: string) => {
+        toast.error(error);
+      },
+      onSuccess: () => {
+        toast.success("Added to cart!");
+        queryClient.invalidateQueries({
+          queryKey: ["cart"],
+        });
+        dispatch(setIsSidebarOpen(!isSidebarOpen));
+        dispatch(setIsSideBarActive(true));
+        setIsOpen(false);
+      },
+    });
+
+  return (
+    <div>
+      <div className="flex justify-between items-center gap-10 my-4">
+        <div className="flex gap-4 items-center">
+          <span>{domain}</span>
+          {status !== "available" && (
+            <>
+              <span className="text-sm text-red-500">Not Available</span>
+            </>
+          )}
+        </div>
+        <div className="flex items-center gap-5">
+          {status === "available" && (
+            <>
+              <select
+                className="border border-[#646464] p-1 w-[100px] rounded-lg"
+                value={selectedPricing?._id}
+                onChange={(e) => {
+                  setSelectedPricing(
+                    prices.find((price) => price._id === e.target.value)!
+                  );
+                }}
+              >
+                {prices?.map((price, index) => (
+                  <option key={index} value={price._id}>
+                    {price.year} year
+                  </option>
+                ))}
+              </select>
+              <div className="min-w-24">
+                {getSelectedCurrencySymbol(currency?.code!)}
+                {selectedPricing?.registerPrice}
+              </div>
+            </>
+          )}
+
+          <button
+            disabled={status !== "available" || isAddedToCart}
+            onClick={() => {
+              const token = Cookies.get("token");
+              const data = {
+                product: "gsuite",
+                productId: productId,
+                domainName: domain,
+                period: selectedPricing?.year,
+                type: "new",
+                qty,
+              } as const;
+
+              if (token) {
+                handleAddToCart(data);
+              } else {
+                dispatch(
+                  // @ts-ignore
+                  addCartItem({
+                    ...data,
+                    name,
+                  })
+                );
+                toast.success("Domain added to cart");
+                dispatch(setIsSidebarOpen(!isSidebarOpen));
+                dispatch(setIsSideBarActive(true));
+                setIsOpen(false);
+              }
+            }}
+            className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md disabled:opacity-50 min-w-28"
+          >
+            {isAddedToCart
+              ? "Added to cart"
+              : isAddToCartPending
+              ? "Adding ..."
+              : "Add to cart"}
+          </button>
+          <hr className=" bg-[#64646480]  h-[2px]" />
+        </div>
+      </div>
+      <hr className=" bg-[#64646480]  h-[2px]" />
+    </div>
+  );
+};
