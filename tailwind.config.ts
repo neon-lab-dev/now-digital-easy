@@ -34,6 +34,7 @@ const config: Config = {
       },
       screens: {
         xs: "450px",
+        xsm:"320px",
         "3xl": "1610px",
       },
       backgroundImage: (theme) => ({

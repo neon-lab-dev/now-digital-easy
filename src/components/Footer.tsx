@@ -105,8 +105,8 @@ const FOOTER_LINKS = [
         href: "#",
       },
       {
-        label: "Blog",
-        href: "#",
+        label: 'Blog',
+        href: '/blog',
       },
       {
         label: "Live Chat",

@@ -94,7 +94,7 @@
 }
 
 .heading2 {
-  @apply text-heading2 font-900 tracking-2 ;
+  @apply text-heading2 font-900 tracking-2;
 }
 
 .heading4 {
@@ -174,17 +174,4 @@
 
 .scrollbar-none::-webkit-scrollbar {
   display: none;
-}
-
-/* Hide number input arrows */
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
 }
