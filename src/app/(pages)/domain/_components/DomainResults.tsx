@@ -10,8 +10,15 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { addCartItem } from "@/store/slices/cartSlice";
 import { ICartItemDomain } from "@/types/cart.types";
-import { handleAddAItemToCartService } from "@/services/cart";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  handleAddAItemToCartService,
+  handleGetAllCartItemsService,
+} from "@/services/cart";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  setIsSideBarActive,
+  setIsSidebarOpen,
+} from "@/store/slices/sidebarSlice";
 
 type Props = {
   isOpen: boolean;
@@ -37,36 +44,26 @@ const DomainResults = ({ isOpen, setIsOpen, domains }: Props) => {
         <div className="w-full px-20 mt-4">
           <div></div>
 
-          {domains.length > 0 && (
+          {domains.length > 0 ? (
             <div className="w-full">
-              {domains[0].status == "product currently not available" && (
-                <>
-                  <div className="flex mr-[600px] gap-10 my-4 mx-2 w-full">
-                    <span className="">{domains[0]?.domain}</span>
-                    <div className="flex items-center gap-2">
-                      <span className=" text-red-500 rounded-[100%] text-[13px] ">
-                        X
-                      </span>
-                      <span className="text-red-500">Not Available</span>
-                    </div>
-                  </div>
-                  <hr className=" bg-[#64646480] h-[2px]" />
-                </>
-              )}
               <ul
                 className="
                   max-h-[400px] overflow-y-auto"
               >
-                {domains
-                  .filter((d: any) => d.status === "available")
-                  .map((domain: any, index: any) => (
-                    <DomainCard
-                      key={index}
-                      domain={domain.domain}
-                      prices={domain.price}
-                    />
-                  ))}
+                {domains.map((domain: any, index: any) => (
+                  <DomainCard
+                    key={index}
+                    domain={domain.domain}
+                    prices={domain.price}
+                    status={domain.status}
+                    setIsOpen={setIsOpen}
+                  />
+                ))}
               </ul>
+            </div>
+          ) : (
+            <div className="flex justify-center items-center h-[200px]">
+              <span>No domains found</span>
             </div>
           )}
         </div>
@@ -79,16 +76,36 @@ export default DomainResults;
 
 const DomainCard = ({
   domain,
-  prices,
+  prices = [],
+  status,
+  setIsOpen,
 }: {
   domain: string;
-  prices: DomainAvailabilityResponse["price"];
+  prices?: DomainAvailabilityResponse["price"];
+  status: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const { cartItems } = useAppSelector((state) => state.cart);
   const [selectedPricing, setSelectedPricing] = useState(prices[0]);
+  const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
   const { isLoggedIn } = useAppSelector((state) => state.user);
   const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
+
+  const { data } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    enabled: isLoggedIn,
+  });
+
+  const isAddedToCart = isLoggedIn
+    ? data?.products.some(
+        (item: any) => item.product === "domain" && item.domainName === domain
+      )
+    : cartItems.some(
+        (item) => item.product === "domain" && item.domainName === domain
+      );
 
   useEffect(() => {
     setSelectedPricing(prices[0]);
@@ -105,36 +122,50 @@ const DomainCard = ({
         queryClient.invalidateQueries({
           queryKey: ["cart"],
         });
+        dispatch(setIsSidebarOpen(!isSidebarOpen));
+        dispatch(setIsSideBarActive(true));
+        setIsOpen(false);
       },
     });
 
   return (
     <div>
       <div className="flex justify-between items-center gap-10 my-4">
-        <li className="">{domain}</li>
+        <div className="flex gap-4 items-center">
+          <span>{domain}</span>
+          {status !== "available" && (
+            <>
+              <span className="text-sm text-red-500">Not Available</span>
+            </>
+          )}
+        </div>
         <div className="flex items-center gap-5">
-          <select
-            className="border border-[#646464] p-1 w-[100px] rounded-lg"
-            value={selectedPricing._id}
-            onChange={(e) => {
-              setSelectedPricing(
-                prices.find((price) => price._id === e.target.value)!
-              );
-            }}
-          >
-            {prices.map((price, index) => (
-              <option key={index} value={price._id}>
-                {price.year} year
-              </option>
-            ))}
-          </select>
-
-          <span>
-            {getSelectedCurrencySymbol(currency?.code!)}
-            {selectedPricing.registerPrice}
-          </span>
+          {status === "available" && (
+            <>
+              <select
+                className="border border-[#646464] p-1 w-[100px] rounded-lg"
+                value={selectedPricing?._id}
+                onChange={(e) => {
+                  setSelectedPricing(
+                    prices.find((price) => price._id === e.target.value)!
+                  );
+                }}
+              >
+                {prices?.map((price, index) => (
+                  <option key={index} value={price._id}>
+                    {price.year} year
+                  </option>
+                ))}
+              </select>
+              <div className="min-w-24">
+                {getSelectedCurrencySymbol(currency?.code!)}
+                {selectedPricing?.registerPrice}
+              </div>
+            </>
+          )}
 
           <button
+            disabled={status !== "available" || isAddedToCart}
             onClick={() => {
               const data = {
                 product: "domain",
@@ -158,9 +189,13 @@ const DomainCard = ({
                 toast.success("Domain added to cart");
               }
             }}
-            className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md"
+            className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md disabled:opacity-50 min-w-28"
           >
-            {isAddToCartPending ? "Adding ..." : "Add to cart"}
+            {isAddedToCart
+              ? "Added to cart"
+              : isAddToCartPending
+              ? "Adding ..."
+              : "Add to cart"}
           </button>
           <hr className=" bg-[#64646480]  h-[2px]" />
         </div>

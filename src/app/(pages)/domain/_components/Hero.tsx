@@ -9,6 +9,7 @@ import { handleCheckDomainAvailabilityService } from "@/services/google-workspac
 import { toast } from "react-toastify";
 import DomainResults from "./DomainResults";
 import { useAppSelector } from "@/hooks/redux";
+import { DOMAIN_REGEX } from "@/assets/constants/regex";
 // import './Hero.css';
 
 const Hero = () => {
@@ -93,6 +94,10 @@ const Hero = () => {
 
             <button
               onClick={() => {
+                if (DOMAIN_REGEX.test(domain) === false) {
+                  toast.error("Invalid domain name");
+                  return;
+                }
                 handleCheckAvailability({
                   domain,
                   country_code: currency?.countryCode!,
