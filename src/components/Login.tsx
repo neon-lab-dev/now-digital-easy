@@ -55,18 +55,15 @@ const Login = () => {
 
   const handleKeyPress = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter") {
-        const form = event.currentTarget.form as HTMLFormElement;
-        const formData = new FormData(form);
-        const email = formData.get("email") as string;
-        const password = formData.get("password") as string;
-  
-        onSubmit({ email, password });
-      }
+    if (event.key === "Enter") {
+    onSubmit({
+    email: event.currentTarget.form?.elements.email.value,
+    password: event.currentTarget.form?.elements.password.value,
+    });
+    }
     },
     [onSubmit]
-  );
-  
+    );
   return (
     <div className="">
       <div className="flex justify-center">
