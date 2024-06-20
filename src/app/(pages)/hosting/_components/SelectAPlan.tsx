@@ -38,6 +38,12 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
   const [tab, setTab] = useState("hosting");
   const dispatch = useAppDispatch();
   const { currency, isLoggedIn } = useAppSelector((state) => state.user);
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const { data: cartData } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    enabled: isLoggedIn,
+  });
   const queryClient = useQueryClient();
   const [domainAvailabilityData, setDomainAvailabilityData] =
     useState<DomainAvailabilityResponse[]>();
@@ -238,6 +244,27 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                       toast.error("Please enter a TLD");
                       return;
                     }
+
+                    // check if domain is already in cart
+
+                    if (isLoggedIn) {
+                      if (
+                        cartData?.products.some(
+                          (item: any) => item.domainName === inputValue
+                        )
+                      ) {
+                        toast.error("Domain already in cart");
+                        return;
+                      }
+                    } else {
+                      if (
+                        cartItems.some((item) => item.domainName === inputValue)
+                      ) {
+                        toast.error("Domain already in cart");
+                        return;
+                      }
+                    }
+
                     const data = {
                       product: "hosting",
                       productId: pricing?._id,

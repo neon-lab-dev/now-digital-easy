@@ -45,6 +45,15 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
   const [inputValue, setInputValue] = useState("");
   const [selectedNumberOfAccounts, setSelectedNumberOfAccounts] = useState(1);
   const queryClient = useQueryClient();
+  const { isLoggedIn } = useAppSelector((state) => state.user);
+  const { cartItems } = useAppSelector((state) => state.cart);
+
+  const { data: cartData } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    enabled: isLoggedIn,
+  });
+
   const [domainAvailabilityData, setDomainAvailabilityData] =
     useState<DomainAvailabilityResponse[]>();
   const [selectedPricing, setSelectedPricing] = useState(
@@ -287,7 +296,26 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                     return;
                   }
 
-                  const token = Cookies.get("token");
+                  // check if domain is already in cart
+
+                  if (isLoggedIn) {
+                    if (
+                      cartData?.products.some(
+                        (item: any) => item.domainName === inputValue
+                      )
+                    ) {
+                      toast.error("Domain already in cart");
+                      return;
+                    }
+                  } else {
+                    if (
+                      cartItems.some((item) => item.domainName === inputValue)
+                    ) {
+                      toast.error("Domain already in cart");
+                      return;
+                    }
+                  }
+
                   const data = {
                     product: "gsuite",
                     productId: selectedService._id,
@@ -297,7 +325,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                     qty: selectedNumberOfAccounts,
                   } as const;
 
-                  if (token) {
+                  if (isLoggedIn) {
                     handleAddToCart(data);
                   } else {
                     dispatch(
