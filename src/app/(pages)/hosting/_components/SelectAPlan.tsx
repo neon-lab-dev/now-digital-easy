@@ -24,6 +24,7 @@ import {
   setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
+import { DOMAIN_REGEX } from "@/assets/constants/regex";
 
 type Props = {
   isOpen: boolean;
@@ -171,10 +172,14 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                if (!DOMAIN_REGEX.test(inputValue.trim())) {
+                  toast.error("Invalid domain name");
+                  return;
+                }
                 if (radioInputValue === "register") {
                   handleCheckAvailability({
                     country_code: currency?.countryCode!,
-                    domain: inputValue,
+                    domain: inputValue.trim(),
                   });
                 }
               }}
@@ -184,12 +189,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                 type="text"
                 value={inputValue}
                 onChange={(e) => {
-                  //accept only alphanumeric and hyphen and dot
-                  const regex = /^[a-zA-Z0-9.-]*$/;
-                  if (!regex.test(e.target.value)) {
-                    return;
-                  }
-                  setInputValue(e.target.value);
+                  setInputValue(e.target.value.trim());
                 }}
                 autoFocus
                 className="bg-transparent border border-black w-[700px] h-[50px] px-4 "
@@ -207,7 +207,12 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                 </button>
               ) : (
                 <button
+                  type="button"
                   onClick={() => {
+                    if (!DOMAIN_REGEX.test(inputValue.trim())) {
+                      toast.error("Invalid domain name");
+                      return;
+                    }
                     const data = {
                       product: "hosting",
                       productId: pricing?._id,

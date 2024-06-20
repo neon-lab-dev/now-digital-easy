@@ -208,10 +208,14 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              if (DOMAIN_REGEX.test(inputValue?.trim()) === false) {
+                toast.error("Invalid domain name");
+                return;
+              }
               if (radioInputValue === "register") {
                 handleCheckAvailability({
                   country_code: currency?.countryCode!,
-                  domain: inputValue,
+                  domain: inputValue?.trim(),
                 });
               }
             }}
@@ -221,11 +225,6 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
               type="text"
               value={inputValue}
               onChange={(e) => {
-                //accept only alphanumeric and hyphen and dot
-                const regex = /^[a-zA-Z0-9.-]*$/;
-                if (!regex.test(e.target.value)) {
-                  return;
-                }
                 setInputValue(e.target.value);
               }}
               autoFocus
@@ -244,7 +243,13 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
               </button>
             ) : (
               <button
+                type="button"
                 onClick={() => {
+                  if (DOMAIN_REGEX.test(inputValue?.trim()) === false) {
+                    toast.error("Invalid domain name");
+                    return;
+                  }
+
                   const token = Cookies.get("token");
                   const data = {
                     product: "gsuite",

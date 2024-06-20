@@ -94,12 +94,12 @@ const Hero = () => {
 
             <button
               onClick={() => {
-                if (DOMAIN_REGEX.test(domain) === false) {
+                if (DOMAIN_REGEX.test(domain?.trim()) === false) {
                   toast.error("Invalid domain name");
                   return;
                 }
                 handleCheckAvailability({
-                  domain,
+                  domain: domain?.trim(),
                   country_code: currency?.countryCode!,
                 });
               }}
