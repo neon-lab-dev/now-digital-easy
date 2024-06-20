@@ -41,7 +41,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
     setShowCoupon(true);
   };
 
-  const { isLoading, isError, data } = useQuery({
+  const { isLoading, isError, isFetching, data } = useQuery({
     queryKey: ["cart"],
     queryFn: () => handleGetAllCartItemsService(currency?.code!),
     enabled: isLoggedIn,
@@ -128,7 +128,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
             </div>
           </>
         )
-      ) : isLoading ? (
+      ) : isLoading || isFetching ? (
         <Loading className="h-[calc(100vh-60px)]" />
       ) : // @ts-ignore
       data?.length === 0 ? (
