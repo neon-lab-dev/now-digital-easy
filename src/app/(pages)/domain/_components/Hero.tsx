@@ -73,7 +73,20 @@ const Hero = () => {
           </h2>
 
           {/* Input field */}
-          <div className="flex items-center w-full mt-[30px]">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (DOMAIN_REGEX.test(domain?.trim()) === false) {
+                toast.error("Invalid domain name");
+                return;
+              }
+              handleCheckAvailability({
+                domain: domain?.trim(),
+                country_code: currency?.countryCode!,
+              });
+            }}
+            className="flex items-center w-full mt-[30px]"
+          >
             <div className="relative w-full">
               <Image
                 src={searchIcon}
@@ -93,21 +106,12 @@ const Hero = () => {
             </div>
 
             <button
-              onClick={() => {
-                if (DOMAIN_REGEX.test(domain?.trim()) === false) {
-                  toast.error("Invalid domain name");
-                  return;
-                }
-                handleCheckAvailability({
-                  domain: domain?.trim(),
-                  country_code: currency?.countryCode!,
-                });
-              }}
+              disabled={isCheckAvailabilityPending}
               className="bg-primary-400 px-[14px] h-[60px] text-white rounded-r-lg font-merriweather text-[17px] font-700"
             >
               {isCheckAvailabilityPending ? "Checking..." : "Search"}
             </button>
-          </div>
+          </form>
 
           <div className="flex items-center justify-between mt-[14px]">
             <h3 className="text-primary-500 text-[9px] md:text-[13px] font-merriweather font-700 leading-[21.45px] underline">
