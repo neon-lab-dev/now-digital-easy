@@ -41,7 +41,7 @@ const Sidebar = () => {
   }, [isSidebarOpen]);
 
   return (
-    <div className="relative hamburgerMenu max-md:hidden ">
+    <div className="relative hamburgerMenu">
       <Image
         onClick={() => {
           dispatch(setIsSidebarOpen(!isSidebarOpen));

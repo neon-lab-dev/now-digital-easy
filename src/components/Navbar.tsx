@@ -233,6 +233,30 @@ const Navbar = () => {
               )}
             </div>
           ))}
+
+          <div className="flex gap-4 items-center sm:hidden w-full mt-auto">
+            <Button
+              onClick={() => {
+                dispatch(setIsSidebarOpen(true));
+                dispatch(setActiveAuthTab("login"));
+              }}
+              variant="primary"
+              className="flex h-[34px] items-center w-full justify-center my-6"
+            >
+              Log In
+            </Button>
+
+            <Button
+              onClick={() => {
+                dispatch(setIsSidebarOpen(true));
+                dispatch(setActiveAuthTab("signup"));
+              }}
+              className="flex items-center w-full justify-center h-[34px]"
+              variant="secondary"
+            >
+              Sign Up
+            </Button>
+          </div>
         </div>
       </aside>
     </>

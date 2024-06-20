@@ -72,7 +72,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
         ) : (
           <>
             <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
-              <span>Product</span>
+              <div className="pr-12">Product</div>
               <span>Duration</span>
               <span>Price</span>
             </div>
@@ -136,7 +136,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
       ) : (
         <>
           <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
-            <span>Product</span>
+            <div className="pr-12">Product</div>
             <span>Duration</span>
             <span>Price</span>
           </div>
