@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { ISignupCredentials, handleSignupService } from "@/services/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useDispatch } from "react-redux"; // Import useDispatch for dispatching actions
 import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
-import { handleSyncCartItems, handleUpdateCartService } from "@/services/cart";
+import {
+  handleSyncCartItems,
+  handleUpdateCartService,
+} from "@/services/cart";
+import { useAppSelector } from "@/hooks/redux";
 
 const Signup = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -20,6 +24,9 @@ const Signup = () => {
   } = useForm<ISignupCredentials>();
   const queryClient = useQueryClient();
   const { cartItems } = useAppSelector((state) => state.cart);
+  const [selectedCountry, setSelectedCountry] = useState(""); // State for selected country
+
+  const countries = ["IN", "US", "SG"]; // List of countries
 
   const { mutate, isPending } = useMutation({
     mutationFn: handleSignupService,
@@ -53,7 +60,7 @@ const Signup = () => {
       handleSubmit(onSubmit)();
     }
   };
-  
+
   return (
     <div className="pb-7">
       <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -263,12 +270,18 @@ const Signup = () => {
                 >
                   Country
                 </label>
-                <input
-                  type="text"
+                <select
                   {...register("country", { required: true })}
-                  placeholder="Country"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
-                />
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
+                  onChange={(e) => setSelectedCountry(e.target.value)}
+                >
+                  <option value="">Select Country</option>
+                  {countries.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </select>
                 {errors.country && (
                   <span className="text-red-500 text-[10px]">
                     Country is required
@@ -276,10 +289,7 @@ const Signup = () => {
                 )}
               </div>
               <div>
-                <label
-                  htmlFor="gstin"
-                  className="text-[13px] pt-2 text-[#313131]"
-                >
+                <label htmlFor="gstin" className="text-[13px] pt-2 text-[#313131]">
                   GSTIN
                 </label>
                 <input
