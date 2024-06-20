@@ -17,16 +17,17 @@ import { useAppSelector } from "@/hooks/redux";
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ISignupCredentials>();
   const queryClient = useQueryClient();
   const { cartItems } = useAppSelector((state) => state.cart);
   const [selectedCountry, setSelectedCountry] = useState(""); // State for selected country
 
   const countries = ["IN", "US", "SG"]; // List of countries
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ISignupCredentials>();
 
   const { mutate, isPending } = useMutation({
     mutationFn: handleSignupService,
@@ -48,13 +49,16 @@ const Signup = () => {
           window.location.reload();
         });
     },
-
     onError: (error: string) => {
       toast.error(error);
     },
   });
 
-  const handleFormSubmit = (event) => {
+  const onSubmit = (data: ISignupCredentials) => {
+    mutate(data);
+  };
+
+  const handleFormSubmit = (event: { key: string; shiftKey: any; preventDefault: () => void; }) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault(); // Prevent default behavior of the Enter key
       handleSubmit(onSubmit)();
@@ -62,10 +66,10 @@ const Signup = () => {
   };
 
   return (
-    <div className="pb-7">
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <div className="">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-center">
-          <div className="w-[406px] pt-2 flex flex-col">
+          <div className="w-[406px] flex flex-col">
             <span className="font-source-sans-pro font-700 text-[17px]">
               New User?
             </span>
@@ -84,7 +88,7 @@ const Signup = () => {
                   type="text"
                   {...register("first_name", { required: true })}
                   placeholder="First Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.first_name && (
                   <span className="text-red-500 text-[10px]">
@@ -103,7 +107,7 @@ const Signup = () => {
                   type="text"
                   {...register("last_name", { required: true })}
                   placeholder="Last Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.last_name && (
                   <span className="text-red-500 text-[10px]">
@@ -122,7 +126,7 @@ const Signup = () => {
                   type="email"
                   {...register("email", { required: true })}
                   placeholder="Email address"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.email && (
                   <span className="text-red-500 text-[10px]">
@@ -141,7 +145,7 @@ const Signup = () => {
                   type="number"
                   {...register("phone_number", { required: true })}
                   placeholder="Phone Number"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.phone_number && (
                   <span className="text-red-500 text-[10px]">
@@ -160,7 +164,7 @@ const Signup = () => {
                   type="password"
                   {...register("password", { required: true })}
                   placeholder="Password"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.password && (
                   <span className="text-red-500 text-[10px]">
@@ -179,7 +183,7 @@ const Signup = () => {
                   type="text"
                   {...register("companyName", { required: true })}
                   placeholder="Company Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.companyName && (
                   <span className="text-red-500 text-[10px]">
@@ -198,7 +202,7 @@ const Signup = () => {
                   type="text"
                   {...register("address", { required: true })}
                   placeholder="Address"
-                  className="border-[1px] p-3 rounded-lg mt-2 w-[196px]  text-[12px] "
+                  className="border-[1px] p-3 rounded-lg mt-2 w-[196px] text-[12px]"
                 />
                 {errors.address && (
                   <span className="text-red-500 text-[10px]">
@@ -209,7 +213,7 @@ const Signup = () => {
               <div>
                 <label
                   htmlFor="city"
-                  className="font-source-sans-pro  font-400 text-[13px] pt-4 text-[#313131]"
+                  className="font-source-sans-pro font-400 text-[13px] pt-4 text-[#313131]"
                 >
                   City
                 </label>
@@ -217,7 +221,7 @@ const Signup = () => {
                   type="text"
                   {...register("city", { required: true })}
                   placeholder="City"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.city && (
                   <span className="text-red-500 text-[10px]">
@@ -236,7 +240,7 @@ const Signup = () => {
                   type="number"
                   {...register("pincode", { required: true })}
                   placeholder="Pin Code"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.pincode && (
                   <span className="text-red-500 text-[10px]">
@@ -255,7 +259,7 @@ const Signup = () => {
                   type="text"
                   {...register("state", { required: true })}
                   placeholder="State"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                 />
                 {errors.state && (
                   <span className="text-red-500 text-[10px]">
@@ -272,7 +276,7 @@ const Signup = () => {
                 </label>
                 <select
                   {...register("country", { required: true })}
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
                   onChange={(e) => setSelectedCountry(e.target.value)}
                 >
                   <option value="">Select Country</option>
@@ -311,7 +315,7 @@ const Signup = () => {
           <button
             disabled={isPending}
             type="submit"
-            className="font-source-sans-pro text-[17px] font-700 text-white px-10 disabled:opacity-75  bg-[#0011FF]  h-[40px] w-[215px] rounded-[4px]"
+            className="font-source-sans-pro text-[17px] font-700 text-white px-10 disabled:opacity-75 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"
           >
             {isPending ? "Loading..." : "Sign Up"}
           </button>
@@ -319,12 +323,12 @@ const Signup = () => {
       </form>
       <div className="flex justify-center mt-4">
         <span className="font-source-sans-pro font-400 text-xs">
-          Already have an account?{"  "}
+          Already have an account?{" "}
           <button
             onClick={() => {
               dispatch(setActiveAuthTab("login"));
             }}
-            className="underline font-source-sans-pro font-400  text-[#0011FF]"
+            className="underline font-source-sans-pro font-400 text-[#0011FF]"
           >
             Sign in
           </button>

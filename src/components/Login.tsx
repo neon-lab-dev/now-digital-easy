@@ -19,7 +19,7 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILoginCredentials>();
+  } = useForm < ILoginCredentials > ();
   const dispatch = useAppDispatch();
   const { cartItems } = useAppSelector((state) => state.cart);
   const queryClient = useQueryClient();
@@ -55,15 +55,15 @@ const Login = () => {
 
   const handleKeyPress = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-    onSubmit({
-    email: event.currentTarget.form?.elements.email.value,
-    password: event.currentTarget.form?.elements.password.value,
-    });
-    }
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent the default form submission
+        handleSubmit(onSubmit)();
+      }
     },
-    [onSubmit]
-    );
+    [handleSubmit, onSubmit]
+  );
+
+
   return (
     <div className="">
       <div className="flex justify-center">
@@ -85,7 +85,7 @@ const Login = () => {
             {...register("email", { required: true })}
             placeholder="email address"
             className="border-[1px] p-3 rounded-lg mt-2"
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress} // Use onKeyDown instead of onKeyPress
           />
           {errors.email && (
             <span className="text-red-500">Email is required</span>
