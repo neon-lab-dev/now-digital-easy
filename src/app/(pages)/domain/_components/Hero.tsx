@@ -51,7 +51,7 @@ const Hero = () => {
     <>
       <DomainResults
         domains={domainAvailabilityData ?? []}
-        isOpen={isOpen}
+        isOpen={isOpen && !isCheckAvailabilityPending}
         setIsOpen={setIsOpen}
       />
       <div className="bg-gradient-domain pt-[156px] pb-[58px] font-source-sans-pro flex flex-col gap-[156px] wrapper">
@@ -94,6 +94,7 @@ const Hero = () => {
                 className="w-6 h-6 absolute top-[18px] left-[14px]"
               />
               <input
+                disabled={isCheckAvailabilityPending}
                 type="text"
                 value={domain}
                 onChange={(e) => {
