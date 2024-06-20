@@ -18,7 +18,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description }) => {
   };
 
   return (
-    <div className="flex justify-center z-50 p-4 ">
+    <div className="flex justify-center z-10 p-4 ">
       <div
         className={`flex flex-col w-[368px] min-h-[200px] bg-[#F0F1FF] p-8  gap-2 rounded-xl relative overflow-hidden shadow-lg `}
         onMouseEnter={handleMouseEnter}

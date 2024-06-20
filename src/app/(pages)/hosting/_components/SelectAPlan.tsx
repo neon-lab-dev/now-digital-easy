@@ -213,6 +213,10 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                       toast.error("Invalid domain name");
                       return;
                     }
+                    if (inputValue?.split(".").length < 2) {
+                      toast.error("Please enter a TLD");
+                      return;
+                    }
                     const data = {
                       product: "hosting",
                       productId: pricing?._id,

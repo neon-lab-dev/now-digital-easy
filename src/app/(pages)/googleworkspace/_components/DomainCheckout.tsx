@@ -113,10 +113,16 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
               type="number"
               value={selectedNumberOfAccounts}
               onChange={(e) => {
+                if (Number(e.target.value) > 300) {
+                  toast.error("Maximum number of accounts is 300");
+                  setSelectedNumberOfAccounts(300);
+                  return;
+                }
                 setSelectedNumberOfAccounts(Number(e.target.value));
               }}
               min={1}
               defaultValue={1}
+              max={300}
               className="placeholder:text-center text-center text-[#646464] bg-transparent placeholder:text-[#646464] border border-[#646464] p-1 w-[100px] rounded-lg"
             />
           </div>
@@ -247,6 +253,11 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                 onClick={() => {
                   if (DOMAIN_REGEX.test(inputValue?.trim()) === false) {
                     toast.error("Invalid domain name");
+                    return;
+                  }
+
+                  if (inputValue?.split(".").length < 2) {
+                    toast.error("Please enter a TLD");
                     return;
                   }
 
