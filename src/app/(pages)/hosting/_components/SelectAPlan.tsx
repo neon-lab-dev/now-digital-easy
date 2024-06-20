@@ -73,6 +73,24 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
       },
     });
 
+  const closeModals = () => {
+    setIsOpen(false);
+    setTab("hosting");
+    setInputValue("");
+    setRadioInputValue("register");
+    queryClient.setQueriesData(
+      {
+        queryKey: ["cart"],
+      },
+      undefined
+    );
+  };
+
+  useEffect(() => {
+    closeModals();
+    setIsOpen(true);
+  }, [selectedPricing]);
+
   return (
     <div
       style={{
@@ -81,7 +99,9 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
       className="bg-gradient-checkout transition-all w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
     >
       <button
-        onClick={() => setIsOpen(false)}
+        onClick={() => {
+          closeModals();
+        }}
         className="absolute -top-4 -right-4 bg-gray-400 rounded-full p-1"
       >
         <Image src={x} alt="" className="h-6 w-6" />
