@@ -39,7 +39,8 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
   const dispatch = useAppDispatch();
   const { currency, isLoggedIn } = useAppSelector((state) => state.user);
   const queryClient = useQueryClient();
-
+  const [domainAvailabilityData, setDomainAvailabilityData] =
+    useState<DomainAvailabilityResponse[]>();
   useEffect(() => {
     setSelectedPricing(pricing?.price[0]);
   }, [pricing]);
@@ -47,15 +48,16 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
   const {
     mutate: handleCheckAvailability,
     isPending: isCheckAvailabilityPending,
-    data: domainAvailabilityData,
     isSuccess: isCheckAvailabilitySuccess,
   } = useMutation({
     mutationFn: handleCheckDomainAvailabilityService,
+    mutationKey: ["checkDomainAvailability"],
     onError: (error: string) => {
       toast.error(error);
     },
     onSuccess: (data) => {
       setIsOpen(true);
+      setDomainAvailabilityData(data);
     },
   });
 
@@ -78,17 +80,16 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
     setTab("hosting");
     setInputValue("");
     setRadioInputValue("register");
-    queryClient.setQueriesData(
-      {
-        queryKey: ["cart"],
-      },
-      undefined
-    );
+    setDomainAvailabilityData(undefined);
   };
 
   useEffect(() => {
-    closeModals();
-    setIsOpen(true);
+    if (isOpen) {
+      closeModals();
+      setIsOpen(true);
+    } else {
+      closeModals();
+    }
   }, [selectedPricing]);
 
   return (

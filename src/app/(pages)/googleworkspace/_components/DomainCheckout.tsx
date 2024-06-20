@@ -26,7 +26,6 @@ import {
   setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
-import { ICartItemDomain } from "@/types/cart.types";
 
 type IsOpen = {
   open: boolean;
@@ -46,6 +45,8 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
   const [inputValue, setInputValue] = useState("");
   const [selectedNumberOfAccounts, setSelectedNumberOfAccounts] = useState(1);
   const queryClient = useQueryClient();
+  const [domainAvailabilityData, setDomainAvailabilityData] =
+    useState<DomainAvailabilityResponse[]>();
   const [selectedPricing, setSelectedPricing] = useState(
     selectedService?.price[0]
   );
@@ -61,12 +62,15 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
   const {
     mutate: handleCheckAvailability,
     isPending: isCheckAvailabilityPending,
-    data: domainAvailabilityData,
     isSuccess: isCheckAvailabilitySuccess,
   } = useMutation({
+    mutationKey: ["checkDomainAvailability"],
     mutationFn: handleCheckDomainAvailabilityService,
     onError: (error: string) => {
       toast.error(error);
+    },
+    onSuccess: (data) => {
+      setDomainAvailabilityData(data);
     },
   });
 
@@ -84,6 +88,26 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
       },
     });
 
+  const closeModals = () => {
+    setIsOpen((prev) => ({ ...prev, open: false }));
+    setIsBuyNowClicked(false);
+    setInputValue("");
+    setSelectedNumberOfAccounts(1);
+    setRadioInputValue("register");
+    setDomainAvailabilityData(undefined);
+  };
+
+  useEffect(() => {
+    if (!selectedService) return;
+    if (isOpen.open) {
+      closeModals();
+      // open modal
+      setIsOpen((prev) => ({ ...prev, open: true }));
+    } else {
+      closeModals();
+    }
+  }, [selectedService]);
+
   return (
     <div
       style={{
@@ -92,7 +116,9 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
       className="bg-gradient-checkout transition-all w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
     >
       <button
-        onClick={() => setIsOpen((prev) => ({ ...prev, open: false }))}
+        onClick={() => {
+          closeModals();
+        }}
         className="absolute -top-4 -right-4 bg-gray-400 rounded-full p-1"
       >
         <Image src={x} alt="" className="h-6 w-6" />
