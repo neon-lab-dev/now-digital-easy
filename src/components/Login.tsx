@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
@@ -9,7 +9,10 @@ import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
-import { handleSyncCartItems, handleUpdateCartService } from "@/services/cart";
+import {
+  handleSyncCartItems,
+  handleUpdateCartService,
+} from "@/services/cart";
 
 const Login = () => {
   const {
@@ -50,6 +53,20 @@ const Login = () => {
     mutate(data);
   };
 
+  const handleKeyPress = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Enter") {
+        const form = event.currentTarget.form as HTMLFormElement;
+        const formData = new FormData(form);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+  
+        onSubmit({ email, password });
+      }
+    },
+    [onSubmit]
+  );
+  
   return (
     <div className="">
       <div className="flex justify-center">
@@ -71,6 +88,7 @@ const Login = () => {
             {...register("email", { required: true })}
             placeholder="email address"
             className="border-[1px] p-3 rounded-lg mt-2"
+            onKeyPress={handleKeyPress}
           />
           {errors.email && (
             <span className="text-red-500">Email is required</span>
@@ -86,6 +104,7 @@ const Login = () => {
             {...register("password", { required: true })}
             placeholder="Password"
             className="border-[1px] p-3 rounded-lg mt-2"
+            onKeyPress={handleKeyPress}
           />
           {errors.password && (
             <span className="text-red-500">Password is required</span>
@@ -94,6 +113,7 @@ const Login = () => {
       </div>
       <div className="flex justify-center">
         <button
+          type="button" // Keep type as "button" to prevent accidental form submission
           disabled={isPending}
           onClick={handleSubmit(onSubmit)}
           className="font-source-sans-pro text-[17px] disabled:opacity-75 font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] w-[215px] rounded-[4px]"

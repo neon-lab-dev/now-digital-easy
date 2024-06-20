@@ -47,13 +47,16 @@ const Signup = () => {
     },
   });
 
-  const onSubmit = (data: ISignupCredentials) => {
-    mutate(data);
+  const handleFormSubmit = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault(); // Prevent default behavior of the Enter key
+      handleSubmit(onSubmit)();
+    }
   };
-
+  
   return (
     <div className="pb-7">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="flex justify-center">
           <div className="w-[406px] pt-2 flex flex-col">
             <span className="font-source-sans-pro font-700 text-[17px]">
@@ -128,7 +131,7 @@ const Signup = () => {
                   Phone Number
                 </label>
                 <input
-                  type="tel"
+                  type="number"
                   {...register("phone_number", { required: true })}
                   placeholder="Phone Number"
                   className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px]"
@@ -223,7 +226,7 @@ const Signup = () => {
                   Pin Code
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   {...register("pincode", { required: true })}
                   placeholder="Pin Code"
                   className="border-[1px] p-2 rounded-lg mt-2 w-[196px]  text-[10px] "
