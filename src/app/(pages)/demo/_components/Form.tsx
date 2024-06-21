@@ -100,8 +100,7 @@ const Form = () => {
                     WebkitAppearance: "none",
                     MozAppearance: "none",
                     appearance: "none",
-                  }}
-                >
+                  }}>
                   {countryCodes.map((country) => (
                     <option key={country.code} value={country.code}>
                       {country.code}
@@ -109,20 +108,18 @@ const Form = () => {
                   ))}
                 </select>
 
-                <div className="absolute inset-y-[55%] right-0 flex items-center pointer-events-none justify-center">
+                <div className="absolute inset-y-[55%] left-[40%] right-0 flex items-center pointer-events-none justify-center">
                   <svg
                     className="w-4 h-4 text-gray-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                    xmlns="http://www.w3.org/2000/svg">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
+                      d="M19 9l-7 7-7-7"></path>
                   </svg>
                 </div>
               </div>
@@ -166,8 +163,7 @@ const Form = () => {
             <button
               disabled={isPending}
               type="submit"
-              className="font-source-sans-pro text-[17px] font-700 text-white px-[32px] disabled:opacity-75  bg-[#0011FF]  h-[52px] rounded-[50px]"
-            >
+              className="font-source-sans-pro text-[17px] font-700 text-white px-[32px] disabled:opacity-75  bg-[#0011FF]  h-[52px] rounded-[50px]">
               {isPending ? "Loading..." : "Request Demo"}
             </button>
           </div>
