@@ -24,7 +24,7 @@ export const handleGetAllCartItemsService = async (
 
 export const handleAddAItemToCartService = async (
   dataToSend: any,
-  token: string = ""
+  token: string
 ) => {
   return new Promise(async (resolve, reject) => {
     handleGetAllCartItemsService("", token) //todo send currency code and token
@@ -36,7 +36,15 @@ export const handleAddAItemToCartService = async (
           data = [...(cartItems.products ?? []), ...data];
         }
         axios
-          .post(API_URL.cart, { data })
+          .post(
+            API_URL.cart,
+            { data },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
           .then((res) => {
             resolve(res.data);
           })
