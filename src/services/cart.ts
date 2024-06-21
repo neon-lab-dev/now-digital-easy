@@ -30,10 +30,14 @@ export const handleAddAItemToCartService = async (
     handleGetAllCartItemsService("", token) //todo send currency code and token
       .then((cartItems: any) => {
         let data = [dataToSend];
-        if (cartItems.length === 0) {
+        if (!cartItems || cartItems?.products?.length === 0) {
         } else {
           // @ts-ignore
-          data = [...(cartItems.products ?? []), ...data];
+          let oldCartItems = cartItems?.products?.filter((item) => {
+            // remove the product wih same productId
+            return item.productId !== dataToSend.productId;
+          });
+          data = [...(oldCartItems ?? []), ...data];
         }
         axios
           .post(

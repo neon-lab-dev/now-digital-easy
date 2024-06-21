@@ -519,7 +519,7 @@ const DomainCard = ({
                 product: "gsuite",
                 productId: productId,
                 domainName: domain,
-                period: selectedPricing?.year,
+                period,
                 type: "new",
                 qty,
               } as const;
