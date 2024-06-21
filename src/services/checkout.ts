@@ -1,15 +1,8 @@
 import axios from "axios";
 import { API_URL } from ".";
 import Cookies from "js-cookie";
-export const handleCheckoutService = async ({
-  token = "",
-}: {
-  token: string;
-}) => {
+export const handleCheckoutService = async ({ token }: { token: string }) => {
   return new Promise((resolve, reject) => {
-    if (!token) {
-      return reject("Token is required");
-    }
     axios
       .post(API_URL.payment, null, {
         headers: {

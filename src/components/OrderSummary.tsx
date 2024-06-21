@@ -17,6 +17,7 @@ import Loading from "./Loading";
 
 const OrderSummary = () => {
   const [showDetails, setShowDetails] = useState(false);
+  const { authToken } = useAppSelector((state) => state.user);
   const toggleDetails = () => {
     setShowDetails(!showDetails);
   };
@@ -27,8 +28,7 @@ const OrderSummary = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => {
-      const token = Cookies.get("token");
-      return handleCheckoutService({ token: token! });
+      return handleCheckoutService({ token: authToken! });
     },
     onSuccess: (data) => {
       console.log(data);

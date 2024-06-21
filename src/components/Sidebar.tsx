@@ -15,6 +15,7 @@ import {
 import { twMerge } from "tailwind-merge";
 import Login from "./Login";
 import Signup from "./Signup";
+import { setSidebarActiveStep } from "@/store/slices/cartSlice";
 
 const Sidebar = () => {
   const { isSidebarOpen, isSidebarActive, activeAuthTab } = useAppSelector(
@@ -77,7 +78,7 @@ const Sidebar = () => {
             <button
               onClick={() => {
                 dispatch(setIsSidebarOpen(false));
-                dispatch(setIsSideBarActive(false));
+                dispatch(setSidebarActiveStep(0));
               }}
             >
               <Image src={close} alt="Close" className="w-[20px]" />
