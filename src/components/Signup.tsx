@@ -9,12 +9,11 @@ import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
-import {
-  handleSyncCartItems,
-  handleUpdateCartService,
-} from "@/services/cart";
+import { handleSyncCartItems, handleUpdateCartService } from "@/services/cart";
 import { useAppSelector } from "@/hooks/redux";
 import { handleGetAllCurrenciesService } from "@/services/currency";
+import { setAuthTokenCookie } from "@/helpers/auth";
+import { setAuthToken } from "@/store/slices/userSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -49,10 +48,16 @@ const Signup = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: handleSignupService,
     onSuccess: (data) => {
-      Cookies.set("token", data.data.jwtToken);
       toast.success(data.message);
-      dispatch(setActiveAuthTab(null));
+
+      setAuthTokenCookie(data.data.jwtToken);
+      dispatch(setAuthToken(data.data.jwtToken));
       dispatch(setIsSidebarOpen(false));
+
+      let toaster = toast.loading("Syncing cart items...", {
+        autoClose: false,
+      });
+
       handleSyncCartItems({
         data: cartItems,
         token: data.data.jwtToken,
@@ -62,8 +67,13 @@ const Signup = () => {
             queryKey: ["cart"],
           });
         })
+        .then(() => {
+          queryClient.invalidateQueries({
+            queryKey: ["user"],
+          });
+        })
         .finally(() => {
-          window.location.reload();
+          toast.dismiss(toaster);
         });
     },
     onError: (error: string) => {

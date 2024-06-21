@@ -1,3 +1,4 @@
+import { getAuthTokenFromCookies } from "@/helpers/auth";
 import {
   getCurrencyFromLocalStorage,
   setCurrencyToLocalStorage,
@@ -10,6 +11,7 @@ const initialState = {
   user: null as null | IUser,
   isLoggedIn: false,
   currency: getCurrencyFromLocalStorage(),
+  authToken: "",
 };
 
 const userSlice = createSlice({
@@ -29,9 +31,12 @@ const userSlice = createSlice({
       state.currency = action.payload;
       setCurrencyToLocalStorage(action.payload);
     },
+    setAuthToken: (state, action: PayloadAction<string>) => {
+      state.authToken = action.payload;
+    },
   },
 });
 
-export const { clearUser, setUser, setIsLoggedIn, setCurrency } =
+export const { clearUser, setUser, setIsLoggedIn, setCurrency, setAuthToken } =
   userSlice.actions;
 export default userSlice.reducer;

@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { toast } from "react-toastify";
-import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ILoginCredentials, handleLoginService } from "@/services/auth";
@@ -9,27 +8,31 @@ import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
-import {
-  handleSyncCartItems,
-  handleUpdateCartService,
-} from "@/services/cart";
+import { handleSyncCartItems } from "@/services/cart";
+import { setAuthToken } from "@/store/slices/userSlice";
+import { setAuthTokenCookie } from "@/helpers/auth";
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm < ILoginCredentials > ();
+  } = useForm<ILoginCredentials>();
   const dispatch = useAppDispatch();
   const { cartItems } = useAppSelector((state) => state.cart);
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: handleLoginService,
     onSuccess: (data) => {
-      Cookies.set("token", data.data.jwtToken);
       toast.success(data.message);
-      dispatch(setActiveAuthTab(null));
+
+      setAuthTokenCookie(data.data.jwtToken);
+      dispatch(setAuthToken(data.data.jwtToken));
       dispatch(setIsSidebarOpen(false));
+
+      let toaster = toast.loading("Syncing cart items...", {
+        autoClose: false,
+      });
 
       handleSyncCartItems({
         data: cartItems,
@@ -40,8 +43,13 @@ const Login = () => {
             queryKey: ["cart"],
           });
         })
+        .then(() => {
+          queryClient.invalidateQueries({
+            queryKey: ["user"],
+          });
+        })
         .finally(() => {
-          window.location.reload();
+          toast.dismiss(toaster);
         });
     },
     onError: (error: string) => {
@@ -62,7 +70,6 @@ const Login = () => {
     },
     [handleSubmit, onSubmit]
   );
-
 
   return (
     <div className="">

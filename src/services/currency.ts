@@ -1,6 +1,5 @@
 import axios from "axios";
 import { API_URL } from ".";
-import { axiosInstance } from "./axios";
 
 export type ICurrency = {
   _id: string;

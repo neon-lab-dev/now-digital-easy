@@ -1,13 +1,12 @@
 import axios from "axios";
 import { API_URL } from ".";
 import { ICart } from "@/types/cart.types";
-import { axiosInstance } from "./axios";
 
 export const handleGetAllCartItemsService = async (
   currency_code: string = "INR"
 ): Promise<ICart> => {
   return new Promise((resolve, reject) => {
-    axiosInstance
+    axios
       .get(`${API_URL.cart}?currency_code=${currency_code}`)
       .then((res) => {
         resolve(res.data);
@@ -28,7 +27,7 @@ export const handleAddAItemToCartService = async (dataToSend: any) => {
           // @ts-ignore
           data = [...(cartItems.products ?? []), ...data];
         }
-        axiosInstance
+        axios
           .post(API_URL.cart, { data })
           .then((res) => {
             resolve(res.data);
@@ -45,7 +44,7 @@ export const handleAddAItemToCartService = async (dataToSend: any) => {
 
 export const handleUpdateCartService = async ({ data }: { data: any[] }) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
+    axios
       .post(API_URL.cart, { data })
       .then((res) => {
         resolve(res.data);
