@@ -33,6 +33,7 @@ type Props = {
 };
 const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
   const [selectedPricing, setSelectedPricing] = useState(pricing?.price[0]);
+  const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
   const [radioInputValue, setRadioInputValue] = useState("register");
   const [inputValue, setInputValue] = useState("");
   const [tab, setTab] = useState("hosting");
@@ -74,10 +75,13 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
         toast.error(error);
       },
       onSuccess: () => {
-        toast.success("Domain added to cart");
+        toast.success("Hosting added to cart");
         queryClient.invalidateQueries({
           queryKey: ["cart"],
         });
+        dispatch(setIsSidebarOpen(!isSidebarOpen));
+        dispatch(setIsSideBarActive(true));
+        setIsOpen(false);
       },
     });
 
@@ -281,6 +285,9 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                         } as ICartItemDomain)
                       );
                       toast.success("Hosting added to cart");
+                      dispatch(setIsSidebarOpen(!isSidebarOpen));
+                      dispatch(setIsSideBarActive(true));
+                      setIsOpen(false);
                     }
                   }}
                   className="px-7 py-2 h-[50px] bg-[#0009FF] text-white shadow-black shadow-md"

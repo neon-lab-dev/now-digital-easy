@@ -47,6 +47,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
   const queryClient = useQueryClient();
   const { isLoggedIn } = useAppSelector((state) => state.user);
   const { cartItems } = useAppSelector((state) => state.cart);
+  const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
 
   const { data: cartData } = useQuery({
     queryKey: ["cart"],
@@ -94,6 +95,9 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
         queryClient.invalidateQueries({
           queryKey: ["cart"],
         });
+        dispatch(setIsSidebarOpen(!isSidebarOpen));
+        dispatch(setIsSideBarActive(true));
+        closeModals();
       },
     });
 
@@ -300,7 +304,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
 
                   if (isLoggedIn) {
                     if (
-                      cartData?.products.some(
+                      cartData?.products?.some(
                         (item: any) => item.domainName === inputValue
                       )
                     ) {
@@ -335,6 +339,9 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                       })
                     );
                     toast.success("Domain added to cart");
+                    dispatch(setIsSidebarOpen(!isSidebarOpen));
+                    dispatch(setIsSideBarActive(true));
+                    closeModals();
                   }
                 }}
                 className="px-7 py-2 h-[50px] bg-[#0009FF] text-white shadow-black shadow-md"
@@ -386,6 +393,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                           }
                           qty={selectedNumberOfAccounts}
                           name={isOpen.title}
+                          closeModals={closeModals}
                         />
                       ))}
                     </ul>
@@ -413,6 +421,7 @@ const DomainCard = ({
   productId,
   setIsOpen,
   qty,
+  closeModals,
   name,
 }: {
   domain: string;
@@ -423,6 +432,7 @@ const DomainCard = ({
   name: string;
   productId: string;
   qty: number;
+  closeModals: () => void;
 }) => {
   const { cartItems } = useAppSelector((state) => state.cart);
   const [selectedPricing, setSelectedPricing] = useState(prices[0]);
@@ -459,6 +469,7 @@ const DomainCard = ({
         });
         dispatch(setIsSidebarOpen(!isSidebarOpen));
         dispatch(setIsSideBarActive(true));
+        closeModals();
         setIsOpen(false);
       },
     });
