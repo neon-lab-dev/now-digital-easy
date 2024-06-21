@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { useDispatch } from "react-redux"; // Import useDispatch for dispatching actions
 import {
   setActiveAuthTab,
+  setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
 import { handleSyncCartItems } from "@/services/cart";
@@ -14,11 +15,14 @@ import { useAppSelector } from "@/hooks/redux";
 import { handleGetAllCurrenciesService } from "@/services/currency";
 import { setAuthTokenCookie } from "@/helpers/auth";
 import { setAuthToken } from "@/store/slices/userSlice";
+import { setSidebarActiveStep } from "@/store/slices/cartSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const { cartItems } = useAppSelector((state) => state.cart);
+  const { cartItems, redirectToCheckout } = useAppSelector(
+    (state) => state.cart
+  );
   const [selectedCountry, setSelectedCountry] = useState(""); // State for selected country
   const [countries, setCountries] = useState<string[]>([]); // State for countries
 
@@ -52,7 +56,6 @@ const Signup = () => {
 
       setAuthTokenCookie(data.data.jwtToken);
       dispatch(setAuthToken(data.data.jwtToken));
-      dispatch(setIsSidebarOpen(false));
 
       let toaster = toast.loading("Syncing cart items...", {
         autoClose: false,
@@ -71,6 +74,14 @@ const Signup = () => {
           queryClient.invalidateQueries({
             queryKey: ["user"],
           });
+        })
+        .then(() => {
+          if (redirectToCheckout) {
+            dispatch(setSidebarActiveStep(1));
+            dispatch(setIsSideBarActive(true));
+          } else {
+            dispatch(setIsSidebarOpen(false));
+          }
         })
         .finally(() => {
           toast.dismiss(toaster);

@@ -16,6 +16,8 @@ export type ICartLocal = IGSuitLocal | ICartItemDomain | ICartItemHosting;
 
 const initialState = {
   cartItems: getLocalStorage<ICartLocal[]>("cartItems")! || [],
+  redirectToCheckout: false,
+  sidebarActiveStep: 0,
 };
 
 const cartSlice = createSlice({
@@ -65,9 +67,20 @@ const cartSlice = createSlice({
       // @ts-ignore
       state.cartItems = data;
     },
+    setRedirectToCheckout: (state, action: PayloadAction<boolean>) => {
+      state.redirectToCheckout = action.payload;
+    },
+    setSidebarActiveStep: (state, action: PayloadAction<number>) => {
+      state.sidebarActiveStep = action.payload;
+    },
   },
 });
 
-export const { addCartItem, deleteCartItem, updateACartItem } =
-  cartSlice.actions;
+export const {
+  addCartItem,
+  deleteCartItem,
+  updateACartItem,
+  setRedirectToCheckout,
+  setSidebarActiveStep,
+} = cartSlice.actions;
 export default cartSlice.reducer;

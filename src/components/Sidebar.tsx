@@ -20,9 +20,9 @@ const Sidebar = () => {
   const { isSidebarOpen, isSidebarActive, activeAuthTab } = useAppSelector(
     (state) => state.sidebar
   );
+  const { sidebarActiveStep } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const steps = ["Summary", "Payment"];
-  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent): void => {
@@ -88,14 +88,8 @@ const Sidebar = () => {
           <>{activeAuthTab === "signup" ? <Signup /> : <Login />}</>
         ) : (
           <div>
-            {activeStep === 0 && (
-              <CartSummary
-                onClick={() => {
-                  setActiveStep(1);
-                }}
-              />
-            )}
-            {activeStep === 1 && <OrderSummary />}
+            {sidebarActiveStep === 0 && <CartSummary />}
+            {sidebarActiveStep === 1 && <OrderSummary />}
           </div>
         )}
       </div>

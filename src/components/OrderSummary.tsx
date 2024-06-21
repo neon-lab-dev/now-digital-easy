@@ -13,6 +13,7 @@ import { handleCheckoutService } from "@/services/checkout";
 import { getSelectedCurrencySymbol } from "@/helpers/currencies";
 import { useAppSelector } from "@/hooks/redux";
 import { toast } from "react-toastify";
+import Loading from "./Loading";
 
 const OrderSummary = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -20,7 +21,7 @@ const OrderSummary = () => {
     setShowDetails(!showDetails);
   };
 
-  const { data } = useQuery<ICart>({
+  const { data, isFetching, isLoading } = useQuery<ICart>({
     queryKey: ["cart"],
   });
 
@@ -39,6 +40,9 @@ const OrderSummary = () => {
 
   const { currency } = useAppSelector((state) => state.user);
 
+  if (isFetching || isLoading) {
+    return <Loading className="h-[calc(100vh-60px)]" />;
+  }
   return (
     <div className="">
       <div>

@@ -6,11 +6,13 @@ import { ILoginCredentials, handleLoginService } from "@/services/auth";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   setActiveAuthTab,
+  setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
 import { handleSyncCartItems } from "@/services/cart";
 import { setAuthToken } from "@/store/slices/userSlice";
 import { setAuthTokenCookie } from "@/helpers/auth";
+import { setSidebarActiveStep } from "@/store/slices/cartSlice";
 
 const Login = () => {
   const {
@@ -19,7 +21,10 @@ const Login = () => {
     formState: { errors },
   } = useForm<ILoginCredentials>();
   const dispatch = useAppDispatch();
-  const { cartItems } = useAppSelector((state) => state.cart);
+  const { cartItems, redirectToCheckout } = useAppSelector(
+    (state) => state.cart
+  );
+  const {} = useAppSelector((state) => state.user);
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: handleLoginService,
@@ -28,7 +33,6 @@ const Login = () => {
 
       setAuthTokenCookie(data.data.jwtToken);
       dispatch(setAuthToken(data.data.jwtToken));
-      dispatch(setIsSidebarOpen(false));
 
       let toaster = toast.loading("Syncing cart items...", {
         autoClose: false,
@@ -47,6 +51,14 @@ const Login = () => {
           queryClient.invalidateQueries({
             queryKey: ["user"],
           });
+        })
+        .then(() => {
+          if (redirectToCheckout) {
+            dispatch(setSidebarActiveStep(1));
+            dispatch(setIsSideBarActive(true));
+          } else {
+            dispatch(setIsSidebarOpen(false));
+          }
         })
         .finally(() => {
           toast.dismiss(toaster);
