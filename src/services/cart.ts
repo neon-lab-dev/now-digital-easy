@@ -59,13 +59,11 @@ export const handleUpdateCartService = async ({
 }) => {
   return new Promise((resolve, reject) => {
     axios
-      .post(
-        API_URL.cart,
-        { data },
-        {
-          headers: { Authorization: token },
-        }
-      )
+      .post(API_URL.cart, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         resolve(res.data);
       })
