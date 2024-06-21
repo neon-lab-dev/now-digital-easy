@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import google from "@/assets/images/image 110.svg";
+import domainImage from "@/assets/icons/internet-earth-globe-svgrepo-com.svg";
 import trash from "@/assets/images/trash-2.svg";
 import { ICart, ICartItemDomain, ICartItemHosting } from "@/types/cart.types";
 import {
@@ -61,6 +62,7 @@ export const CartItemForLocalDataGSuite = ({
               </button>
               <span className="border-[#00000026] border px-2">{qty}</span>
               <button
+                disabled={qty === 300}
                 onClick={() => {
                   dispatch(
                     updateACartItem({
@@ -69,7 +71,7 @@ export const CartItemForLocalDataGSuite = ({
                     })
                   );
                 }}
-                className="border-[#00000026] border px-2 cursor-pointer"
+                className="border-[#00000026] border px-2"
               >
                 +
               </button>
@@ -188,7 +190,7 @@ export const CartItemForLocalDataDomain = ({
   return (
     <div className="flex p-2 gap-4 items-start justify-between hover:bg-[#e1e1e180]">
       <div className="flex items-start gap-1">
-        <Image src={google} alt="" />
+        <Image src={domainImage} alt="" className="h-7 w-7 mt-1" />
         <div className="flex flex-col gap-1">
           <span className="text-[15px] text-[#000000] capitalize font-900">
             {product}

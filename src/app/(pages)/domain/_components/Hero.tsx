@@ -9,6 +9,7 @@ import { handleCheckDomainAvailabilityService } from "@/services/google-workspac
 import { toast } from "react-toastify";
 import DomainResults from "./DomainResults";
 import { useAppSelector } from "@/hooks/redux";
+import { DOMAIN_REGEX } from "@/assets/constants/regex";
 // import './Hero.css';
 
 const Hero = () => {
@@ -50,12 +51,12 @@ const Hero = () => {
     <>
       <DomainResults
         domains={domainAvailabilityData ?? []}
-        isOpen={isOpen}
+        isOpen={isOpen && !isCheckAvailabilityPending}
         setIsOpen={setIsOpen}
       />
       <div className="bg-gradient-domain pt-[156px] pb-[58px] font-source-sans-pro flex flex-col gap-[156px] wrapper">
         <div className="max-width">
-          <div className="font-900 text-[16px] md:text-[33px] xl:text-[46px] 2xl:text-[56px] leading-[30px] md:leading-[46px] xl:leading-[67px] text-primary-500 text-center flex gap-[5px] justify-center w-full xl:w-[1000px]">
+          <div className="font-900 text-[16px] md:text-[33px] xl:text-[46px] 2xl:text-[56px] leading-[30px] md:leading-[46px] xl:leading-[67px] text-primary-500 text-center flex gap-[5px] justify-center w-full xl:w-[1300px]">
             <span>Expand your horizons with .</span>
             <TextTransition
               direction="down"
@@ -72,7 +73,20 @@ const Hero = () => {
           </h2>
 
           {/* Input field */}
-          <div className="flex items-center w-full mt-[30px]">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (DOMAIN_REGEX.test(domain?.trim()) === false) {
+                toast.error("Invalid domain name");
+                return;
+              }
+              handleCheckAvailability({
+                domain: domain?.trim(),
+                country_code: currency?.countryCode!,
+              });
+            }}
+            className="flex items-center w-full mt-[30px]"
+          >
             <div className="relative w-full">
               <Image
                 src={searchIcon}
@@ -80,6 +94,7 @@ const Hero = () => {
                 className="w-6 h-6 absolute top-[18px] left-[14px]"
               />
               <input
+                disabled={isCheckAvailabilityPending}
                 type="text"
                 value={domain}
                 onChange={(e) => {
@@ -92,17 +107,12 @@ const Hero = () => {
             </div>
 
             <button
-              onClick={() => {
-                handleCheckAvailability({
-                  domain,
-                  country_code: currency?.countryCode!,
-                });
-              }}
+              disabled={isCheckAvailabilityPending}
               className="bg-primary-400 px-[14px] h-[60px] text-white rounded-r-lg font-merriweather text-[17px] font-700"
             >
               {isCheckAvailabilityPending ? "Checking..." : "Search"}
             </button>
-          </div>
+          </form>
 
           <div className="flex items-center justify-between mt-[14px]">
             <h3 className="text-primary-500 text-[9px] md:text-[13px] font-merriweather font-700 leading-[21.45px] underline">

@@ -7,16 +7,24 @@ import x from "@/assets/icons/x.svg";
 import { getSelectedCurrencySymbol } from "@/helpers/currencies";
 import { IHostingProduct } from "@/services/hosting";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   DomainAvailabilityResponse,
   handleCheckDomainAvailabilityService,
 } from "@/services/google-workspace";
 import { toast } from "react-toastify";
-import { handleAddAItemToCartService } from "@/services/cart";
+import {
+  handleAddAItemToCartService,
+  handleGetAllCartItemsService,
+} from "@/services/cart";
 import { BeatLoader } from "react-spinners";
 import { ICartItemDomain } from "@/types/cart.types";
 import { addCartItem } from "@/store/slices/cartSlice";
+import {
+  setIsSideBarActive,
+  setIsSidebarOpen,
+} from "@/store/slices/sidebarSlice";
+import { DOMAIN_REGEX } from "@/assets/constants/regex";
 
 type Props = {
   isOpen: boolean;
@@ -25,13 +33,21 @@ type Props = {
 };
 const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
   const [selectedPricing, setSelectedPricing] = useState(pricing?.price[0]);
+  const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
   const [radioInputValue, setRadioInputValue] = useState("register");
   const [inputValue, setInputValue] = useState("");
   const [tab, setTab] = useState("hosting");
   const dispatch = useAppDispatch();
   const { currency, isLoggedIn } = useAppSelector((state) => state.user);
+  const { cartItems } = useAppSelector((state) => state.cart);
+  const { data: cartData } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    enabled: isLoggedIn,
+  });
   const queryClient = useQueryClient();
-
+  const [domainAvailabilityData, setDomainAvailabilityData] =
+    useState<DomainAvailabilityResponse[]>();
   useEffect(() => {
     setSelectedPricing(pricing?.price[0]);
   }, [pricing]);
@@ -39,15 +55,16 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
   const {
     mutate: handleCheckAvailability,
     isPending: isCheckAvailabilityPending,
-    data: domainAvailabilityData,
     isSuccess: isCheckAvailabilitySuccess,
   } = useMutation({
     mutationFn: handleCheckDomainAvailabilityService,
+    mutationKey: ["checkDomainAvailability"],
     onError: (error: string) => {
       toast.error(error);
     },
     onSuccess: (data) => {
       setIsOpen(true);
+      setDomainAvailabilityData(data);
     },
   });
 
@@ -58,12 +75,32 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
         toast.error(error);
       },
       onSuccess: () => {
-        toast.success("Domain added to cart");
+        toast.success("Hosting added to cart");
         queryClient.invalidateQueries({
           queryKey: ["cart"],
         });
+        dispatch(setIsSidebarOpen(!isSidebarOpen));
+        dispatch(setIsSideBarActive(true));
+        setIsOpen(false);
       },
     });
+
+  const closeModals = () => {
+    setIsOpen(false);
+    setTab("hosting");
+    setInputValue("");
+    setRadioInputValue("register");
+    setDomainAvailabilityData(undefined);
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      closeModals();
+      setIsOpen(true);
+    } else {
+      closeModals();
+    }
+  }, [selectedPricing]);
 
   return (
     <div
@@ -73,7 +110,9 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
       className="bg-gradient-checkout transition-all w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
     >
       <button
-        onClick={() => setIsOpen(false)}
+        onClick={() => {
+          closeModals();
+        }}
         className="absolute -top-4 -right-4 bg-gray-400 rounded-full p-1"
       >
         <Image src={x} alt="" className="h-6 w-6" />
@@ -164,10 +203,14 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                if (!DOMAIN_REGEX.test(inputValue.trim())) {
+                  toast.error("Invalid domain name");
+                  return;
+                }
                 if (radioInputValue === "register") {
                   handleCheckAvailability({
                     country_code: currency?.countryCode!,
-                    domain: inputValue,
+                    domain: inputValue.trim(),
                   });
                 }
               }}
@@ -177,12 +220,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                 type="text"
                 value={inputValue}
                 onChange={(e) => {
-                  //accept only alphanumeric and hyphen and dot
-                  const regex = /^[a-zA-Z0-9.-]*$/;
-                  if (!regex.test(e.target.value)) {
-                    return;
-                  }
-                  setInputValue(e.target.value);
+                  setInputValue(e.target.value.trim());
                 }}
                 autoFocus
                 className="bg-transparent border border-black w-[700px] h-[50px] px-4 "
@@ -200,7 +238,37 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                 </button>
               ) : (
                 <button
+                  type="button"
                   onClick={() => {
+                    if (!DOMAIN_REGEX.test(inputValue.trim())) {
+                      toast.error("Invalid domain name");
+                      return;
+                    }
+                    if (inputValue?.split(".").length < 2) {
+                      toast.error("Please enter a TLD");
+                      return;
+                    }
+
+                    // check if domain is already in cart
+
+                    if (isLoggedIn) {
+                      if (
+                        cartData?.products.some(
+                          (item: any) => item.domainName === inputValue
+                        )
+                      ) {
+                        toast.error("Domain already in cart");
+                        return;
+                      }
+                    } else {
+                      if (
+                        cartItems.some((item) => item.domainName === inputValue)
+                      ) {
+                        toast.error("Domain already in cart");
+                        return;
+                      }
+                    }
+
                     const data = {
                       product: "hosting",
                       productId: pricing?._id,
@@ -217,6 +285,9 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                         } as ICartItemDomain)
                       );
                       toast.success("Hosting added to cart");
+                      dispatch(setIsSidebarOpen(!isSidebarOpen));
+                      dispatch(setIsSideBarActive(true));
+                      setIsOpen(false);
                     }
                   }}
                   className="px-7 py-2 h-[50px] bg-[#0009FF] text-white shadow-black shadow-md"
@@ -238,46 +309,40 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                     <div className=" items-start mt-2 leading-10 px-4 mr-[270px]">
                       {`Checking availability of ${inputValue}...`}
                     </div>
-                  ) : (
-                    domainAvailabilityData.length > 0 && (
-                      <div className="w-full">
-                        {domainAvailabilityData[0].status ==
-                          "product currently not available" && (
-                          <>
-                            <div className="flex mr-[600px] gap-10 my-4 mx-2 w-full">
-                              <span className="">
-                                {domainAvailabilityData[0]?.domain}
-                              </span>
-                              <div className="flex items-center gap-2">
-                                <span className=" text-red-500 rounded-[100%] text-[13px] ">
-                                  X
-                                </span>
-                                <span className="text-red-500">
-                                  Not Available
-                                </span>
-                              </div>
+                  ) : domainAvailabilityData.length > 0 ? (
+                    <div className="w-full">
+                      <ul className="  max-h-[400px] overflow-y-auto">
+                        <div>
+                          <div className="flex justify-between items-center gap-10 my-4 text-xl font-600">
+                            <div className="flex gap-4 items-center">
+                              <span>Domain</span>
                             </div>
-                            <hr className=" bg-[#64646480] h-[2px]" />
-                          </>
-                        )}
-                        <ul
-                          className="
-                  max-h-[400px] overflow-y-auto"
-                        >
-                          {domainAvailabilityData
-                            .filter((d: any) => d.status === "available")
-                            .map((domain, i) => (
-                              <DomainCard
-                                domain={domain.domain}
-                                prices={domain.price}
-                                key={i}
-                                period={selectedPricing?.period!}
-                                productId={pricing?._id!}
-                              />
-                            ))}
-                        </ul>
-                      </div>
-                    )
+                            <div className="flex items-center gap-5">
+                              <div className="min-w-28 text-left">Year</div>
+                              <div className="min-w-24">Pricing</div>
+
+                              <div className="min-w-28"></div>
+                            </div>
+                          </div>
+                          <hr className=" bg-[#64646480]  h-[2px]" />
+                        </div>
+                        {domainAvailabilityData.map((domain, i) => (
+                          <DomainCard
+                            domain={domain.domain}
+                            prices={domain.price}
+                            key={i}
+                            period={selectedPricing?.period!}
+                            productId={pricing?._id!}
+                            setIsOpen={setIsOpen}
+                            status={domain.status}
+                          />
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center h-[200px]">
+                      <span>No domains found</span>
+                    </div>
                   )}
                 </div>
               )}
@@ -292,20 +357,36 @@ export default SelectAPlan;
 
 const DomainCard = ({
   domain,
-  prices,
+  prices = [],
+  status,
   period,
   productId,
+  setIsOpen,
 }: {
   domain: string;
-  prices: DomainAvailabilityResponse["price"];
+  prices?: DomainAvailabilityResponse["price"];
+  status: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   period: string;
   productId: string;
 }) => {
+  const { cartItems } = useAppSelector((state) => state.cart);
   const [selectedPricing, setSelectedPricing] = useState(prices[0]);
+  const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
   const { isLoggedIn } = useAppSelector((state) => state.user);
   const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
+
+  const { data } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    enabled: isLoggedIn,
+  });
+
+  const isAddedToCart = isLoggedIn
+    ? data?.products?.some((item: any) => item.domainName === domain)
+    : cartItems.some((item) => item.domainName === domain);
 
   useEffect(() => {
     setSelectedPricing(prices[0]);
@@ -322,36 +403,50 @@ const DomainCard = ({
         queryClient.invalidateQueries({
           queryKey: ["cart"],
         });
+        dispatch(setIsSidebarOpen(!isSidebarOpen));
+        dispatch(setIsSideBarActive(true));
+        setIsOpen(false);
       },
     });
 
   return (
     <div>
       <div className="flex justify-between items-center gap-10 my-4">
-        <li className="">{domain}</li>
+        <div className="flex gap-4 items-center">
+          <span>{domain}</span>
+          {status !== "available" && (
+            <>
+              <span className="text-sm text-red-500">Not Available</span>
+            </>
+          )}
+        </div>
         <div className="flex items-center gap-5">
-          <select
-            className="border border-[#646464] p-1 w-[100px] rounded-lg"
-            value={selectedPricing._id}
-            onChange={(e) => {
-              setSelectedPricing(
-                prices.find((price) => price._id === e.target.value)!
-              );
-            }}
-          >
-            {prices.map((price, index) => (
-              <option key={index} value={price._id}>
-                {price.year} year
-              </option>
-            ))}
-          </select>
-
-          <span>
-            {getSelectedCurrencySymbol(currency?.code!)}
-            {selectedPricing.registerPrice}
-          </span>
+          {status === "available" && (
+            <>
+              <select
+                className="border border-[#646464] p-1 w-[100px] rounded-lg"
+                value={selectedPricing?._id}
+                onChange={(e) => {
+                  setSelectedPricing(
+                    prices.find((price) => price._id === e.target.value)!
+                  );
+                }}
+              >
+                {prices?.map((price, index) => (
+                  <option key={index} value={price._id}>
+                    {price.year} year
+                  </option>
+                ))}
+              </select>
+              <div className="min-w-24">
+                {getSelectedCurrencySymbol(currency?.code!)}
+                {selectedPricing?.registerPrice}
+              </div>
+            </>
+          )}
 
           <button
+            disabled={status !== "available" || isAddedToCart}
             onClick={() => {
               const data = {
                 product: "hosting",
@@ -369,11 +464,18 @@ const DomainCard = ({
                   } as ICartItemDomain)
                 );
                 toast.success("Hosting added to cart");
+                dispatch(setIsSidebarOpen(!isSidebarOpen));
+                dispatch(setIsSideBarActive(true));
+                setIsOpen(false);
               }
             }}
-            className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md"
+            className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md disabled:opacity-50 min-w-28"
           >
-            {isAddToCartPending ? "Adding ..." : "Add to cart"}
+            {isAddedToCart
+              ? "Added to cart"
+              : isAddToCartPending
+              ? "Adding ..."
+              : "Add to cart"}
           </button>
           <hr className=" bg-[#64646480]  h-[2px]" />
         </div>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import google from "@/assets/images/image 110.svg";
+import domainImage from "@/assets/icons/internet-earth-globe-svgrepo-com.svg";
 import trash from "@/assets/images/trash-2.svg";
 import {
   ICart,
@@ -111,6 +112,7 @@ export const CartItemForRemoteDataGSuite = ({
               </button>
               <span className="border-[#00000026] border px-2">{quantity}</span>
               <button
+                disabled={quantity === 300}
                 onClick={() => {
                   const data = queryClient.getQueryData<ICart>(["cart"]);
 
@@ -136,7 +138,7 @@ export const CartItemForRemoteDataGSuite = ({
 
                   makeWebsiteLoading();
                 }}
-                className="border-[#00000026] border px-2 cursor-pointer"
+                className="border-[#00000026] border px-2"
               >
                 +
               </button>
@@ -336,7 +338,7 @@ export const CartItemForRemoteDataDomain = ({
   return (
     <div className="flex p-2 gap-4 items-start justify-between hover:bg-[#e1e1e180]">
       <div className="flex items-start gap-1">
-        <Image src={google} alt="" />
+        <Image src={domainImage} alt="" className="h-7 w-7 mt-1" />
         <div className="flex flex-col gap-1">
           <span className="text-[15px] text-[#000000] capitalize font-900">
             {product}

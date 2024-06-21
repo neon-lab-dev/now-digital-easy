@@ -41,7 +41,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
     setShowCoupon(true);
   };
 
-  const { isLoading, isError, data } = useQuery({
+  const { isLoading, isError, isFetching, data } = useQuery({
     queryKey: ["cart"],
     queryFn: () => handleGetAllCartItemsService(currency?.code!),
     enabled: isLoggedIn,
@@ -72,7 +72,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
         ) : (
           <>
             <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
-              <span>Product</span>
+              <div className="pr-12">Product</div>
               <span>Duration</span>
               <span>Price</span>
             </div>
@@ -128,7 +128,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
             </div>
           </>
         )
-      ) : isLoading ? (
+      ) : isLoading || isFetching ? (
         <Loading className="h-[calc(100vh-60px)]" />
       ) : // @ts-ignore
       data?.length === 0 ? (
@@ -136,7 +136,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
       ) : (
         <>
           <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
-            <span>Product</span>
+            <div className="pr-12">Product</div>
             <span>Duration</span>
             <span>Price</span>
           </div>
