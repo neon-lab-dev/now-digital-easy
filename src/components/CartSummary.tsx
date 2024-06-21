@@ -18,7 +18,11 @@ import {
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
 import { getSelectedCurrencySymbol } from "@/helpers/currencies";
-import { IGSuitLocal } from "@/store/slices/cartSlice";
+import {
+  IGSuitLocal,
+  setRedirectToCheckout,
+  setSidebarActiveStep,
+} from "@/store/slices/cartSlice";
 import {
   IHostingProduct,
   handleGetHostingDetailsServices,
@@ -30,12 +34,12 @@ import {
   CartItemForRemoteDataHosting,
 } from "./CartItemForRemoteData";
 
-const CartSummary = ({ onClick }: { onClick: () => void }) => {
+const CartSummary = () => {
   const [showCoupon, setShowCoupon] = useState(false);
   const { cartItems: cartItemsFromLocal } = useAppSelector(
     (state) => state.cart
   );
-  const { isLoggedIn } = useAppSelector((state) => state.user);
+  const { isLoggedIn, authToken } = useAppSelector((state) => state.user);
 
   const handClickCoupon = () => {
     setShowCoupon(true);
@@ -43,7 +47,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
 
   const { isLoading, isError, isFetching, data } = useQuery({
     queryKey: ["cart"],
-    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken),
     enabled: isLoggedIn,
   });
 
@@ -120,6 +124,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setIsSideBarActive(false));
                   dispatch(setActiveAuthTab("login"));
+                  dispatch(setRedirectToCheckout(true));
                 }}
                 className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] rounded-[4px]"
               >
@@ -218,7 +223,9 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
           <hr />
           <div className="flex justify-center p-4">
             <button
-              onClick={onClick}
+              onClick={() => {
+                dispatch(setSidebarActiveStep(1));
+              }}
               className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] rounded-[4px]"
             >
               Continue to Cart

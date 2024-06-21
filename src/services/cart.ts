@@ -1,14 +1,18 @@
 import axios from "axios";
 import { API_URL } from ".";
 import { ICart } from "@/types/cart.types";
-import { axiosInstance } from "./axios";
 
 export const handleGetAllCartItemsService = async (
-  currency_code: string = "INR"
+  currency_code: string = "INR",
+  authToken: string = ""
 ): Promise<ICart> => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .get(`${API_URL.cart}?currency_code=${currency_code}`)
+    axios
+      .get(`${API_URL.cart}?currency_code=${currency_code}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
       .then((res) => {
         resolve(res.data);
       })
@@ -18,18 +22,33 @@ export const handleGetAllCartItemsService = async (
   });
 };
 
-export const handleAddAItemToCartService = async (dataToSend: any) => {
+export const handleAddAItemToCartService = async (
+  dataToSend: any,
+  token: string
+) => {
   return new Promise(async (resolve, reject) => {
-    handleGetAllCartItemsService()
+    handleGetAllCartItemsService("", token) //todo send currency code and token
       .then((cartItems: any) => {
         let data = [dataToSend];
-        if (cartItems.length === 0) {
+        if (!cartItems || cartItems?.products?.length === 0) {
         } else {
           // @ts-ignore
-          data = [...(cartItems.products ?? []), ...data];
+          let oldCartItems = cartItems?.products?.filter((item) => {
+            // remove the product wih same productId
+            return item.productId !== dataToSend.productId;
+          });
+          data = [...(oldCartItems ?? []), ...data];
         }
-        axiosInstance
-          .post(API_URL.cart, { data })
+        axios
+          .post(
+            API_URL.cart,
+            { data },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
           .then((res) => {
             resolve(res.data);
           })
@@ -43,10 +62,20 @@ export const handleAddAItemToCartService = async (dataToSend: any) => {
   });
 };
 
-export const handleUpdateCartService = async ({ data }: { data: any[] }) => {
+export const handleUpdateCartService = async ({
+  data,
+  token,
+}: {
+  data: any[];
+  token: string;
+}) => {
   return new Promise((resolve, reject) => {
-    axiosInstance
-      .post(API_URL.cart, { data })
+    axios
+      .post(API_URL.cart, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         resolve(res.data);
       })

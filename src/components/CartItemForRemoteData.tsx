@@ -42,12 +42,13 @@ export const CartItemForRemoteDataGSuite = ({
 }: ICartItemGsuite & {
   productDetails: IGSuiteProduct;
 }) => {
-  const { currency } = useAppSelector((state) => state.user);
+  const { currency, authToken } = useAppSelector((state) => state.user);
 
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: handleUpdateCartService,
+    mutationFn: (data: any) =>
+      handleUpdateCartService({ data, token: authToken }),
 
     onSuccess: () => {
       queryClient
@@ -214,12 +215,13 @@ export const CartItemForRemoteDataHosting = ({
 }: ICartItemHosting & {
   productDetails: IHostingProduct;
 }) => {
-  const { currency } = useAppSelector((state) => state.user);
+  const { currency, authToken } = useAppSelector((state) => state.user);
 
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: handleUpdateCartService,
+    mutationFn: (data: any) =>
+      handleUpdateCartService({ data, token: authToken }),
 
     onSuccess: () => {
       queryClient
@@ -313,12 +315,13 @@ export const CartItemForRemoteDataDomain = ({
   year,
   ...rest
 }: ICartItemDomain) => {
-  const { currency } = useAppSelector((state) => state.user);
+  const { currency, authToken } = useAppSelector((state) => state.user);
 
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: handleUpdateCartService,
+    mutationFn: (data: any) =>
+      handleUpdateCartService({ data, token: authToken }),
 
     onSuccess: () => {
       queryClient

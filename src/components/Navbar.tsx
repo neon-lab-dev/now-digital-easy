@@ -239,6 +239,7 @@ const Navbar = () => {
               onClick={() => {
                 dispatch(setIsSidebarOpen(true));
                 dispatch(setActiveAuthTab("login"));
+                setIsMobileNavOpen(false);
               }}
               variant="primary"
               className="flex h-[34px] items-center w-full justify-center my-6"
@@ -250,6 +251,7 @@ const Navbar = () => {
               onClick={() => {
                 dispatch(setIsSidebarOpen(true));
                 dispatch(setActiveAuthTab("signup"));
+                setIsMobileNavOpen(false);
               }}
               className="flex items-center w-full justify-center h-[34px]"
               variant="secondary"

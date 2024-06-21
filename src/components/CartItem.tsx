@@ -2,23 +2,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import google from "@/assets/images/image 110.svg";
-import vector from "@/assets/images/Vector.svg";
 import trash from "@/assets/images/trash-2.svg";
-import Cookies from "js-cookie";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  handleAddAItemToCartService,
-  handleUpdateCartService,
-} from "@/services/cart";
+import { handleUpdateCartService } from "@/services/cart";
 import { toast } from "react-toastify";
-import { BounceLoader } from "react-spinners";
-import { ICart, ICartItem, ICartItemGsuite } from "@/types/cart.types";
-import {
-  ICartItemDomainLocal,
-  deleteCartItem,
-  updateACartItem,
-} from "@/store/slices/cartSlice";
-import { useDispatch } from "react-redux";
+import { ICart, ICartItemGsuite } from "@/types/cart.types";
 import { useAppSelector } from "@/hooks/redux";
 import { getSelectedCurrencySymbol } from "@/helpers/currencies";
 import { IGSuiteProduct } from "@/services/gsuite";
@@ -30,12 +18,13 @@ const CartItem = ({
 }: ICartItemGsuite & {
   productDetails: IGSuiteProduct;
 }) => {
-  const { currency } = useAppSelector((state) => state.user);
+  const { currency, authToken } = useAppSelector((state) => state.user);
 
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
-    mutationFn: handleUpdateCartService,
+    mutationFn: (data: any) =>
+      handleUpdateCartService({ data, token: authToken }),
     onSettled: () => {
       document.body.style.opacity = "1";
       document.body.style.cursor = "default";

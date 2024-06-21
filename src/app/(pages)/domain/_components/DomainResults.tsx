@@ -102,14 +102,14 @@ const DomainCard = ({
   const { cartItems } = useAppSelector((state) => state.cart);
   const [selectedPricing, setSelectedPricing] = useState(prices[0]);
   const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
-  const { isLoggedIn } = useAppSelector((state) => state.user);
+  const { isLoggedIn, authToken } = useAppSelector((state) => state.user);
   const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
     queryKey: ["cart"],
-    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken!),
     enabled: isLoggedIn,
   });
 
@@ -123,7 +123,7 @@ const DomainCard = ({
 
   const { mutate: handleAddToCart, isPending: isAddToCartPending } =
     useMutation({
-      mutationFn: handleAddAItemToCartService,
+      mutationFn: (data: any) => handleAddAItemToCartService(data, authToken),
       onError: (error: string) => {
         toast.error(error);
       },

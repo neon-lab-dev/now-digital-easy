@@ -85,7 +85,7 @@ const Hero = () => {
                 country_code: currency?.countryCode!,
               });
             }}
-            className="flex items-center w-full mt-[30px]"
+            className="flex items-center mt-[30px] max-w-[980px] mx-auto"
           >
             <div className="relative w-full">
               <Image
@@ -114,7 +114,7 @@ const Hero = () => {
             </button>
           </form>
 
-          <div className="flex items-center justify-between mt-[14px]">
+          <div className="max-w-[980px] mx-auto flex items-center justify-between mt-[14px]">
             <h3 className="text-primary-500 text-[9px] md:text-[13px] font-merriweather font-700 leading-[21.45px] underline">
               Transfer a domain you already own
             </h3>

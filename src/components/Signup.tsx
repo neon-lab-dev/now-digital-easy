@@ -1,27 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { ISignupCredentials, handleSignupService } from "@/services/auth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux"; // Import useDispatch for dispatching actions
 import {
   setActiveAuthTab,
+  setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
-import {
-  handleSyncCartItems,
-  handleUpdateCartService,
-} from "@/services/cart";
+import { handleSyncCartItems } from "@/services/cart";
 import { useAppSelector } from "@/hooks/redux";
+import { handleGetAllCurrenciesService } from "@/services/currency";
+import { setAuthTokenCookie } from "@/helpers/auth";
+import { setAuthToken } from "@/store/slices/userSlice";
+import { setSidebarActiveStep } from "@/store/slices/cartSlice";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const { cartItems } = useAppSelector((state) => state.cart);
+  const { cartItems, redirectToCheckout } = useAppSelector(
+    (state) => state.cart
+  );
   const [selectedCountry, setSelectedCountry] = useState(""); // State for selected country
+  const [countries, setCountries] = useState<string[]>([]); // State for countries
 
-  const countries = ["IN", "US", "SG"]; // List of countries
+  // Fetch currencies and populate countries select options
+  const { isLoading, data: currencyData } = useQuery({
+    queryKey: ["currencies"],
+    queryFn: handleGetAllCurrenciesService,
+    staleTime: Infinity,
+  });
+
+  // UseEffect to update countries based on currencyData
+  useEffect(() => {
+    if (currencyData) {
+      // Assuming currencyData is an array of currencies with a 'country' property
+      const countries = currencyData.map((currency) => currency.countryCode);
+      // Update countries in state
+      setCountries(countries);
+    }
+  }, [currencyData]);
 
   const {
     register,
@@ -32,10 +52,15 @@ const Signup = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: handleSignupService,
     onSuccess: (data) => {
-      Cookies.set("token", data.data.jwtToken);
       toast.success(data.message);
-      dispatch(setActiveAuthTab(null));
-      dispatch(setIsSidebarOpen(false));
+
+      setAuthTokenCookie(data.data.jwtToken);
+      dispatch(setAuthToken(data.data.jwtToken));
+
+      let toaster = toast.loading("Syncing cart items...", {
+        autoClose: false,
+      });
+
       handleSyncCartItems({
         data: cartItems,
         token: data.data.jwtToken,
@@ -45,8 +70,21 @@ const Signup = () => {
             queryKey: ["cart"],
           });
         })
+        .then(() => {
+          queryClient.invalidateQueries({
+            queryKey: ["user"],
+          });
+        })
+        .then(() => {
+          if (redirectToCheckout) {
+            dispatch(setSidebarActiveStep(1));
+            dispatch(setIsSideBarActive(true));
+          } else {
+            dispatch(setIsSidebarOpen(false));
+          }
+        })
         .finally(() => {
-          window.location.reload();
+          toast.dismiss(toaster);
         });
     },
     onError: (error: string) => {
@@ -58,7 +96,11 @@ const Signup = () => {
     mutate(data);
   };
 
-  const handleFormSubmit = (event: { key: string; shiftKey: any; preventDefault: () => void; }) => {
+  const handleFormSubmit = (event: {
+    key: string;
+    shiftKey: any;
+    preventDefault: () => void;
+  }) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault(); // Prevent default behavior of the Enter key
       handleSubmit(onSubmit)();
@@ -293,7 +335,10 @@ const Signup = () => {
                 )}
               </div>
               <div>
-                <label htmlFor="gstin" className="text-[13px] pt-2 text-[#313131]">
+                <label
+                  htmlFor="gstin"
+                  className="font-source-sans-pro font-400 text-[13px] pt-2 text-[#313131]"
+                >
                   GSTIN
                 </label>
                 <input
