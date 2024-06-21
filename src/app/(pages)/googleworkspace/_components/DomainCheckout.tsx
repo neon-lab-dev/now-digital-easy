@@ -26,6 +26,7 @@ import {
   setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
+import { getAuthTokenFromCookies } from "@/helpers/auth";
 
 type IsOpen = {
   open: boolean;
@@ -45,13 +46,13 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
   const [inputValue, setInputValue] = useState("");
   const [selectedNumberOfAccounts, setSelectedNumberOfAccounts] = useState(1);
   const queryClient = useQueryClient();
-  const { isLoggedIn } = useAppSelector((state) => state.user);
+  const { isLoggedIn, authToken } = useAppSelector((state) => state.user);
   const { cartItems } = useAppSelector((state) => state.cart);
   const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
 
   const { data: cartData } = useQuery({
     queryKey: ["cart"],
-    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken),
     enabled: isLoggedIn,
   });
 
@@ -86,7 +87,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
 
   const { mutate: handleAddToCart, isPending: isAddToCartPending } =
     useMutation({
-      mutationFn: handleAddAItemToCartService,
+      mutationFn: (data: any) => handleAddAItemToCartService(data, authToken),
       onError: (error: string) => {
         toast.error(error);
       },
@@ -437,14 +438,14 @@ const DomainCard = ({
   const { cartItems } = useAppSelector((state) => state.cart);
   const [selectedPricing, setSelectedPricing] = useState(prices[0]);
   const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
-  const { isLoggedIn } = useAppSelector((state) => state.user);
+  const { isLoggedIn, authToken } = useAppSelector((state) => state.user);
   const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
     queryKey: ["cart"],
-    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken),
     enabled: isLoggedIn,
   });
 
@@ -458,7 +459,7 @@ const DomainCard = ({
 
   const { mutate: handleAddToCart, isPending: isAddToCartPending } =
     useMutation({
-      mutationFn: handleAddAItemToCartService,
+      mutationFn: (data: any) => handleAddAItemToCartService(data, authToken),
       onError: (error: string) => {
         toast.error(error);
       },
@@ -513,7 +514,7 @@ const DomainCard = ({
           <button
             disabled={status !== "available" || isAddedToCart}
             onClick={() => {
-              const token = Cookies.get("token");
+              const token = authToken;
               const data = {
                 product: "gsuite",
                 productId: productId,

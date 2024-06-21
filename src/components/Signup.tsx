@@ -9,7 +9,7 @@ import {
   setActiveAuthTab,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
-import { handleSyncCartItems, handleUpdateCartService } from "@/services/cart";
+import { handleSyncCartItems } from "@/services/cart";
 import { useAppSelector } from "@/hooks/redux";
 import { handleGetAllCurrenciesService } from "@/services/currency";
 import { setAuthTokenCookie } from "@/helpers/auth";

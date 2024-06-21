@@ -26,9 +26,7 @@ export const handleCheckoutService = async ({
         // @ts-ignore
         const razor = new window.Razorpay({
           ...options,
-          callback_url: `https://app.nowdigitaleasy.com/token-auth/${Cookies.get(
-            "token"
-          )}`,
+          callback_url: `https://app.nowdigitaleasy.com/token-auth/${token}`,
         });
         razor.open();
         resolve(res.data);

@@ -38,11 +38,13 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
   const [inputValue, setInputValue] = useState("");
   const [tab, setTab] = useState("hosting");
   const dispatch = useAppDispatch();
-  const { currency, isLoggedIn } = useAppSelector((state) => state.user);
+  const { currency, isLoggedIn, authToken } = useAppSelector(
+    (state) => state.user
+  );
   const { cartItems } = useAppSelector((state) => state.cart);
   const { data: cartData } = useQuery({
     queryKey: ["cart"],
-    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken),
     enabled: isLoggedIn,
   });
   const queryClient = useQueryClient();
@@ -70,7 +72,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
 
   const { mutate: handleAddToCart, isPending: isAddToCartPending } =
     useMutation({
-      mutationFn: handleAddAItemToCartService,
+      mutationFn: (data: any) => handleAddAItemToCartService(data, authToken),
       onError: (error: string) => {
         toast.error(error);
       },
@@ -373,14 +375,14 @@ const DomainCard = ({
   const { cartItems } = useAppSelector((state) => state.cart);
   const [selectedPricing, setSelectedPricing] = useState(prices[0]);
   const { isSidebarOpen } = useAppSelector((state) => state.sidebar);
-  const { isLoggedIn } = useAppSelector((state) => state.user);
+  const { isLoggedIn, authToken } = useAppSelector((state) => state.user);
   const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
     queryKey: ["cart"],
-    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken),
     enabled: isLoggedIn,
   });
 
@@ -394,7 +396,7 @@ const DomainCard = ({
 
   const { mutate: handleAddToCart, isPending: isAddToCartPending } =
     useMutation({
-      mutationFn: handleAddAItemToCartService,
+      mutationFn: (data: any) => handleAddAItemToCartService(data, authToken),
       onError: (error: string) => {
         toast.error(error);
       },

@@ -35,7 +35,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
   const { cartItems: cartItemsFromLocal } = useAppSelector(
     (state) => state.cart
   );
-  const { isLoggedIn } = useAppSelector((state) => state.user);
+  const { isLoggedIn, authToken } = useAppSelector((state) => state.user);
 
   const handClickCoupon = () => {
     setShowCoupon(true);
@@ -43,7 +43,7 @@ const CartSummary = ({ onClick }: { onClick: () => void }) => {
 
   const { isLoading, isError, isFetching, data } = useQuery({
     queryKey: ["cart"],
-    queryFn: () => handleGetAllCartItemsService(currency?.code!),
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken),
     enabled: isLoggedIn,
   });
 
