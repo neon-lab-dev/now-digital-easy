@@ -8,7 +8,7 @@ export type IGSuitLocal = {
   domainName: string;
   period: string;
   type: string;
-  qty: number;
+  quantity: number;
   name: string;
 };
 

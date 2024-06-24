@@ -338,7 +338,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                     domainName: inputValue,
                     period: selectedPricing?.period,
                     type: "new",
-                    qty: selectedNumberOfAccounts,
+                    quantity: selectedNumberOfAccounts,
                   } as const;
 
                   if (isLoggedIn) {
@@ -404,7 +404,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                           setIsOpen={(val) =>
                             setIsOpen((prev) => ({ ...prev, open: val }))
                           }
-                          qty={selectedNumberOfAccounts}
+                          quantity={selectedNumberOfAccounts}
                           name={isOpen.title}
                           closeModals={closeModals}
                         />
@@ -433,7 +433,7 @@ const DomainCard = ({
   period,
   productId,
   setIsOpen,
-  qty,
+  quantity,
   closeModals,
   name,
 }: {
@@ -444,7 +444,7 @@ const DomainCard = ({
   period: string;
   name: string;
   productId: string;
-  qty: number;
+  quantity: number;
   closeModals: () => void;
 }) => {
   const { cartItems } = useAppSelector((state) => state.cart);
@@ -532,7 +532,7 @@ const DomainCard = ({
                   domainName: domain,
                   period,
                   type: "new",
-                  qty,
+                  quantity,
                 } as const;
 
                 if (token) {
