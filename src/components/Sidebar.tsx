@@ -53,7 +53,7 @@ const Sidebar = () => {
         className="cursor-pointer"
       />
       <div
-        className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-[471px] shadow-2xl  transition-all duration-300 transform ${
+        className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-full sm:w-[471px] shadow-2xl  transition-all duration-300 transform ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

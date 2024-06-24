@@ -13,6 +13,7 @@ import Button from "./Button";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   setActiveAuthTab,
+  setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
 
@@ -116,6 +117,7 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setActiveAuthTab("login"));
+                  dispatch(setIsSideBarActive(false));
                 }}
                 variant="primary"
                 className="hidden sm:flex h-[34px] items-center justify-center"
@@ -127,6 +129,7 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setActiveAuthTab("signup"));
+                  dispatch(setIsSideBarActive(false));
                 }}
                 className="hidden sm:flex items-center justify-center h-[34px]"
                 variant="secondary"
@@ -240,6 +243,7 @@ const Navbar = () => {
                 dispatch(setIsSidebarOpen(true));
                 dispatch(setActiveAuthTab("login"));
                 setIsMobileNavOpen(false);
+                dispatch(setIsSideBarActive(false));
               }}
               variant="primary"
               className="flex h-[34px] items-center w-full justify-center my-6"
@@ -252,6 +256,7 @@ const Navbar = () => {
                 dispatch(setIsSidebarOpen(true));
                 dispatch(setActiveAuthTab("signup"));
                 setIsMobileNavOpen(false);
+                dispatch(setIsSideBarActive(false));
               }}
               className="flex items-center w-full justify-center h-[34px]"
               variant="secondary"
