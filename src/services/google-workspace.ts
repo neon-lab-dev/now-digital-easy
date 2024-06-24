@@ -23,7 +23,7 @@ export const handleCheckDomainAvailabilityService = async ({
   return new Promise((resolve, reject) => {
     axios
       .post(`${API_URL.checkDomainAvailability}?country_code=${country_code}`, {
-        domain,
+        domain: domain?.toLowerCase(),
       })
       .then((response) => {
         resolve(response.data?.response ?? []);
