@@ -31,7 +31,7 @@ const DomainResults = ({ isOpen, setIsOpen, domains }: Props) => {
       style={{
         scale: isOpen ? 1 : 0,
       }}
-      className="bg-gradient-checkout transition-all w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
+      className="bg-gradient-checkout transition-all w-[90%] max-w-[1020px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
     >
       <button
         onClick={() => setIsOpen(false)}
@@ -40,33 +40,30 @@ const DomainResults = ({ isOpen, setIsOpen, domains }: Props) => {
         <Image src={x} alt="" className="h-6 w-6" />
       </button>
 
-      <div className="flex flex-col items-center py-6">
-        <div className="w-full px-20 mt-4">
+      <div className="flex flex-col items-center p-6 gap-4">
+        <div className="w-full lg:px-20">
           <div></div>
-
           {domains.length > 0 ? (
             <div className="w-full">
-              <ul
-                className="
-                  max-h-[400px] overflow-y-auto"
-              >
-                <div>
+              <ul className="  max-h-[400px] overflow-y-auto">
+                <div className="hidden xs:block">
                   <div className="flex justify-between items-center gap-10 my-4 text-xl font-600">
                     <div className="flex gap-4 items-center">
                       <span>Domain</span>
                     </div>
                     <div className="flex items-center gap-5">
-                      <div className="min-w-28 text-left">Year</div>
-                      <div className="min-w-24">Pricing</div>
-
-                      <div className="min-w-28"></div>
+                      <div className="sm:min-w-28 flex-grow sm:flex-grow-0 text-left">
+                        Year
+                      </div>
+                      <div className="sm:min-w-24">Pricing</div>
+                      <div className="sm:min-w-[160px]"></div>
                     </div>
                   </div>
                   <hr className=" bg-[#64646480]  h-[2px]" />
                 </div>
-                {domains.map((domain: any, index: any) => (
+                {domains.map((domain, i) => (
                   <DomainCard
-                    key={index}
+                    key={i}
                     domain={domain.domain}
                     prices={domain.price}
                     status={domain.status}
@@ -140,8 +137,8 @@ const DomainCard = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center gap-10 my-4">
-        <div className="flex gap-4 items-center">
+      <div className="flex flex-col xs:flex-row justify-between sm:items-center gap-3 sm:gap-10 my-4">
+        <div className="flex gap-2 xs:gap-4 sm:items-center">
           <span>{domain}</span>
           {status !== "available" && (
             <>
@@ -149,11 +146,11 @@ const DomainCard = ({
             </>
           )}
         </div>
-        <div className="flex items-center gap-5">
-          {status === "available" && (
-            <>
+        {status === "available" && (
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2  sm:gap-9 min-w-[168px]">
+            <div className="flex items-center gap-9">
               <select
-                className="border border-[#646464] p-1 w-[100px] rounded-lg"
+                className="border border-[#646464] p-1 sm:w-[100px] rounded-lg"
                 value={selectedPricing?._id}
                 onChange={(e) => {
                   setSelectedPricing(
@@ -167,51 +164,51 @@ const DomainCard = ({
                   </option>
                 ))}
               </select>
-              <div className="min-w-24">
+              <div className="sm:min-w-24">
                 {getSelectedCurrencySymbol(currency?.code!)}
                 {selectedPricing?.registerPrice}
               </div>
-            </>
-          )}
+            </div>
 
-          <button
-            disabled={status !== "available" || isAddedToCart}
-            onClick={() => {
-              const data = {
-                product: "domain",
-                productId: selectedPricing.productId,
-                domainName: domain,
-                type: "new",
-                year: selectedPricing.year,
-                EppCode: "",
-                price: selectedPricing.registerPrice,
-              } as const;
+            <button
+              disabled={status !== "available" || isAddedToCart}
+              onClick={() => {
+                const data = {
+                  product: "domain",
+                  productId: selectedPricing.productId,
+                  domainName: domain,
+                  type: "new",
+                  year: selectedPricing.year,
+                  EppCode: "",
+                  price: selectedPricing.registerPrice,
+                } as const;
 
-              if (isLoggedIn) {
-                handleAddToCart(data);
-              } else {
-                dispatch(
-                  // @ts-ignore
-                  addCartItem({
-                    ...data,
-                  } as ICartItemDomain)
-                );
-                toast.success("Domain added to cart");
-                dispatch(setIsSidebarOpen(!isSidebarOpen));
-                dispatch(setIsSideBarActive(true));
-                setIsOpen(false);
-              }
-            }}
-            className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md disabled:opacity-50 min-w-28"
-          >
-            {isAddedToCart
-              ? "Added to cart"
-              : isAddToCartPending
-              ? "Adding ..."
-              : "Add to cart"}
-          </button>
-          <hr className=" bg-[#64646480]  h-[2px]" />
-        </div>
+                if (isLoggedIn) {
+                  handleAddToCart(data);
+                } else {
+                  dispatch(
+                    // @ts-ignore
+                    addCartItem({
+                      ...data,
+                    } as ICartItemDomain)
+                  );
+                  toast.success("Domain added to cart");
+                  dispatch(setIsSidebarOpen(!isSidebarOpen));
+                  dispatch(setIsSideBarActive(true));
+                  setIsOpen(false);
+                }
+              }}
+              className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md disabled:opacity-50 sm:min-w-28"
+            >
+              {isAddedToCart
+                ? "Added to cart"
+                : isAddToCartPending
+                ? "Adding ..."
+                : "Add to cart"}
+            </button>
+            <hr className=" bg-[#64646480]  h-[2px]" />
+          </div>
+        )}
       </div>
       <hr className=" bg-[#64646480]  h-[2px]" />
     </div>

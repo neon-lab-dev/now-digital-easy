@@ -378,7 +378,7 @@ const DomainCheckout = ({ isOpen, setIsOpen, selectedService }: Props) => {
                 ) : domainAvailabilityData.length > 0 ? (
                   <div className="w-full">
                     <ul className="  max-h-[400px] overflow-y-auto">
-                      <div>
+                      <div className="hidden xs:block">
                         <div className="flex justify-between items-center gap-10 my-4 text-xl font-600">
                           <div className="flex gap-4 items-center">
                             <span>Domain</span>
@@ -489,7 +489,7 @@ const DomainCard = ({
 
   return (
     <div>
-      <div className="flex justify-between sm:items-center gap-10 my-4">
+      <div className="flex flex-col xs:flex-row justify-between sm:items-center gap-3 sm:gap-10 my-4">
         <div className="flex gap-2 xs:gap-4 sm:items-center">
           <span>{domain}</span>
           {status !== "available" && (
