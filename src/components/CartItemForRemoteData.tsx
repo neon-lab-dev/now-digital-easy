@@ -106,7 +106,11 @@ export const CartItemForRemoteDataGSuite = ({
                           quantity: p.quantity - 1,
                         };
                       }
-                      return p;
+                      return {
+                        ...p,
+                        EppCode: "",
+                        type: "new",
+                      };
                     }),
                   });
 
@@ -138,7 +142,11 @@ export const CartItemForRemoteDataGSuite = ({
                           quantity: p.quantity + 1,
                         };
                       }
-                      return p;
+                      return {
+                        ...p,
+                        EppCode: "",
+                        type: "new",
+                      };
                     }),
                   });
 
@@ -173,7 +181,11 @@ export const CartItemForRemoteDataGSuite = ({
                   period: e.target.value,
                 };
               }
-              return p;
+              return {
+                ...p,
+                EppCode: "",
+                type: "new",
+              };
             }),
           });
 
@@ -285,7 +297,11 @@ export const CartItemForRemoteDataHosting = ({
                   period: e.target.value,
                 };
               }
-              return p;
+              return {
+                ...p,
+                EppCode: "",
+                type: "new",
+              };
             }),
           });
 
