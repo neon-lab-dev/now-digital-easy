@@ -95,7 +95,7 @@ export const CartItemForRemoteDataGSuite = ({
                       if (p.productId === productId) {
                         const requiredData = {
                           productId: p.productId,
-                          qty: p.quantity,
+                          quantity: p.quantity,
                           period: p.period,
                           product: p.product,
                           type: "new",
@@ -103,7 +103,7 @@ export const CartItemForRemoteDataGSuite = ({
                         };
                         return {
                           ...requiredData,
-                          qty: p.quantity - 1,
+                          quantity: p.quantity - 1,
                         };
                       }
                       return p;
@@ -127,7 +127,7 @@ export const CartItemForRemoteDataGSuite = ({
                       if (p.productId === productId) {
                         const requiredData = {
                           productId: p.productId,
-                          qty: p.quantity,
+                          quantity: p.quantity,
                           period: p.period,
                           product: p.product,
                           type: "new",
@@ -135,7 +135,7 @@ export const CartItemForRemoteDataGSuite = ({
                         };
                         return {
                           ...requiredData,
-                          qty: p.quantity + 1,
+                          quantity: p.quantity + 1,
                         };
                       }
                       return p;
@@ -162,7 +162,7 @@ export const CartItemForRemoteDataGSuite = ({
               if (p.productId === productId) {
                 const requiredData = {
                   productId: p.productId,
-                  qty: p.quantity,
+                  quantity: p.quantity,
                   period: p.period,
                   product: p.product,
                   type: "new",

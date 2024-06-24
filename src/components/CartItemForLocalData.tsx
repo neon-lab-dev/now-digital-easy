@@ -23,7 +23,7 @@ export const CartItemForLocalDataGSuite = ({
   period,
   product,
   productId,
-  qty,
+  quantity,
   productDetails,
 }: IGSuitLocal & {
   productDetails: IGSuiteProduct;
@@ -53,11 +53,11 @@ export const CartItemForLocalDataGSuite = ({
             <div className="bg-white flex justify-center items-start text-xs sm:text-[15px]">
               <button
                 onClick={() => {
-                  if (qty === 1) return;
+                  if (quantity === 1) return;
                   dispatch(
                     updateACartItem({
                       productId,
-                      qty: qty - 1,
+                      quantity: quantity - 1,
                     })
                   );
                 }}
@@ -65,14 +65,14 @@ export const CartItemForLocalDataGSuite = ({
               >
                 -
               </button>
-              <span className="border-[#00000026] border px-2">{qty}</span>
+              <span className="border-[#00000026] border px-2">{quantity}</span>
               <button
-                disabled={qty === 300}
+                disabled={quantity === 300}
                 onClick={() => {
                   dispatch(
                     updateACartItem({
                       productId,
-                      qty: qty + 1,
+                      quantity: quantity + 1,
                     })
                   );
                 }}
@@ -109,7 +109,7 @@ export const CartItemForLocalDataGSuite = ({
             Number(
               productDetails?.price?.find((p) => p.period === period)
                 ?.offerPrice!
-            ) * Number(qty)
+            ) * Number(quantity)
           ).toFixed(2)}
         </span>
         <button
