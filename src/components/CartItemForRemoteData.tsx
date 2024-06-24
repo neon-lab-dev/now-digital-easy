@@ -81,7 +81,7 @@ export const CartItemForRemoteDataGSuite = ({
             Domain <br className="xs:hidden" />(
             <span className="text-[#0011FF]">{domainName}</span>)
           </span>
-          <div className="flex gap-1 items-center">
+          <div className="flex flex-col xs:flex-row xs:gap-1 xs:items-center">
             <span className="font-source-sans-pro text-xs sm:text-[15px] !font-700 text-[#000000]">
               Users
             </span>
