@@ -111,7 +111,7 @@ const Signup = () => {
     <div className="">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-center">
-          <div className="w-[406px] flex flex-col">
+          <div className="w-[406px]  max-md:w-[350px] flex flex-col">
             <span className="font-source-sans-pro font-700 text-[17px]">
               New User?
             </span>
@@ -130,7 +130,7 @@ const Signup = () => {
                   type="text"
                   {...register("first_name", { required: true })}
                   placeholder="First Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.first_name && (
                   <span className="text-red-500 text-[10px]">
@@ -149,7 +149,7 @@ const Signup = () => {
                   type="text"
                   {...register("last_name", { required: true })}
                   placeholder="Last Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.last_name && (
                   <span className="text-red-500 text-[10px]">
@@ -168,7 +168,7 @@ const Signup = () => {
                   type="email"
                   {...register("email", { required: true })}
                   placeholder="Email address"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.email && (
                   <span className="text-red-500 text-[10px]">
@@ -187,7 +187,7 @@ const Signup = () => {
                   type="number"
                   {...register("phone_number", { required: true })}
                   placeholder="Phone Number"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.phone_number && (
                   <span className="text-red-500 text-[10px]">
@@ -206,7 +206,7 @@ const Signup = () => {
                   type="password"
                   {...register("password", { required: true })}
                   placeholder="Password"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.password && (
                   <span className="text-red-500 text-[10px]">
@@ -225,7 +225,7 @@ const Signup = () => {
                   type="text"
                   {...register("companyName", { required: true })}
                   placeholder="Company Name"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.companyName && (
                   <span className="text-red-500 text-[10px]">
@@ -244,7 +244,7 @@ const Signup = () => {
                   type="text"
                   {...register("address", { required: true })}
                   placeholder="Address"
-                  className="border-[1px] p-3 rounded-lg mt-2 w-[196px] text-[12px]"
+                  className="border-[1px] p-3 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[12px]"
                 />
                 {errors.address && (
                   <span className="text-red-500 text-[10px]">
@@ -263,7 +263,7 @@ const Signup = () => {
                   type="text"
                   {...register("city", { required: true })}
                   placeholder="City"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.city && (
                   <span className="text-red-500 text-[10px]">
@@ -282,7 +282,7 @@ const Signup = () => {
                   type="number"
                   {...register("pincode", { required: true })}
                   placeholder="Pin Code"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.pincode && (
                   <span className="text-red-500 text-[10px]">
@@ -301,7 +301,7 @@ const Signup = () => {
                   type="text"
                   {...register("state", { required: true })}
                   placeholder="State"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.state && (
                   <span className="text-red-500 text-[10px]">
@@ -318,7 +318,7 @@ const Signup = () => {
                 </label>
                 <select
                   {...register("country", { required: true })}
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                   onChange={(e) => setSelectedCountry(e.target.value)}
                 >
                   <option value="">Select Country</option>
@@ -345,7 +345,7 @@ const Signup = () => {
                   type="text"
                   {...register("gstin", { required: true })}
                   placeholder="GSTIN"
-                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] text-[10px]"
+                  className="border-[1px] p-2 rounded-lg mt-2 w-[196px] max-md:w-[150px] text-[10px]"
                 />
                 {errors.gstin && (
                   <span className="text-red-500 text-[10px]">

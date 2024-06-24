@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import CartItem from "./CartItem";
 import { useQuery } from "@tanstack/react-query";
 import { handleGetAllCartItemsService } from "@/services/cart";
 import Loading from "./Loading";
@@ -75,8 +74,8 @@ const CartSummary = () => {
           <EmptyCart />
         ) : (
           <>
-            <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
-              <div className="pr-12">Product</div>
+            <div className="flex justify-between font-source-sans-pro text-xs sm:text-[15px] font-700 px-8 py-4 text-center">
+              <div className="pr-6">Product</div>
               <span>Duration</span>
               <span>Price</span>
             </div>
@@ -141,7 +140,7 @@ const CartSummary = () => {
       ) : (
         <>
           <div className="flex justify-between font-source-sans-pro text-[15px] font-700 px-8 py-4 text-center">
-            <div className="pr-12">Product</div>
+            <div className="pr-6">Product</div>
             <span>Duration</span>
             <span>Price</span>
           </div>
@@ -179,11 +178,11 @@ const CartSummary = () => {
           })}
 
           <hr />
-          <div className="flex justify-between items-start py-2 px-2">
+          <div className="flex justify-between items-start py-2 px-2 pr-6">
             {!showCoupon ? (
               <button
                 onClick={handClickCoupon}
-                className="font-source-sans-pro text-[17px] font-700 text-[#0011FF] px-6 transition-transform duration-300"
+                className="font-source-sans-pro text-sm ms:text-[17px] font-700 text-[#0011FF] px-6 transition-transform duration-300"
               >
                 Have a Coupon Code?
               </button>
@@ -212,8 +211,8 @@ const CartSummary = () => {
             </div>
           </div>
           <hr className="h-[1px]" />
-          <div className="flex justify-end">
-            <div className="flex gap-12 font-source-sans-pro text-[15px] font-900 text-[#000000] text-start py-4 px-3">
+          <div className="flex justify-end pr-6">
+            <div className="flex gap-12 font-source-sans-pro text-[15px] font-900 text-[#000000] text-start py-4 pl-3">
               <span>Total</span>
               <span>
                 {getSelectedCurrencySymbol(currency?.code!)} {data?.Total}

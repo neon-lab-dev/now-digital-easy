@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, SetStateAction } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import { ICONS } from "@/assets";
 import chart from "@/assets/images/Group 69344.svg";
@@ -42,59 +42,70 @@ const Sidebar = () => {
   }, [isSidebarOpen]);
 
   return (
-    <div className="relative hamburgerMenu">
-      <Image
-        onClick={() => {
-          dispatch(setIsSidebarOpen(!isSidebarOpen));
-          dispatch(setIsSideBarActive(true));
-        }}
-        src={ICONS.cart}
-        alt="downArrow"
-        className="cursor-pointer"
-      />
-      <div
-        className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-[471px] shadow-2xl  transition-all duration-300 transform ${
-          isSidebarOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        {isSidebarOpen && (
-          <div
-            className={twMerge(
-              "h-[55px] px-4 py-4 justify-between flex items-center",
-              isSidebarActive && "bg-gradient-light"
-            )}
-          >
-            <Image
-              src={chart}
-              alt=""
+    <>
+      {isSidebarOpen && (
+        <div
+          onClick={() => {
+            dispatch(setIsSidebarOpen(!isSidebarOpen));
+            dispatch(setIsSideBarActive(true));
+          }}
+          className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
+        />
+      )}
+      <div className="relative hamburgerMenu">
+        <Image
+          onClick={() => {
+            dispatch(setIsSidebarOpen(!isSidebarOpen));
+            dispatch(setIsSideBarActive(true));
+          }}
+          src={ICONS.cart}
+          alt="downArrow"
+          className="cursor-pointer"
+        />
+        <div
+          className={`overflow-y-auto fixed inset-y-0 right-0 z-50 bg-white w-full max-w-[471px] shadow-2xl  transition-all duration-300 transform ${
+            isSidebarOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          {isSidebarOpen && (
+            <div
               className={twMerge(
-                "pt-1",
-                isSidebarActive ? "opacity-100" : "opacity-0"
+                "h-[55px] px-4 py-4 justify-between flex items-center",
+                isSidebarActive && "bg-gradient-light"
               )}
-            />
-            <div className={isSidebarActive ? "opacity-100" : "opacity-0"}>
-              <Stepper steps={steps} activeStep={1} />
-            </div>
-            <button
-              onClick={() => {
-                dispatch(setIsSidebarOpen(false));
-                dispatch(setSidebarActiveStep(0));
-              }}
             >
-              <Image src={close} alt="Close" className="w-[20px]" />
-            </button>
-          </div>
-        )}
-        {!isSidebarActive ? (
-          <>{activeAuthTab === "signup" ? <Signup /> : <Login />}</>
-        ) : (
-          <div>
-            {sidebarActiveStep === 0 && <CartSummary />}
-            {sidebarActiveStep === 1 && <OrderSummary />}
-          </div>
-        )}
+              <Image
+                src={chart}
+                alt=""
+                className={twMerge(
+                  "pt-1",
+                  isSidebarActive ? "opacity-100" : "opacity-0"
+                )}
+              />
+              <div className={isSidebarActive ? "opacity-100" : "opacity-0"}>
+                <Stepper steps={steps} activeStep={1} />
+              </div>
+              <button
+                onClick={() => {
+                  dispatch(setIsSidebarOpen(false));
+                  dispatch(setSidebarActiveStep(0));
+                }}
+              >
+                <Image src={close} alt="Close" className="w-[20px]" />
+              </button>
+            </div>
+          )}
+          {!isSidebarActive ? (
+            <>{activeAuthTab === "signup" ? <Signup /> : <Login />}</>
+          ) : (
+            <div>
+              {sidebarActiveStep === 0 && <CartSummary />}
+              {sidebarActiveStep === 1 && <OrderSummary />}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

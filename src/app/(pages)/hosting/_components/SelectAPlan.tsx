@@ -109,7 +109,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
       style={{
         scale: isOpen ? 1 : 0,
       }}
-      className="bg-gradient-checkout transition-all w-[1000px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
+      className="bg-gradient-checkout transition-all w-[90%] max-w-[1020px]  border border-[#000659] shadow-[#00065980] shadow-2xl rounded-xl fixed bottom-6 left-1/2 -translate-x-1/2 z-[100]"
     >
       <button
         onClick={() => {
@@ -121,57 +121,67 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
       </button>
       {tab === "hosting" && (
         <>
-          <div className="flex justify-between items-center px-6  py-6">
-            <div className="flex flex-col gap-2">
-              <span className="text-[17px] text-[#000659] leading-[15px]">
+          <div className="flex flex-col p-4 lg:px-6 lg:py-8 gap-4 sm:flex-row lg:gap-20 lg:items-center m-auto justify-between">
+            <div className="flex flex-col">
+              <span className="text-[17px] sm:text-2xl text-[#000659] leading-[15px]">
                 Plan Name
               </span>
-              <span className="font-400 text-[15px]">{pricing?.name}</span>
-            </div>
-            <div className="flex flex-col h-[100px] pt-5 gap-1">
-              <span className="text-[17px] text-[#000659]">Duration</span>
-              <select
-                className="border border-[#646464] p-1 w-[100px] rounded-lg"
-                value={selectedPricing?.period}
-                onChange={(e) => {
-                  setSelectedPricing(
-                    pricing?.price.find(
-                      (price) => price.period === e.target.value
-                    )!
-                  );
-                }}
-              >
-                {pricing?.price.map((price, index) => (
-                  <option key={index} value={price.period}>
-                    {price.period}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex flex-col ">
-              <span className="text-[17px] text-[#000659] leading-[15px]">
-                Total
-              </span>
-              <span className="text-[24px] font-600">
-                {getSelectedCurrencySymbol(currency?.code!)}
-                {selectedPricing?.amount}
+              <span className="font-400 text-[15px] sm:text-xl">
+                {pricing?.name}
               </span>
             </div>
-            <button
-              onClick={() => {
-                setTab("domain");
-              }}
-              className="px-8 py-4 rounded-xl bg-[#0009FF] text-white disabled:opacity-75"
-            >
-              Attach Domain
-            </button>
+            <div className="flex gap-4 justify-between lg:justify-normal sm:gap-20">
+              <div className="flex gap-2 justify-between xs:justify-normal xs:gap-9 sm:gap-12 items-center">
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm xs:text-base md:text-lg text-[#000659]">
+                    Duration
+                  </span>
+                  <select
+                    className="border border-[#646464] p-1 w-[100px] xs:w-auto rounded-lg"
+                    value={selectedPricing?.period}
+                    onChange={(e) => {
+                      setSelectedPricing(
+                        pricing?.price.find(
+                          (price) => price.period === e.target.value
+                        )!
+                      );
+                    }}
+                  >
+                    {pricing?.price.map((price, index) => (
+                      <option key={index} value={price.period}>
+                        {price.period}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="flex justify-between items-center gap-6">
+                <div className="flex flex-col ">
+                  <span className="text-sm xs:text-base md:text-lg text-[#000659] leading-[15px]">
+                    Total
+                  </span>
+                  <span className="text-base lg:text-2xl !font-source-sans-pro">
+                    {getSelectedCurrencySymbol(currency?.code!)}
+                    {selectedPricing?.amount}
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    setTab("domain");
+                  }}
+                  className="px-5 xs:px-5 lg:min-w-24 sm:px-4 lg:py-4 py-2 rounded-xl bg-[#0009FF] text-white disabled:opacity-75"
+                >
+                  Buy Now
+                </button>
+              </div>
+            </div>
           </div>
         </>
       )}
       {tab === "domain" && (
         <>
-          <div className="flex flex-col items-center py-6">
-            <div className="flex justify-start items-start w-[900px]">
+          <div className="flex flex-col items-center p-6 gap-4">
+            <div className="flex justify-start flex-col md:flex-row items-start max-w-[900px] gap-1 md:gap-6 w-full">
               {[
                 {
                   option: "Register a New Domain",
@@ -185,7 +195,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                 <label
                   htmlFor={option.value}
                   key={index}
-                  className="flex items-center ps-4 rounded cursor-pointer"
+                  className="flex items-center rounded cursor-pointer"
                 >
                   <input
                     id={option.value}
@@ -196,7 +206,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                     onChange={(e) => setRadioInputValue(e.target.value)}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                   />
-                  <span className="w-full py-4 ms-2 font-medium text-black">
+                  <span className="w-full font-medium text-black ml-4">
                     {option.option}
                   </span>
                 </label>
@@ -216,7 +226,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                   });
                 }
               }}
-              className="flex justify-center"
+              className="flex justify-center w-full text-sm md:text-base"
             >
               <input
                 type="text"
@@ -225,12 +235,12 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                   setInputValue(e.target.value.trim());
                 }}
                 autoFocus
-                className="bg-transparent border border-black w-[700px] h-[50px] px-4 "
+                className="bg-transparent flex-grow border border-black max-w-[700px] w-full  px-4 "
               />
               {radioInputValue === "register" ? (
                 <button
                   disabled={isCheckAvailabilityPending || !inputValue}
-                  className="px-4 py-2 h-[51px] bg-[#0009FF] disabled:opacity-90 text-white  shadow-black shadow-md"
+                  className="px-4 py-2 min-w-fit bg-[#0009FF] disabled:opacity-90 text-white  shadow-black shadow-md"
                 >
                   {isCheckAvailabilityPending ? (
                     <BeatLoader color="#ffffff" size={12} />
@@ -292,7 +302,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                       setIsOpen(false);
                     }
                   }}
-                  className="px-7 py-2 h-[50px] bg-[#0009FF] text-white shadow-black shadow-md"
+                  className="px-7 py-2 bg-[#0009FF] text-white shadow-black shadow-md min-w-fit"
                 >
                   {isAddToCartPending ? (
                     <BeatLoader color="#ffffff" size={12} />
@@ -305,7 +315,7 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
             {isCheckAvailabilitySuccess &&
               radioInputValue === "register" &&
               domainAvailabilityData && (
-                <div className="w-full px-20 mt-4">
+                <div className="w-full lg:px-20 mt-4">
                   <div></div>
                   {isCheckAvailabilityPending ? (
                     <div className=" items-start mt-2 leading-10 px-4 mr-[270px]">
@@ -314,16 +324,17 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                   ) : domainAvailabilityData.length > 0 ? (
                     <div className="w-full">
                       <ul className="  max-h-[400px] overflow-y-auto">
-                        <div>
+                        <div className="hidden xs:block">
                           <div className="flex justify-between items-center gap-10 my-4 text-xl font-600">
                             <div className="flex gap-4 items-center">
                               <span>Domain</span>
                             </div>
                             <div className="flex items-center gap-5">
-                              <div className="min-w-28 text-left">Year</div>
-                              <div className="min-w-24">Pricing</div>
-
-                              <div className="min-w-28"></div>
+                              <div className="sm:min-w-28 flex-grow sm:flex-grow-0 text-left">
+                                Year
+                              </div>
+                              <div className="sm:min-w-24">Pricing</div>
+                              <div className="sm:min-w-[160px]"></div>
                             </div>
                           </div>
                           <hr className=" bg-[#64646480]  h-[2px]" />
@@ -413,8 +424,8 @@ const DomainCard = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center gap-10 my-4">
-        <div className="flex gap-4 items-center">
+      <div className="flex flex-col xs:flex-row justify-between sm:items-center gap-3 sm:gap-10 my-4">
+        <div className="flex gap-2 xs:gap-4 sm:items-center">
           <span>{domain}</span>
           {status !== "available" && (
             <>
@@ -422,11 +433,11 @@ const DomainCard = ({
             </>
           )}
         </div>
-        <div className="flex items-center gap-5">
-          {status === "available" && (
-            <>
+        {status === "available" && (
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2  sm:gap-9 min-w-[168px]">
+            <div className="flex items-center gap-9">
               <select
-                className="border border-[#646464] p-1 w-[100px] rounded-lg"
+                className="border border-[#646464] p-1 sm:w-[100px] rounded-lg"
                 value={selectedPricing?._id}
                 onChange={(e) => {
                   setSelectedPricing(
@@ -440,47 +451,47 @@ const DomainCard = ({
                   </option>
                 ))}
               </select>
-              <div className="min-w-24">
+              <div className="sm:min-w-24">
                 {getSelectedCurrencySymbol(currency?.code!)}
                 {selectedPricing?.registerPrice}
               </div>
-            </>
-          )}
+            </div>
 
-          <button
-            disabled={status !== "available" || isAddedToCart}
-            onClick={() => {
-              const data = {
-                product: "hosting",
-                productId: productId,
-                domainName: domain,
-                period: period,
-              };
-              if (isLoggedIn) {
-                handleAddToCart(data);
-              } else {
-                dispatch(
-                  // @ts-ignore
-                  addCartItem({
-                    ...data,
-                  } as ICartItemDomain)
-                );
-                toast.success("Hosting added to cart");
-                dispatch(setIsSidebarOpen(!isSidebarOpen));
-                dispatch(setIsSideBarActive(true));
-                setIsOpen(false);
-              }
-            }}
-            className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md disabled:opacity-50 min-w-28"
-          >
-            {isAddedToCart
-              ? "Added to cart"
-              : isAddToCartPending
-              ? "Adding ..."
-              : "Add to cart"}
-          </button>
-          <hr className=" bg-[#64646480]  h-[2px]" />
-        </div>
+            <button
+              disabled={status !== "available" || isAddedToCart}
+              onClick={() => {
+                const data = {
+                  product: "hosting",
+                  productId: productId,
+                  domainName: domain,
+                  period: period,
+                };
+                if (isLoggedIn) {
+                  handleAddToCart(data);
+                } else {
+                  dispatch(
+                    // @ts-ignore
+                    addCartItem({
+                      ...data,
+                    } as ICartItemDomain)
+                  );
+                  toast.success("Hosting added to cart");
+                  dispatch(setIsSidebarOpen(!isSidebarOpen));
+                  dispatch(setIsSideBarActive(true));
+                  setIsOpen(false);
+                }
+              }}
+              className=" bg-[#0009FF] text-white rounded-[5px] p-2 shadow-black shadow-md disabled:opacity-50 sm:min-w-28"
+            >
+              {isAddedToCart
+                ? "Added to cart"
+                : isAddToCartPending
+                ? "Adding ..."
+                : "Add to cart"}
+            </button>
+            <hr className=" bg-[#64646480]  h-[2px]" />
+          </div>
+        )}
       </div>
       <hr className=" bg-[#64646480]  h-[2px]" />
     </div>

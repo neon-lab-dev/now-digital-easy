@@ -75,10 +75,10 @@ export const handleSignupService = async (
 
 export const handleGetUserDetailsService = async (
   token: string = ""
-): Promise<IUser> => {
+): Promise<IUser | null> => {
   return new Promise((resolve, reject) => {
     if (!token) {
-      reject("Token not found!");
+      resolve(null);
     }
     axios
       .get(API_URL.userDetails, {
@@ -89,10 +89,8 @@ export const handleGetUserDetailsService = async (
       .then((response) => {
         resolve(response.data);
       })
-      .catch((error) => {
-        reject(
-          error.response?.data?.error?.message ?? "User details fetch failed!"
-        );
+      .catch(() => {
+        resolve(null);
       });
   });
 };

@@ -9,7 +9,7 @@ const Stepper = ({
   const width = `${(100 / (totalSteps - 1)) * (activeStep - 1)}%`;
 
   return (
-    <div className="w-[280px] mb-2">
+    <div className="w-[150px] xs:w-[200px] sm:w-[280px] mb-2">
       <div className="flex justify-between relative before:bg-slate-200 before:absolute before:h-1 before:top-1/2 before:transform-y-1/2 before:w-full before:left-0">
         {steps.map((step, i) => (
           <div className="relative z-10" key={step}>

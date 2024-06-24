@@ -13,6 +13,7 @@ import Button from "./Button";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
   setActiveAuthTab,
+  setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
 
@@ -116,6 +117,7 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setActiveAuthTab("login"));
+                  dispatch(setIsSideBarActive(false));
                 }}
                 variant="primary"
                 className="hidden sm:flex h-[34px] items-center justify-center"
@@ -127,6 +129,7 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setActiveAuthTab("signup"));
+                  dispatch(setIsSideBarActive(false));
                 }}
                 className="hidden sm:flex items-center justify-center h-[34px]"
                 variant="secondary"
@@ -158,7 +161,7 @@ const Navbar = () => {
       {/* side navbar for mobile devices */}
       <aside
         className={twMerge(
-          "bg-white w-[250px] h-screen overflow-hidden transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-20 px-6 gap-",
+          "bg-white w-[250px] h-screen overflow-hidden transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-6 px-6 gap-",
           isMobileNavOpen ? "translate-x-0" : "translate-x-full "
         )}
       >
@@ -168,7 +171,13 @@ const Navbar = () => {
         >
           <Image src={x} alt="close" height={24} width={24} />
         </button>
-        <div className="h-full w-full flex flex-col gap-3 overflow-x-hidden overflow-y-auto">
+        {isLoggedIn && (
+          // show user name
+          <div className="flex sm:hidden gap-2 bg-gray-300 text-lg font-600 px-2 py-2 rounded-full aspect-square h-9 w-9 items-center justify-center">
+            <span>{user?.first_name[0]}</span>
+          </div>
+        )}
+        <div className="h-full w-full flex flex-col gap-3 overflow-x-hidden overflow-y-auto mt-6">
           {NAV_LINKS.map((item, i) => (
             <div key={i} className="flex flex-col gap-1 w-full">
               <button
@@ -234,31 +243,35 @@ const Navbar = () => {
             </div>
           ))}
 
-          <div className="flex gap-4 items-center sm:hidden w-full mt-auto">
-            <Button
-              onClick={() => {
-                dispatch(setIsSidebarOpen(true));
-                dispatch(setActiveAuthTab("login"));
-                setIsMobileNavOpen(false);
-              }}
-              variant="primary"
-              className="flex h-[34px] items-center w-full justify-center my-6"
-            >
-              Log In
-            </Button>
+          {!isLoggedIn && (
+            <div className="flex gap-4 items-center sm:hidden w-full mt-auto">
+              <Button
+                onClick={() => {
+                  dispatch(setIsSidebarOpen(true));
+                  dispatch(setActiveAuthTab("login"));
+                  setIsMobileNavOpen(false);
+                  dispatch(setIsSideBarActive(false));
+                }}
+                variant="primary"
+                className="flex h-[34px] items-center w-full justify-center my-6"
+              >
+                Log In
+              </Button>
 
-            <Button
-              onClick={() => {
-                dispatch(setIsSidebarOpen(true));
-                dispatch(setActiveAuthTab("signup"));
-                setIsMobileNavOpen(false);
-              }}
-              className="flex items-center w-full justify-center h-[34px]"
-              variant="secondary"
-            >
-              Sign Up
-            </Button>
-          </div>
+              <Button
+                onClick={() => {
+                  dispatch(setIsSidebarOpen(true));
+                  dispatch(setActiveAuthTab("signup"));
+                  setIsMobileNavOpen(false);
+                  dispatch(setIsSideBarActive(false));
+                }}
+                className="flex items-center w-full justify-center h-[34px]"
+                variant="secondary"
+              >
+                Sign Up
+              </Button>
+            </div>
+          )}
         </div>
       </aside>
     </>
