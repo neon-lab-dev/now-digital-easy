@@ -66,21 +66,26 @@ export const CartItemForRemoteDataGSuite = ({
     },
   });
   return (
-    <div className="flex p-2 gap-4 items-start justify-between hover:bg-[#e1e1e180]">
+    <div className="flex p-2 gap-2 xs:gap-4 items-start justify-between hover:bg-[#e1e1e180] pr-6">
       <div className="flex items-start gap-1">
-        <Image src={google} alt="" />
-        <div className="flex flex-col gap-1">
-          <span className="text-[15px] text-[#000000] capitalize font-900">
+        <Image
+          src={google}
+          alt=""
+          className="h-5 w-5 sm:h-7 sm:w-7 min-w-5 min-h-5"
+        />
+        <div className="flex flex-col xs:gap-1">
+          <span className="text-xs sm:text-[15px] text-[#000000] capitalize !font-900">
             Google Workspace
           </span>
-          <span className="w-[130px] text-[12px]">
-            Domain (<span className="text-[#0011FF]">{domainName}</span>)
+          <span className="max-w-[130px] text-[11px] xs:text-[12px]">
+            Domain <br className="xs:hidden" />(
+            <span className="text-[#0011FF]">{domainName}</span>)
           </span>
           <div className="flex gap-1 items-center">
-            <span className="font-source-sans-pro text-[15px] font-700 text-[#000000]">
+            <span className="font-source-sans-pro text-xs sm:text-[15px] !font-700 text-[#000000]">
               Users
             </span>
-            <div className="bg-white flex justify-center items-start">
+            <div className="bg-white flex justify-center items-start text-xs sm:text-[15px]">
               <button
                 onClick={() => {
                   const data = queryClient.getQueryData<ICart>(["cart"]);
@@ -174,7 +179,7 @@ export const CartItemForRemoteDataGSuite = ({
 
           makeWebsiteLoading();
         }}
-        className="p-1 rounded-lg bg-transparent border border-[#00000026]"
+        className="p-1 rounded w-20 xs:w-auto text-[11px] xs:text-[12px] bg-transparent border border-[#00000026]"
       >
         {productDetails?.price?.map((p) => (
           <option key={p.period} value={p.period}>
@@ -183,7 +188,7 @@ export const CartItemForRemoteDataGSuite = ({
         ))}
       </select>
       <div className="flex justify-between items-center gap-2 ml-[23px]">
-        <span className="font-source-sans-pro text-[12px] font-700 text-[#000000]">
+        <span className="font-source-sans-pro text-[11px] xs:text-[12px] font-700 text-[#000000]">
           {getSelectedCurrencySymbol(currency?.code!)}
           {rest?.gsuitePrice}
         </span>
@@ -197,6 +202,7 @@ export const CartItemForRemoteDataGSuite = ({
 
             makeWebsiteLoading();
           }}
+          className="ml-2"
         >
           <Image src={trash} alt="" className="min-w-4 min-h-4" />
         </button>
@@ -240,16 +246,24 @@ export const CartItemForRemoteDataHosting = ({
   });
   console.log("productDetails", productDetails);
   return (
-    <div className="flex p-2 gap-4 items-start justify-between hover:bg-[#e1e1e180]">
+    <div className="flex p-2 gap-2 xs:gap-4 items-start justify-between hover:bg-[#e1e1e180] pr-6">
       <div className="flex items-start gap-1">
-        <Image src={hostingImage} alt="" />
-        <div className="flex flex-col gap-1">
-          <span className="text-[15px] text-[#000000] capitalize font-900">
+        <Image
+          src={hostingImage}
+          alt=""
+          className="h-5 w-5 sm:h-7 sm:w-7 min-w-5 min-h-5"
+        />
+        <div className="flex flex-col xs:gap-1">
+          <span className="text-xs sm:text-[15px] text-[#000000] capitalize !font-900">
             {product}
           </span>
-          <span className="w-[130px] text-[12px]">
-            {rest?.productName && <>({rest?.productName}) </>} Domain (
-            <span className="text-[#0011FF]">{domainName}</span>)
+          <span className="max-w-[130px] text-[12px]">
+            {rest?.productName && (
+              <>
+                ({rest?.productName}) <br className="xs:hidden" />
+              </>
+            )}{" "}
+            Domain (<span className="text-[#0011FF]">{domainName}</span>)
           </span>
         </div>
       </div>
@@ -277,7 +291,7 @@ export const CartItemForRemoteDataHosting = ({
 
           makeWebsiteLoading();
         }}
-        className="p-1 rounded-lg bg-transparent border border-[#00000026]"
+        className="p-1 rounded w-20 xs:w-auto text-[11px] xs:text-[12px] bg-transparent border border-[#00000026]"
       >
         {productDetails?.price?.map((p) => (
           <option key={p.period} value={p.period}>
@@ -286,7 +300,7 @@ export const CartItemForRemoteDataHosting = ({
         ))}
       </select>
       <div className="flex justify-between items-center gap-2 ml-[23px]">
-        <span className="font-source-sans-pro text-[12px] font-700 text-[#000000]">
+        <span className="font-source-sans-pro text-[11px] xs:text-[12px] font-700 text-[#000000]">
           {getSelectedCurrencySymbol(currency?.code!)}
           {rest?.pleskPrice}
         </span>
@@ -300,6 +314,7 @@ export const CartItemForRemoteDataHosting = ({
 
             makeWebsiteLoading();
           }}
+          className="ml-2"
         >
           <Image src={trash} alt="" className="min-w-4 min-h-4" />
         </button>
@@ -339,23 +354,28 @@ export const CartItemForRemoteDataDomain = ({
     },
   });
   return (
-    <div className="flex p-2 gap-4 items-start justify-between hover:bg-[#e1e1e180]">
+    <div className="flex p-2 gap-2 xs:gap-4 items-start justify-between hover:bg-[#e1e1e180] pr-6">
       <div className="flex items-start gap-1">
-        <Image src={domainImage} alt="" className="h-7 w-7 mt-1" />
-        <div className="flex flex-col gap-1">
-          <span className="text-[15px] text-[#000000] capitalize font-900">
+        <Image
+          src={domainImage}
+          alt=""
+          className="h-5 w-5 sm:h-7 sm:w-7 mt-0.5 xs:mt-1 min-w-5 min-h-5"
+        />
+        <div className="flex flex-col sm:gap-1">
+          <span className="text-xs sm:text-[15px] text-[#000000] capitalize !font-900">
             {product}
           </span>
-          <span className="w-[130px] text-[12px]">
-            Domain (<span className="text-[#0011FF]">{domainName}</span>)
+          <span className="max-w-[130px] text-[12px]">
+            Domain <br className="xs:hidden" />(
+            <span className="text-[#0011FF]">{domainName}</span>)
           </span>
         </div>
       </div>
-      <span className="font-source-sans-pro text-[12px] font-700 text-[#000000]">
+      <span className="font-source-sans-pro text-[11px] xs:text-[12px] font-700 text-[#000000]">
         {year} Year
       </span>
       <div className="flex justify-between items-center gap-2 ml-[23px]">
-        <span className="font-source-sans-pro text-[12px] font-700 text-[#000000]">
+        <span className="font-source-sans-pro text-[11px] xs:text-[12px] font-700 text-[#000000]">
           {getSelectedCurrencySymbol(currency?.code!)}
           {rest?.domainprice}
         </span>
@@ -369,6 +389,7 @@ export const CartItemForRemoteDataDomain = ({
 
             makeWebsiteLoading();
           }}
+          className="ml-2"
         >
           <Image src={trash} alt="" className="min-w-4 min-h-4" />
         </button>
