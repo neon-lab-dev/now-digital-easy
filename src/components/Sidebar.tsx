@@ -49,7 +49,7 @@ const Sidebar = () => {
             dispatch(setIsSidebarOpen(!isSidebarOpen));
             dispatch(setIsSideBarActive(true));
           }}
-          className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
+          className="fixed top-0 left-0 w-full h-dvh bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
         />
       )}
       <div className="relative hamburgerMenu">
