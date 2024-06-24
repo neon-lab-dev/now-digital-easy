@@ -155,13 +155,13 @@ const Navbar = () => {
       {isMobileNavOpen && (
         <div
           onClick={() => setIsMobileNavOpen(false)}
-          className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
+          className="fixed top-0 left-0 w-full h-dvh bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
         />
       )}
       {/* side navbar for mobile devices */}
       <aside
         className={twMerge(
-          "bg-white w-[250px] h-screen overflow-hidden transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-6 px-6 gap-",
+          "bg-white w-[250px] h-dvh overflow-hidden transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-6 px-6 gap-",
           isMobileNavOpen ? "translate-x-0" : "translate-x-full "
         )}
       >
