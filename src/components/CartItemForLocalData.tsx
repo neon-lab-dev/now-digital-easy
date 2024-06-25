@@ -58,6 +58,7 @@ export const CartItemForLocalDataGSuite = ({
                     updateACartItem({
                       productId,
                       quantity: quantity - 1,
+                      domainName,
                     })
                   );
                 }}
@@ -73,6 +74,7 @@ export const CartItemForLocalDataGSuite = ({
                     updateACartItem({
                       productId,
                       quantity: quantity + 1,
+                      domainName,
                     })
                   );
                 }}
@@ -91,6 +93,7 @@ export const CartItemForLocalDataGSuite = ({
             updateACartItem({
               productId,
               period: e.target.value,
+              domainName,
             })
           );
         }}
@@ -114,7 +117,12 @@ export const CartItemForLocalDataGSuite = ({
         </span>
         <button
           onClick={() => {
-            dispatch(deleteCartItem(productId));
+            dispatch(
+              deleteCartItem({
+                domain: domainName,
+                id: productId,
+              })
+            );
           }}
           className="ml-2"
         >
@@ -161,6 +169,7 @@ export const CartItemForLocalDataHosting = ({
             updateACartItem({
               productId,
               period: e.target.value,
+              domainName,
             })
           );
         }}
@@ -179,7 +188,12 @@ export const CartItemForLocalDataHosting = ({
         </span>
         <button
           onClick={() => {
-            dispatch(deleteCartItem(productId));
+            dispatch(
+              deleteCartItem({
+                domain: domainName,
+                id: productId,
+              })
+            );
           }}
           className="ml-2"
         >
@@ -227,7 +241,12 @@ export const CartItemForLocalDataDomain = ({
         </span>
         <button
           onClick={() => {
-            dispatch(deleteCartItem(productId));
+            dispatch(
+              deleteCartItem({
+                domain: domainName,
+                id: productId,
+              })
+            );
           }}
           className="ml-2"
         >

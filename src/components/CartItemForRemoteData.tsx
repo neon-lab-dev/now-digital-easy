@@ -92,7 +92,10 @@ export const CartItemForRemoteDataGSuite = ({
 
                   mutate({
                     data: data?.products.map((p) => {
-                      if (p.productId === productId) {
+                      if (
+                        p.productId === productId &&
+                        p.domainName === domainName
+                      ) {
                         const requiredData = {
                           productId: p.productId,
                           quantity: p.quantity,
@@ -128,7 +131,10 @@ export const CartItemForRemoteDataGSuite = ({
 
                   mutate({
                     data: data?.products.map((p) => {
-                      if (p.productId === productId) {
+                      if (
+                        p.productId === productId &&
+                        p.domainName === domainName
+                      ) {
                         const requiredData = {
                           productId: p.productId,
                           quantity: p.quantity,
@@ -167,7 +173,7 @@ export const CartItemForRemoteDataGSuite = ({
 
           mutate({
             data: data?.products.map((p) => {
-              if (p.productId === productId) {
+              if (p.productId === productId && p.domainName === domainName) {
                 const requiredData = {
                   productId: p.productId,
                   quantity: p.quantity,
@@ -209,7 +215,10 @@ export const CartItemForRemoteDataGSuite = ({
             const data = queryClient.getQueryData<ICart>(["cart"]);
 
             mutate({
-              data: data?.products.filter((p) => p.productId !== productId),
+              data: data?.products.filter(
+                (p) =>
+                  !(p.productId === productId && p.domainName === domainName)
+              ),
             });
 
             makeWebsiteLoading();
@@ -285,7 +294,7 @@ export const CartItemForRemoteDataHosting = ({
           const data = queryClient.getQueryData<ICart>(["cart"]);
           mutate({
             data: data?.products.map((p) => {
-              if (p.productId === productId) {
+              if (p.productId === productId && p.domainName === domainName) {
                 const requiredData = {
                   productId: p.productId,
                   period: p.period,
@@ -325,7 +334,10 @@ export const CartItemForRemoteDataHosting = ({
             const data = queryClient.getQueryData<ICart>(["cart"]);
 
             mutate({
-              data: data?.products.filter((p) => p.productId !== productId),
+              data: data?.products.filter(
+                (p) =>
+                  !(p.productId === productId && p.domainName === domainName)
+              ),
             });
 
             makeWebsiteLoading();
