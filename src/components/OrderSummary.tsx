@@ -15,6 +15,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { toast } from "react-toastify";
 import Loading from "./Loading";
 import { twMerge } from "tailwind-merge";
+import { handleGetAllCartItemsService } from "@/services/cart";
 
 const OrderSummary = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -25,6 +26,7 @@ const OrderSummary = () => {
 
   const { data, isFetching, isLoading } = useQuery<ICart>({
     queryKey: ["cart"],
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken),
   });
 
   const { mutate, isPending } = useMutation({

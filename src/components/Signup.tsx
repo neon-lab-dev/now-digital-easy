@@ -77,7 +77,7 @@ const Signup = () => {
         })
         .then(() => {
           if (redirectToCheckout) {
-            dispatch(setSidebarActiveStep(1));
+            dispatch(setSidebarActiveStep(2));
             dispatch(setIsSideBarActive(true));
           } else {
             dispatch(setIsSidebarOpen(false));
