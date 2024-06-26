@@ -312,53 +312,47 @@ const SelectAPlan = ({ isOpen, setIsOpen, pricing }: Props) => {
                 </button>
               )}
             </form>
-            {isCheckAvailabilitySuccess &&
-              radioInputValue === "register" &&
-              domainAvailabilityData && (
-                <div className="w-full lg:px-20 mt-4">
-                  <div></div>
-                  {isCheckAvailabilityPending ? (
-                    <div className=" items-start mt-2 leading-10 px-4 mr-[270px]">
-                      {`Checking availability of ${inputValue}...`}
-                    </div>
-                  ) : domainAvailabilityData.length > 0 ? (
-                    <div className="w-full">
-                      <ul className="  max-h-[400px] overflow-y-auto">
-                        <div className="hidden xs:block">
-                          <div className="flex justify-between items-center gap-10 my-4 text-xl font-600">
-                            <div className="flex gap-4 items-center">
-                              <span>Domain</span>
-                            </div>
-                            <div className="flex items-center gap-5">
-                              <div className="sm:min-w-28 flex-grow sm:flex-grow-0 text-left">
-                                Year
-                              </div>
-                              <div className="sm:min-w-24">Pricing</div>
-                              <div className="sm:min-w-[160px]"></div>
-                            </div>
+            {radioInputValue === "register" && domainAvailabilityData && (
+              <div className="w-full lg:px-20 mt-4">
+                <div></div>
+                {domainAvailabilityData.length > 0 ? (
+                  <div className="w-full">
+                    <ul className="  max-h-[400px] overflow-y-auto">
+                      <div className="hidden xs:block">
+                        <div className="flex justify-between items-center gap-10 my-4 text-xl font-600">
+                          <div className="flex gap-4 items-center">
+                            <span>Domain</span>
                           </div>
-                          <hr className=" bg-[#64646480]  h-[2px]" />
+                          <div className="flex items-center gap-5">
+                            <div className="sm:min-w-28 flex-grow sm:flex-grow-0 text-left">
+                              Year
+                            </div>
+                            <div className="sm:min-w-24">Pricing</div>
+                            <div className="sm:min-w-[160px]"></div>
+                          </div>
                         </div>
-                        {domainAvailabilityData.map((domain, i) => (
-                          <DomainCard
-                            domain={domain.domain}
-                            prices={domain.price}
-                            key={i}
-                            period={selectedPricing?.period!}
-                            productId={pricing?._id!}
-                            setIsOpen={setIsOpen}
-                            status={domain.status}
-                          />
-                        ))}
-                      </ul>
-                    </div>
-                  ) : (
-                    <div className="flex justify-center items-center h-[200px]">
-                      <span>No domains found</span>
-                    </div>
-                  )}
-                </div>
-              )}
+                        <hr className=" bg-[#64646480]  h-[2px]" />
+                      </div>
+                      {domainAvailabilityData.map((domain, i) => (
+                        <DomainCard
+                          domain={domain.domain}
+                          prices={domain.price}
+                          key={i}
+                          period={selectedPricing?.period!}
+                          productId={pricing?._id!}
+                          setIsOpen={setIsOpen}
+                          status={domain.status}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <div className="flex justify-center items-center h-[200px]">
+                    <span>No domains found</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </>
       )}
