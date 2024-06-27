@@ -25,22 +25,6 @@ const Sidebar = () => {
   const dispatch = useAppDispatch();
   const steps = ["Summary", "Login", "Payment"];
 
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent): void => {
-      const closestDropdown = (event.target as HTMLElement).closest(
-        ".hamburgerMenu"
-      );
-      if (isSidebarOpen && closestDropdown === null) {
-        dispatch(setIsSidebarOpen(false));
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isSidebarOpen]);
-
   return (
     <>
       {isSidebarOpen && (
