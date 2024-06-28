@@ -24,7 +24,7 @@ const Signup = () => {
     (state) => state.cart
   );
   const [selectedCountry, setSelectedCountry] = useState(""); // State for selected country
-  const [countries, setCountries] = useState<string[]>([]); // State for countries
+  const [countries, setCountries] = useState<{ name: string; code: string }[]>([]); // State for countries
 
   // Fetch currencies and populate countries select options
   const { isLoading, data: currencyData } = useQuery({
@@ -36,8 +36,11 @@ const Signup = () => {
   // UseEffect to update countries based on currencyData
   useEffect(() => {
     if (currencyData) {
-      // Assuming currencyData is an array of currencies with a 'country' property
-      const countries = currencyData.map((currency) => currency.countryCode);
+      // Assuming currencyData is an array of currencies with 'country' and 'countryCode' properties
+      const countries = currencyData.map((currency) => ({
+        name: currency.country,
+        code: currency.countryCode,
+      }));
       // Update countries in state
       setCountries(countries);
     }
@@ -323,8 +326,8 @@ const Signup = () => {
                 >
                   <option value="">Select Country</option>
                   {countries.map((country) => (
-                    <option key={country} value={country}>
-                      {country}
+                    <option key={country.code} value={country.code}>
+                      {country.name}
                     </option>
                   ))}
                 </select>
