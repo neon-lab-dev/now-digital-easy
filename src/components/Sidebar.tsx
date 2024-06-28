@@ -23,23 +23,7 @@ const Sidebar = () => {
   );
   const { sidebarActiveStep } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
-  const steps = ["Summary", "Payment"];
-
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent): void => {
-      const closestDropdown = (event.target as HTMLElement).closest(
-        ".hamburgerMenu"
-      );
-      if (isSidebarOpen && closestDropdown === null) {
-        dispatch(setIsSidebarOpen(false));
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [isSidebarOpen]);
+  const steps = ["Summary", "Login", "Payment"];
 
   return (
     <>
@@ -67,40 +51,47 @@ const Sidebar = () => {
             isSidebarOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          {isSidebarOpen && (
-            <div
+          <div
+            className={twMerge(
+              "h-[55px] px-4 py-4 justify-between flex items-center",
+              (isSidebarActive || sidebarActiveStep === 1) &&
+                "bg-gradient-light"
+            )}
+          >
+            <Image
+              src={chart}
+              alt=""
               className={twMerge(
-                "h-[55px] px-4 py-4 justify-between flex items-center",
-                isSidebarActive && "bg-gradient-light"
+                "pt-1",
+                isSidebarActive || sidebarActiveStep === 1
+                  ? "opacity-100"
+                  : "opacity-0"
               )}
+            />
+            <div
+              className={
+                isSidebarActive || sidebarActiveStep === 1
+                  ? "opacity-100"
+                  : "opacity-0"
+              }
             >
-              <Image
-                src={chart}
-                alt=""
-                className={twMerge(
-                  "pt-1",
-                  isSidebarActive ? "opacity-100" : "opacity-0"
-                )}
-              />
-              <div className={isSidebarActive ? "opacity-100" : "opacity-0"}>
-                <Stepper steps={steps} activeStep={1} />
-              </div>
-              <button
-                onClick={() => {
-                  dispatch(setIsSidebarOpen(false));
-                  dispatch(setSidebarActiveStep(0));
-                }}
-              >
-                <Image src={close} alt="Close" className="w-[20px]" />
-              </button>
+              <Stepper steps={steps} activeStep={1} />
             </div>
-          )}
+            <button
+              onClick={() => {
+                dispatch(setIsSidebarOpen(false));
+                dispatch(setSidebarActiveStep(0));
+              }}
+            >
+              <Image src={close} alt="Close" className="w-[20px]" />
+            </button>
+          </div>
           {!isSidebarActive ? (
             <>{activeAuthTab === "signup" ? <Signup /> : <Login />}</>
           ) : (
             <div>
               {sidebarActiveStep === 0 && <CartSummary />}
-              {sidebarActiveStep === 1 && <OrderSummary />}
+              {sidebarActiveStep === 2 && <OrderSummary />}
             </div>
           )}
         </div>

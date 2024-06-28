@@ -16,6 +16,7 @@ import {
   setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
+import { setSidebarActiveStep } from "@/store/slices/cartSlice";
 
 type ActiveDropdown = "Products" | "Resources" | "More" | null;
 
@@ -117,6 +118,7 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setActiveAuthTab("login"));
+                  dispatch(setSidebarActiveStep(0));
                   dispatch(setIsSideBarActive(false));
                 }}
                 variant="primary"
@@ -129,6 +131,7 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setActiveAuthTab("signup"));
+                  dispatch(setSidebarActiveStep(0));
                   dispatch(setIsSideBarActive(false));
                 }}
                 className="hidden sm:flex items-center justify-center h-[34px]"
@@ -251,6 +254,7 @@ const Navbar = () => {
                   dispatch(setActiveAuthTab("login"));
                   setIsMobileNavOpen(false);
                   dispatch(setIsSideBarActive(false));
+                  dispatch(setSidebarActiveStep(0));
                 }}
                 variant="primary"
                 className="flex h-[34px] items-center w-full justify-center my-6"
@@ -264,6 +268,7 @@ const Navbar = () => {
                   dispatch(setActiveAuthTab("signup"));
                   setIsMobileNavOpen(false);
                   dispatch(setIsSideBarActive(false));
+                  dispatch(setSidebarActiveStep(0));
                 }}
                 className="flex items-center w-full justify-center h-[34px]"
                 variant="secondary"

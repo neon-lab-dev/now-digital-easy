@@ -124,6 +124,7 @@ const CartSummary = () => {
                   dispatch(setIsSideBarActive(false));
                   dispatch(setActiveAuthTab("login"));
                   dispatch(setRedirectToCheckout(true));
+                  dispatch(setSidebarActiveStep(1));
                 }}
                 className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] rounded-[4px]"
               >
@@ -223,7 +224,7 @@ const CartSummary = () => {
           <div className="flex justify-center p-4">
             <button
               onClick={() => {
-                dispatch(setSidebarActiveStep(1));
+                dispatch(setSidebarActiveStep(2));
               }}
               className="font-source-sans-pro text-[17px] font-700 text-white px-10 py-2 bg-[#0011FF] h-[40px] rounded-[4px]"
             >

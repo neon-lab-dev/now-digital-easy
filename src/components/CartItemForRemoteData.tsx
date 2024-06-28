@@ -77,6 +77,18 @@ export const CartItemForRemoteDataGSuite = ({
           <span className="text-xs sm:text-[15px] text-[#000000] capitalize !font-900">
             Google Workspace
           </span>
+          <span className="max-w-[130px] text-[12px] capitalize">
+            {rest?.productName && (
+              <>
+                (
+                {rest?.productName
+                  ?.toLowerCase()
+                  ?.replace("google workspace", "")
+                  ?.trim()}
+                ) <br className="xs:hidden" />
+              </>
+            )}{" "}
+          </span>
           <span className="max-w-[130px] text-[11px] xs:text-[12px]">
             Domain <br className="xs:hidden" />(
             <span className="text-[#0011FF]">{domainName}</span>)

@@ -2,7 +2,7 @@
 
 "use client";
 import { useState } from "react";
-import Cookies from "js-cookie";
+import domainImage from "@/assets/icons/internet-earth-globe-svgrepo-com.svg";
 import Image from "next/image";
 import google from "@/assets/images/image 110.svg";
 import vector1 from "@/assets/images/chevron-down.svg";
@@ -14,6 +14,8 @@ import { getSelectedCurrencySymbol } from "@/helpers/currencies";
 import { useAppSelector } from "@/hooks/redux";
 import { toast } from "react-toastify";
 import Loading from "./Loading";
+import { twMerge } from "tailwind-merge";
+import { handleGetAllCartItemsService } from "@/services/cart";
 
 const OrderSummary = () => {
   const [showDetails, setShowDetails] = useState(false);
@@ -24,6 +26,7 @@ const OrderSummary = () => {
 
   const { data, isFetching, isLoading } = useQuery<ICart>({
     queryKey: ["cart"],
+    queryFn: () => handleGetAllCartItemsService(currency?.code!, authToken),
   });
 
   const { mutate, isPending } = useMutation({
@@ -71,7 +74,17 @@ const OrderSummary = () => {
               >
                 <div className="flex items-start gap-3">
                   <Image
-                    src={item.product === "hosting" ? hostingImage : google}
+                    src={
+                      item.product === "hosting"
+                        ? hostingImage
+                        : item.product === "domain"
+                        ? domainImage
+                        : google
+                    }
+                    className={twMerge(
+                      "h-5 w-5 sm:h-7 sm:w-7 min-w-5 min-h-5",
+                      item.product === "domain" && "mt-0.5 xs:mt-1"
+                    )}
                     alt=""
                   />
                   <div className="flex flex-col gap-1 ">
@@ -79,8 +92,15 @@ const OrderSummary = () => {
                       {item.groupName}
                     </span>
                     <span className="w-[130px] font-source-sans-pro text-[12px] font-600 text-[#000000]">
-                      {item?.productName} (
-                      <span className="text-[#0011FF]">{item.domainName}</span>)
+                      {item.product !== "domain"
+                        ? item.productName
+                        : `${item.year}year`}{" "}
+                      (<span className="text-[#0011FF]">{item.domainName}</span>
+                      )
+                      <br />
+                      {item.product === "gsuite" && (
+                        <span>Users: {item.quantity}</span>
+                      )}
                     </span>
                   </div>
                 </div>
