@@ -23,7 +23,23 @@ const Sidebar = () => {
   );
   const { sidebarActiveStep } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
-  const steps = ["Summary", "Login", "Payment"];
+  const steps = ["Summary", "Payment"];
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent): void => {
+      const closestDropdown = (event.target as HTMLElement).closest(
+        ".hamburgerMenu"
+      );
+      if (isSidebarOpen && closestDropdown === null) {
+        dispatch(setIsSidebarOpen(false));
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isSidebarOpen]);
 
   return (
     <>
@@ -33,7 +49,7 @@ const Sidebar = () => {
             dispatch(setIsSidebarOpen(!isSidebarOpen));
             dispatch(setIsSideBarActive(true));
           }}
-          className="fixed top-0 left-0 w-full h-dvh bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
+          className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
         />
       )}
       <div className="relative hamburgerMenu">
@@ -51,47 +67,40 @@ const Sidebar = () => {
             isSidebarOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div
-            className={twMerge(
-              "h-[55px] px-4 py-4 justify-between flex items-center",
-              (isSidebarActive || sidebarActiveStep === 1) &&
-                "bg-gradient-light"
-            )}
-          >
-            <Image
-              src={chart}
-              alt=""
-              className={twMerge(
-                "pt-1",
-                isSidebarActive || sidebarActiveStep === 1
-                  ? "opacity-100"
-                  : "opacity-0"
-              )}
-            />
+          {isSidebarOpen && (
             <div
-              className={
-                isSidebarActive || sidebarActiveStep === 1
-                  ? "opacity-100"
-                  : "opacity-0"
-              }
+              className={twMerge(
+                "h-[55px] px-4 py-4 justify-between flex items-center",
+                isSidebarActive && "bg-gradient-light"
+              )}
             >
-              <Stepper steps={steps} activeStep={1} />
+              <Image
+                src={chart}
+                alt=""
+                className={twMerge(
+                  "pt-1",
+                  isSidebarActive ? "opacity-100" : "opacity-0"
+                )}
+              />
+              <div className={isSidebarActive ? "opacity-100" : "opacity-0"}>
+                <Stepper steps={steps} activeStep={1} />
+              </div>
+              <button
+                onClick={() => {
+                  dispatch(setIsSidebarOpen(false));
+                  dispatch(setSidebarActiveStep(0));
+                }}
+              >
+                <Image src={close} alt="Close" className="w-[20px]" />
+              </button>
             </div>
-            <button
-              onClick={() => {
-                dispatch(setIsSidebarOpen(false));
-                dispatch(setSidebarActiveStep(0));
-              }}
-            >
-              <Image src={close} alt="Close" className="w-[20px]" />
-            </button>
-          </div>
+          )}
           {!isSidebarActive ? (
             <>{activeAuthTab === "signup" ? <Signup /> : <Login />}</>
           ) : (
             <div>
               {sidebarActiveStep === 0 && <CartSummary />}
-              {sidebarActiveStep === 2 && <OrderSummary />}
+              {sidebarActiveStep === 1 && <OrderSummary />}
             </div>
           )}
         </div>
