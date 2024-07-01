@@ -16,6 +16,7 @@ import {
   setIsSideBarActive,
   setIsSidebarOpen,
 } from "@/store/slices/sidebarSlice";
+import { setSidebarActiveStep } from "@/store/slices/cartSlice";
 
 type ActiveDropdown = "Products" | "Resources" | "More" | null;
 
@@ -117,6 +118,7 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setActiveAuthTab("login"));
+                  dispatch(setSidebarActiveStep(0));
                   dispatch(setIsSideBarActive(false));
                 }}
                 variant="primary"
@@ -129,6 +131,7 @@ const Navbar = () => {
                 onClick={() => {
                   dispatch(setIsSidebarOpen(true));
                   dispatch(setActiveAuthTab("signup"));
+                  dispatch(setSidebarActiveStep(0));
                   dispatch(setIsSideBarActive(false));
                 }}
                 className="hidden sm:flex items-center justify-center h-[34px]"
@@ -155,13 +158,13 @@ const Navbar = () => {
       {isMobileNavOpen && (
         <div
           onClick={() => setIsMobileNavOpen(false)}
-          className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
+          className="fixed top-0 left-0 w-full h-dvh bg-black bg-opacity-50 z-40 backdrop-blur-[1px]"
         />
       )}
       {/* side navbar for mobile devices */}
       <aside
         className={twMerge(
-          "bg-white w-[250px] h-screen overflow-hidden transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-6 px-6 gap-",
+          "bg-white w-[250px] h-dvh overflow-hidden transition-transform flex flex-col  fixed top-0 right-0 z-50 lg:hidden pt-6 px-6 gap-",
           isMobileNavOpen ? "translate-x-0" : "translate-x-full "
         )}
       >
@@ -251,6 +254,7 @@ const Navbar = () => {
                   dispatch(setActiveAuthTab("login"));
                   setIsMobileNavOpen(false);
                   dispatch(setIsSideBarActive(false));
+                  dispatch(setSidebarActiveStep(0));
                 }}
                 variant="primary"
                 className="flex h-[34px] items-center w-full justify-center my-6"
@@ -264,6 +268,7 @@ const Navbar = () => {
                   dispatch(setActiveAuthTab("signup"));
                   setIsMobileNavOpen(false);
                   dispatch(setIsSideBarActive(false));
+                  dispatch(setSidebarActiveStep(0));
                 }}
                 className="flex items-center w-full justify-center h-[34px]"
                 variant="secondary"

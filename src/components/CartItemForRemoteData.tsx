@@ -77,6 +77,18 @@ export const CartItemForRemoteDataGSuite = ({
           <span className="text-xs sm:text-[15px] text-[#000000] capitalize !font-900">
             Google Workspace
           </span>
+          <span className="max-w-[130px] text-[12px] capitalize">
+            {rest?.productName && (
+              <>
+                (
+                {rest?.productName
+                  ?.toLowerCase()
+                  ?.replace("google workspace", "")
+                  ?.trim()}
+                ) <br className="xs:hidden" />
+              </>
+            )}{" "}
+          </span>
           <span className="max-w-[130px] text-[11px] xs:text-[12px]">
             Domain <br className="xs:hidden" />(
             <span className="text-[#0011FF]">{domainName}</span>)
@@ -92,7 +104,10 @@ export const CartItemForRemoteDataGSuite = ({
 
                   mutate({
                     data: data?.products.map((p) => {
-                      if (p.productId === productId) {
+                      if (
+                        p.productId === productId &&
+                        p.domainName === domainName
+                      ) {
                         const requiredData = {
                           productId: p.productId,
                           quantity: p.quantity,
@@ -106,7 +121,11 @@ export const CartItemForRemoteDataGSuite = ({
                           quantity: p.quantity - 1,
                         };
                       }
-                      return p;
+                      return {
+                        ...p,
+                        EppCode: "",
+                        type: "new",
+                      };
                     }),
                   });
 
@@ -124,7 +143,10 @@ export const CartItemForRemoteDataGSuite = ({
 
                   mutate({
                     data: data?.products.map((p) => {
-                      if (p.productId === productId) {
+                      if (
+                        p.productId === productId &&
+                        p.domainName === domainName
+                      ) {
                         const requiredData = {
                           productId: p.productId,
                           quantity: p.quantity,
@@ -138,7 +160,11 @@ export const CartItemForRemoteDataGSuite = ({
                           quantity: p.quantity + 1,
                         };
                       }
-                      return p;
+                      return {
+                        ...p,
+                        EppCode: "",
+                        type: "new",
+                      };
                     }),
                   });
 
@@ -159,7 +185,7 @@ export const CartItemForRemoteDataGSuite = ({
 
           mutate({
             data: data?.products.map((p) => {
-              if (p.productId === productId) {
+              if (p.productId === productId && p.domainName === domainName) {
                 const requiredData = {
                   productId: p.productId,
                   quantity: p.quantity,
@@ -173,7 +199,11 @@ export const CartItemForRemoteDataGSuite = ({
                   period: e.target.value,
                 };
               }
-              return p;
+              return {
+                ...p,
+                EppCode: "",
+                type: "new",
+              };
             }),
           });
 
@@ -197,7 +227,10 @@ export const CartItemForRemoteDataGSuite = ({
             const data = queryClient.getQueryData<ICart>(["cart"]);
 
             mutate({
-              data: data?.products.filter((p) => p.productId !== productId),
+              data: data?.products.filter(
+                (p) =>
+                  !(p.productId === productId && p.domainName === domainName)
+              ),
             });
 
             makeWebsiteLoading();
@@ -273,7 +306,7 @@ export const CartItemForRemoteDataHosting = ({
           const data = queryClient.getQueryData<ICart>(["cart"]);
           mutate({
             data: data?.products.map((p) => {
-              if (p.productId === productId) {
+              if (p.productId === productId && p.domainName === domainName) {
                 const requiredData = {
                   productId: p.productId,
                   period: p.period,
@@ -285,7 +318,11 @@ export const CartItemForRemoteDataHosting = ({
                   period: e.target.value,
                 };
               }
-              return p;
+              return {
+                ...p,
+                EppCode: "",
+                type: "new",
+              };
             }),
           });
 
@@ -309,7 +346,10 @@ export const CartItemForRemoteDataHosting = ({
             const data = queryClient.getQueryData<ICart>(["cart"]);
 
             mutate({
-              data: data?.products.filter((p) => p.productId !== productId),
+              data: data?.products.filter(
+                (p) =>
+                  !(p.productId === productId && p.domainName === domainName)
+              ),
             });
 
             makeWebsiteLoading();

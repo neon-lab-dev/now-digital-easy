@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import CSS for react-toastify
 import { ReactQueryClientProvider } from "@/providers/QueryClientProvider";
 import ReduxProvider from "@/providers/ReduxProvider";
 import AuthProvider from "@/providers/AuthProvider";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "Now Digital Easy",
@@ -30,6 +31,7 @@ export default function RootLayout({
     <ReactQueryClientProvider>
       <ReduxProvider>
         <html lang="en">
+          <GoogleTagManager gtmId="G-NVV6PBG5XR" />
           <body className="overflow-x-hidden">
             <AuthProvider>
               <div className="flex flex-col">

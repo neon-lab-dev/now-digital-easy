@@ -34,8 +34,16 @@ export const handleAddAItemToCartService = async (
         } else {
           // @ts-ignore
           let oldCartItems = cartItems?.products?.filter((item) => {
-            // remove the product wih same productId
-            return item.productId !== dataToSend.productId;
+            if (item.product === "gsuite" || item.product === "hosting") {
+              // For 'gsuite' or 'domain', check both productId and domainName
+              return !(
+                item.product === dataToSend.product &&
+                item.domainName === dataToSend.domainName
+              );
+            } else {
+              // For other products, check only productId
+              return item.productId !== dataToSend.productId;
+            }
           });
           data = [...(oldCartItems ?? []), ...data];
         }
